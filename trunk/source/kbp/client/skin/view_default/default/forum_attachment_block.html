@@ -1,0 +1,16 @@
+<div id="attachCaption{id}" style="margin: 20px 0 10px 10px;display: {attachment_caption_display};">
+    <b>{attachments_msg}:</b>
+</div>
+
+<tmpl:attachment_type>
+<div id="attachType{type}{id}" style="margin: 12px 20px;">
+    {delimiter}
+    
+    <tmpl:attachment>
+	<div id="forumMsgAttachment{attachment_id}">
+	    <a href="{download_link}" {lightbox_attributes}>{filename}</a>
+	</div>
+	</tmpl:attachment>
+    
+</div>
+</tmpl:attachment_type>

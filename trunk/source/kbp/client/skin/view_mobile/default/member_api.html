@@ -1,0 +1,77 @@
+<script type="text/javascript">
+<!--
+    function Validate(form) {
+        return true;
+    }
+
+    function resetApiKey(sure_msg) {
+    	if(confirm(sure_msg)) {
+    		xajax_generateApiKey();
+    		return true;
+    	}
+
+    	return false;
+    }
+//-->
+</script>
+
+{member_menu}
+
+<form action="{action_link}" method="post" onsubmit="return Validate(this);">
+<input type="hidden" name="id" id="id" value="{id}" />
+<input type="hidden" name="extra[{api_rule_id}][value1]" id="api_access" value="{api_access}" />
+
+<div style="padding-top: 20px;">
+    
+    {api_note_msg}
+    
+    {error_msg}
+    
+    <ul class="list-group">
+        <li class="list-group-item">
+            {api_url_msg}: {api_url}
+        </li>
+        
+        <li class="list-group-item">
+            {api_public_key_msg}: <span id="api_public_key_text">{api_public_key}</span>
+            <a href="#" id="resetApiButton" class="btn btn-default" onClick="resetApiKey('{api_reset_key_sure2_msg}');">{api_reset_key_msg}</a>
+            <input type="hidden" name="extra[{api_rule_id}][value2]" id="api_public_key" value="{api_public_key}" />
+        </li>
+        
+        <li class="list-group-item">
+            
+            {api_private_key_msg}:
+            <a href="#popupPrivateKey" id="showPrivateKeyButton" class="btn btn-default" data-toggle="modal" data-target="#popupPrivateKey">
+                {api_private_key_show_msg}
+            </a>
+             
+             
+            <div class="modal fade" id="popupPrivateKey" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">{api_private_key_msg}</h4>
+                        </div>
+                      
+                        <div class="modal-body">
+                            {api_private_key_msg}: <b id="api_private_key_text">{api_private_key}</b>
+                             <br/><br/>
+                             {api_private_key_note_msg}
+                        </div>
+                    </div>
+                </div>
+            </div>
+             
+            <input type="hidden" name="extra[{api_rule_id}][value3]" id="api_private_key" value="{api_private_key}" />
+        </li>
+    </ul>
+    
+    <div style="width: 50%;margin: 40px auto;">
+        <input type="submit" name="submit_api" id="submit_api" class="btn btn-default btn-block" value="{ok_msg}" />
+    </div>
+</div>
+
+</form>

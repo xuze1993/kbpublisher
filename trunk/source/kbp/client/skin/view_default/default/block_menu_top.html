@@ -1,0 +1,18 @@
+<tmpl:row>
+<span class="{class}"><a href="{item_link}"{options}>{item_menu}</a></span> |
+</tmpl:row>
+
+<tmpl:more_button>
+<span class="menuItem"><a href="#" data-dropdown="#more_menu">...</a></span>
+        
+<div id="more_menu" class="dropdown dropdown-tip dropdown-relative dropdown-anchor-right">
+    <ul class="dropdown-menu">
+        <tmpl:more_row>
+        <li><a href="{item_link}"{options}>{item_menu}</a></li>
+        <li class="dropdown-divider"></li>
+        </tmpl:more_row>
+    </ul>
+</div>
+</tmpl:more_button>
+
+<tmpl:form></tmpl:form>

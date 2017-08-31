@@ -1,0 +1,26 @@
+<tmpl:row>
+<tr class="trLighter{class}" id="tr_custom_{id}">
+    <td class="tdFormCaption tdCaptionTop">
+        {title}:
+        <tmpl:required><span class="requiredSign">*</span></tmpl:required> 
+    </td>
+    
+    <td>
+        <div>
+            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr valign="top">
+                    <td>{input}</td>
+                    <td width="{tooltip_td_width}">
+                        <tmpl:tooltip>
+                        <span class="tooltip">
+                        <img src="../client/images/icons/help.svg" style="cursor: help;width: 16px;height: 16px;" alt="Help" style="cursor: help;"
+                            class="_tooltip" title="{tooltip}" />
+                        </span>    
+                        </tmpl:tooltip>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </td>
+</tr>
+</tmpl:row>

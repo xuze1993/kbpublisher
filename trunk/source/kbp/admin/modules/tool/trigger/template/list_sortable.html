@@ -1,0 +1,27 @@
+<form method="post" onSubmit="LeaveScreenMsg.skipCheck();">
+    <div style="padding-bottom: 20px;">
+        <b>
+            <tmpl:email_automation>
+            {mailbox_title} -
+            </tmpl:email_automation>
+            {reorder_msg}
+         </b>
+    </div>
+    
+    <ul id="sortable_views">
+        <tmpl:row>
+        <li id="id_{id}" class="trDarker" style="cursor: move;background: #e7e7e7;">
+            {title}
+            <input type="hidden" name="sort_id[]" value="{id}" />
+        </li>
+        </tmpl:row>
+    </ul>
+    
+    <br />
+    
+    <div style="text-align: center;">
+        <input type="submit" name="submit" value="{save_msg}" class="button" />
+        <input type="button" value="{cancel_msg}" class="button" 
+            onClick="LeaveScreenMsg.skipCheck();location.href='{cancel_link}'" />
+    </div>
+</form>

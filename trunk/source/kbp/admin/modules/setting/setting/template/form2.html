@@ -1,0 +1,78 @@
+<script type="text/javascript" src="jscript/livesearch/quicksilver.js"></script>
+<script type="text/javascript" src="jscript/livesearch/livesearch.js"></script>
+<script type="text/javascript" src="jscript/livesearch/setting.js"></script>
+<script>
+$(document).ready(function() {
+    $('#q').liveUpdate('eList').focus();
+    {show_errors}
+});
+
+function showErrorBlock(id) {
+    $('#template_' + id).show();
+    $('#template_' + id).parent().find('div[id^=group]').show();
+}
+
+var filter_ids = ['q'];
+LeaveScreenMsg.setFilterFields(filter_ids);
+</script>
+
+{custom_text}
+<div id="custom_text"></div>
+
+{error_msg}
+
+
+<input type="text" value="{filter}" name="q" id="q" style="width: 240px;" 
+    placeholder="{filter_msg}" autocomplete="off" />
+<br />
+   
+<div id="eList" style="width: 100%;">
+
+<tmpl:row>
+    <tmpl:group_delim>
+    <div id="delim_group{delim_id}">&nbsp;</div>
+    </tmpl:group_delim>
+    
+    <tmpl:group>
+    <div class="main">
+        <form action="{action_link}" method="post" id="aContentForm" onsubmit="LeaveScreenMsg.skipCheck();">
+        {hidden_fields}
+        
+        <div style="width: 100%;" id="group{group_id}" class="tes">
+            <p class="trMoreDarker" style="padding: 6px 0px; margin-bottom: 1px; width: 100%;">
+                <span style="padding-left: 5px;"><b>{group_title_msg}:</b> &nbsp;</span>
+            </p>
+         </div>
+     </tmpl:group>
+       
+    <div id="template_{id}">
+        <table border="0" cellpadding="5" cellspacing="1" width="100%" class="tdBorder1">
+            <tr class="trLighter" valign="top" >
+                <td class="searchable tdFormCaption" valign="top" 
+                    style="width: 220px; min-width: 220px; white-space: normal;">
+                    {title_msg}: {required_sign}
+                </td>
+                <td style="width: 300px; min-width: 300px;">{form_input}</td>
+                <td width="100%" style="padding-left: 5px;">{description_msg}</td>
+            </tr>
+        </table>
+    </div>
+    
+    <tmpl:submit>
+    <div align="center" id="submit_group{group_id}" style="margin-top: 5px;">
+        <input type="submit" name="submit" value="{save_msg}" class="button">
+    </div>
+    </tmpl:submit>
+    
+    {end}
+             
+</tmpl:row>
+
+</div>
+
+<br />
+
+</form>
+
+
+{js_error}

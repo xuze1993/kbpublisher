@@ -1,0 +1,27 @@
+<div class="tdTitle" style="margin-bottom: 10px;">
+	{list_title}
+</div>
+{msg}
+
+<table class="sTable tableCp2 tableCs1">
+
+<tmpl:row>
+<tr style="vertical-align: top;">
+    <td class="articleIcon">{item_img_rm}</td>
+    <td style="width: 100%;padding-left: 5px;" class="tdImage">
+		{item_img}
+        <a href="{entry_link}" class="articleLink">{title}</a>
+        <div style="margin-top: 2px;" class="newsDate">{formatted_date}</div>
+        <div style="margin-top: 5px;" class="articleDecription">{body}</div>
+    </td>
+</tr>
+<tr><td colspan="2" style="padding: 3px;"></td></tr>
+</tmpl:row>
+
+</table>
+<br />
+
+<tmpl:by_page_bottom>
+<div style="padding-left: 25px;">{page_by_page_bottom}</div>
+<br />
+</tmpl:by_page_bottom>

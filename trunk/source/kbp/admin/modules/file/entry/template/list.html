@@ -1,0 +1,140 @@
+<script type="text/javascript">
+    function initSort() {
+        $('#sortable_views').sortable({
+            placeholder: 'view_placeholder',
+            items: 'li:not(.not_sortable)',
+            stop: function(event, ui) {   
+                LeaveScreenMsg.changes = true;
+            }
+        });
+        $('#sortable_views').disableSelection();
+        
+        LeaveScreenMsg.setDoCheck(1);
+        LeaveScreenMsg.check();
+    }
+    
+    function setSortValues(values) {
+        /*var ids = $('#sortable_views').sortable('toArray');
+        var data = [];
+        for (var i in ids) {
+            var entry_id = ids[i].substr(3);
+            data[values[i]] = entry_id;
+        }*/
+        
+        var i = 0;
+        $('input[name="sort_id[]"]').each(function() {
+            $(this).attr('name', 'sort_id[' + values[i] + ']');
+            i ++;
+        });
+    }
+</script>
+
+<div id="trigger_list">
+    
+{msg}
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    
+    <tmpl:bulk>
+    <td width="1">
+        <input type="checkbox" name="id_check" value="1" style="margin: 0px;" />
+    </td>    
+    </tmpl:bulk>    
+    
+    <td width="1">{id_msg}</td>
+    <td width="1"></td>
+    <td width="1"></td>
+    
+    <td class="tdTitle" width="85">{date_posted_msg}</td>
+    <td class="tdTitle" width="85">{date_updated_msg}</td>
+    <td>{filename_msg}</td>
+    <td>{category_msg}</td>
+    <td width="60">{filesize_msg}</td>
+    
+    <tmpl:filetext>
+    <td width="1">{filetext_msg}</td>
+    </tmpl:filetext>
+    
+    <td width="1">{download_num_msg}</td>
+    <td width="1">{attached_num_msg}</td>
+    
+    <tmpl:sort_order>
+    <td width="1">{sort_order_msg}</td>
+    </tmpl:sort_order>    
+    
+    <td width="1">{entry_status_msg}</td>
+    <td width="1">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+    
+    <tmpl:bulk>
+    <td width="1">
+    <input type="checkbox" name="id[]" value="{id}" id="ch_{id}" style="margin: 0px;" {bulk_ids_ch_option} />    
+    </td>
+    </tmpl:bulk>    
+    
+    <td width="1" align="right"><b>{id}</b></td>
+    <td width="1">
+        <tmpl:if_schedule>
+        <img src="images/icons/clock.svg" width="12" height="12" alt="clock"
+            class="_tooltip" title="{schedule_msg}" />
+        </tmpl:if_schedule>
+    </td>    
+    
+    <td width="1">
+    <tmpl:if_private>
+        <img src="images/icons/lock2_{image_color}.svg" width="12" height="12" alt="key" 
+            class="_tooltip" title="<b>{private1_msg}</b><br/>{roles_msg}" />
+    </tmpl:if_private>        
+    </td>
+    
+    <td><span title="{formated_date_posted_full}">{formated_date_posted}</span></td>
+    <td><span title="{formated_date_updated_full}">{formated_date_updated}</span></td>
+    
+    <td><a href="{file_link}" title="{title}" style="{style}">{filename}</a></td>
+    
+    <td>
+        <div style="float: right;">{num_category}</div>
+        <a href="{category_filter_link}" style="{style}"
+            class="_tooltip" title="{full_category}">{category}</a>
+    </td>
+    
+    <td align="right" width="60">{filesize}</td>
+    
+    <tmpl:filetext>
+    <td align="center"><a href="{filetext_link}" style="{style}">{filetext}</a></td>
+    </tmpl:filetext>
+    
+    <td align="center">{downloads}</td>
+    <td align="center">{attached_num}</td>
+    
+    <tmpl:sort_order>    
+    <td align="center" width="1">
+        <input type="text" name="value[sort_order][{id}_{category_id}]" value="{sort_order}" 
+            class="sortOrderText" onclick="this.select()" disabled>
+    </td>
+    </tmpl:sort_order>    
+    
+    <td align="center">
+        <div class="status help" style="width: 15px;">
+            <div title="{status}" style="background: {color};">&nbsp;&nbsp;</div>
+        </div>
+    </td>    
+    <td class="action" width="1" align="center">
+        {options_img}
+    </td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div style="padding-top: 2px;"></div>
+{footer}
+
+<!-- <td>{title}</td> -->
+<!-- <td>{filetype}</td> -->
+</div>

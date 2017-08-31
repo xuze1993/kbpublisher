@@ -1,0 +1,29 @@
+{menu_block}
+
+<tmpl:title>
+<div class="tdTitle" style="margin-top: 15px;clear: both;margin-bottom: 5px;">
+    <b>{title}</b>
+</div>
+</tmpl:title>
+
+<tmpl:row>
+<div class="commentBlock">
+    <div class="commentTitle">
+        <span><b>{formatted_date}</b></span> 
+        <span> | {first_name} {last_name}</span>
+        <span style="float: right;color: {color};"><b>{name}</b></span>
+    </div>
+    
+    <tmpl:step_title>
+    <div class="commentTitle">
+        <b>{step_title}</b>
+    </div>
+    </tmpl:step_title>
+    
+    <tmpl:comment>
+    <div class="commentText textBlock">
+        <div>{comment}</div>
+    </div>
+    </tmpl:comment>
+</div>
+</tmpl:row>

@@ -1,0 +1,168 @@
+<script type="text/javascript" src="jscript/common_entry_form.js"></script>
+<script type="text/javascript" src="jscript/SortShowMore.js"></script>
+<script type="text/javascript" src="jscript/livesearch/quicksilver.js"></script>
+<script type="text/javascript" src="jscript/livesearch/livesearch.js"></script>
+<script type="text/javascript" src="jscript/livesearch/file.js"></script>
+<script type="text/javascript">
+
+    function checkFiles(val) {
+        if(val) {
+            $(".filesch:enabled").each(function(){
+                if ($(this).parent().parent().parent().is(':visible')) {
+                    this.checked = true;
+                }
+            });
+        } else {
+            $(".filesch").each(function(){
+                this.checked = false;
+            });
+        }
+    }
+
+    function onFileListLoaded() {
+        $('#q').liveUpdate('eList', 'block').focus();
+    }
+    
+    function LeaveScreenMsgCheck() {
+        var filter_ids = ['filter'];
+        LeaveScreenMsg.setFilterFields(filter_ids);
+        LeaveScreenMsg.initCheck('aContentForm');
+    }
+
+    $(document).ready(function(){
+        customFieldCategoryHandler('{sure_delete_msg}');
+    });
+
+</script>
+
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" enctype="multipart/form-data"
+    id="aContentForm" onsubmit="subForm();">
+<input type="hidden" name="step" value="2">
+{hidden_fields}
+
+<table border=0 width="100%" cellpadding="5" cellspacing="1">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{local_add_msg}:</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{directory_msg}: {required_sign}</td>
+    <td>
+        <input type="text" name="directory" id="directory_id" value="{directory}"
+            class="longText" style="width: 500px;">
+        <input type="button" value="{get_file_list_msg}"
+            onclick="xajax_getFileList(document.getElementById('directory_id').value)">
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{files_msg}:</td>
+    <td>
+        <div id="file_root">{file_list_block}</div>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{category_msg}: {required_sign}</td>
+    <td>
+        {category_block_search_tmpl}
+        {category_block_tmpl}
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{title_msg}:</td>
+    <td><input type="text" name="title" value="{title}" class="longText" style="width: 705px;"></td>
+</tr>
+
+<tr class="trLighter" valign="top">
+    <td class="tdFormCaption">{description_msg}:</td>
+    <td><textarea rows="5" style="width: 705px;" name="description">{description}</textarea>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{author_msg}:</td>
+    <td id="tdAdmin">
+
+        <div style="padding-bottom: 3px;" id="test">
+        <input type="button" value="+" class="button2 button2_add"
+                onclick="PopupManager.create('{user_popup_link}', 'r', 'r');">
+
+        <tmpl:author>
+
+            <div class="popUpDiv" id="more_html_default">
+                <div style="float: left;">
+                <input type="hidden" name="author_id" value="{author_id}"><span>{name}</span>
+                </div>
+                <div align="right">
+                | <a href="" onClick="removeHtml(this); return false;">{delete_msg}</a>
+                </div>
+            </div>
+
+        </tmpl:author>
+
+        <span id="writeroot"></span>
+
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{private_msg}:</td>
+    <td>
+        {block_private_tmpl}
+    </td>
+</tr>
+
+<tr class="trLighter" id="custom_field_bottom_border">
+    <td class="tdFormCaption tdCaptionTop">{schedule_msg}:</td>
+    <td>
+        {block_schedule_tmpl}
+    </td>
+</tr>
+
+{custom_field_block_bottom}
+
+<tmpl:status>
+<tr class="trLighter">
+    <td class="tdFormCaption">{entry_status_msg}:</td>
+    <td>
+        <select name="active" id="active" style="width: 250px">
+            {status_select}
+        </select>
+    </td>
+</tr>
+</tmpl:status>
+
+<tr>
+    <td></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            
+            <tmpl:file_button>
+            <input type="submit" name="submit" value="{add_files_msg}" class="button"
+                onClick="validateForm();return false;" />
+            </tmpl:file_button>
+            
+            <input type="submit" name="submit_draft" value="{save_as_drafts_msg}" 
+                class="button">
+            
+            {submission_block}
+        
+        </div>
+    </td>
+</tr>
+</table>
+</form>
+
+
+<div id="readroot" class="popUpDiv" style="display: none;">
+    <div style="float: left;">
+    <input type="hidden" name="author_id" value="" id=""><span>1</span>
+    </div>
+    <div align="right">
+    | <a href="" onClick="removeHtml(this); LeaveScreenMsg.changes = true; return false;">{delete_msg}</a>
+    </div>
+</div>

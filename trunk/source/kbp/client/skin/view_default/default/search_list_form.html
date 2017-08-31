@@ -1,0 +1,122 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#search_help_link').magnificPopup({
+            type: 'inline'
+        });
+
+        <tmpl:search_suggest>
+        $("#searchq2").autocomplete({
+            source: '{suggest_link}'
+        });
+        </tmpl:search_suggest>
+
+		// $("#search_submit").click(function() {
+		$("#search_form").submit(function( event ) {
+			$('#search_spinner').show();
+		});
+
+    });
+</script>
+
+<img src="{base_href}/client/images/ajax/spinner_circle.svg" id="search_spinner" />
+
+<form action="{action_link}" id="search_form">
+<input type="hidden" name="s" value="1" />
+{hidden}
+
+<div class="search_header" style="margin-bottom: 0px;">
+    <span>
+        <a id="search_help_link" class="help_link" href="#search_help_block">
+            <img src="{base_href}client/images/icons/help.svg" width="20" height="20"
+                style="vertical-align: middle;" />
+        </a>
+    </span>
+
+    <span>
+        <input name="q" type="text" id="searchq2" value="{q}" placeholder="{search_msg}" autocomplete="off"
+            class="normalText" />
+    </span>
+
+    <span>
+        <button type="submit" name="sb"  class="button2_grey" id="search_submit"
+			style="cursor:pointer; height: 32px; width: 45px; padding: 0px;line-height: 22px;">
+            <img src="{base_href}client/images/icons/magnifier-2.svg" width="15" height="15"
+                style="vertical-align: middle;" />
+        </button>
+    </span>
+
+    <div style="clear: both;"></div>
+</div>
+
+    <!--<table class="sTable tableCp4 tableCs1">
+    <tr>
+        <td style="width: 150px;">
+            <b>{search_string_msg}:</b>
+        </td>
+        <td style="width: 35%;">
+            <input name="q" type="text" id="searchq2" value="{q}" class="colorInput1" style="width: 100%;" />
+        </td>
+        <td>
+            <span style="margin-left: 10px;">
+                <input type="submit" name="sb" id="sb" value=" {search_msg} " class="button1" />
+            </span>
+            <span style="margin-left: 15px;">
+                <a href="{advanced_search_link}">{advanced_search_msg}</a>
+            </span>
+            <span style="margin: 0px 3px;">|</span>
+            <span>
+                <a href="#" onclick="$('#search_help_block').toggle(); return false;">{search_how_msg}</a>
+            </span>
+        </td>
+    </tr>
+    </table>-->
+
+    <tmpl:search_options>
+
+    <!--<div id="search_options">
+        <div style="padding: 3px;">
+        <table class="sTable tableCp4 tableCs1">
+            <tmpl:search_options_row>
+            <tr>
+                <td style="vertical-align: top;" style="width: 150px;"><b>{title}:</b></td>
+                <td>{value}</td>
+            </tr>
+            </tmpl:search_options_row>
+        </table>
+        </div>
+    </div>-->
+
+    </tmpl:search_options>
+
+<div style="margin:6px 0 35px 5px;">
+<a href="#show" class="smallerText" onclick="$('#search_form_div').toggle(); return false;">
+    {search_options_msg}
+</a>
+</div>
+
+
+<!-- <div class="tdTitle"
+    style="cursor: pointer; margin-bottom: 15px;"
+    onclick="$('#search_form').toggle();">
+
+    <div style="float: left;">
+        {search_options_msg}
+    </div>
+    <div style="float: right;">
+        <img src="{base_href}client/images/icons/dropdown_arrow2.gif"
+            style="border-width: 0; padding-right: 3px;" />
+    </div>
+
+</div> -->
+
+<div id="search_form_div" style="display: none;">
+    {search_form}
+</div>
+
+
+</form>
+
+<div id="search_help_block" class="help_block mfp-hide">
+    <h2>{search_help_msg}</h2>
+    <div>{search_help_block}</div>
+</div>

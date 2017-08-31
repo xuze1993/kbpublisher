@@ -1,0 +1,93 @@
+<script type="text/javascript">        
+    $(document).ready(function() {
+        $('#tabs').tabs();
+        $('#tab-export').tabs();
+        
+        
+        TableListHandler.tableClass = 'tdBorder2';
+        TableListHandler.grouped = {entries_num};
+        TableListHandler.init();
+    });
+</script>
+
+{header}
+
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+<tr valign="top">
+    <td width="190" class="nonPrintable">
+        {filter_block_tmpl}
+    </td>
+    <td style="padding: 5px;width: 5px;">&nbsp;</td>
+    <td>
+        <div class="trLighter" style="padding: 5px;">
+            <strong>{nav}</strong>
+        </div>
+        <br />
+        
+        <tmpl:entry_title>
+        <div style="background-color: #EFEFEF;padding: 4px 6px !important; border-bottom: 1px solid #D4D4D4;margin-bottom: 5px;color: {color};">
+            <b>{title}</b> ({id_msg}: {entry_id}{entry_status})
+            <div style="float: right;">
+                {total}
+            </div>
+        </div>
+        </tmpl:entry_title>
+        
+        <tmpl:report>
+        {report_chart_block}
+        
+        <tmpl:chart_not_available>
+        <div class="infoBoxBody">{chart_not_msg}</div><br />
+        </tmpl:chart_not_available> 
+
+        <div id="tabs" class="flora">
+        <ul>
+           <li><a href="#tab-1"><span>{tab_report_msg}</span></a></li>
+           <li><a href="#tab-export"><span>{tab_export_msg}</span></a></li>
+           <!-- <li><a href="#tab-save"><span>{tab_save_msg}</span></a></li> -->
+        </ul>
+
+        
+        <div id="tab-1"></div>
+
+        <div id="tab-export" style="padding: 5px; display: none;">
+            {tab_block_tmpl}
+        </div>
+        
+        <table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder2">
+        <tr class="tdTitle">
+            <td class="tdTitle" width="200">{date_msg}</td>
+            
+            <tmpl:entry_column>
+            <td>{id_msg}</td>
+            <td>{title_msg}</td>
+            </tmpl:entry_column>
+            
+            <td align="right" width="200">{hits_num_msg}</td>
+        </tr>
+
+        <tmpl:row>
+        <tr id="row_{date}_{entry_id}" class="{class}">
+            <tmpl:date>
+            <td style="{style}" {rowspan}>{formatted_date}</td>
+            </tmpl:date>
+            
+            <tmpl:entry_column>
+            <td>{entry_id}</td>
+            <td>{title}</td>
+            </tmpl:entry_column>
+            
+            <td align="right">{value}</td>
+        </tr>
+        </tmpl:row>
+        
+        </table>        
+        </tmpl:report>
+        
+    </td>
+</tr>
+</table>
+
+
+<div style="padding-top: 2px;"></div>
+{footer}

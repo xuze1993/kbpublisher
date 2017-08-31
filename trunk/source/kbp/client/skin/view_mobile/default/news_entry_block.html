@@ -1,0 +1,21 @@
+<tmpl:print_link>
+<div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-target="#bootstrap_print" style="cursor: pointer;">
+        <span class="glyphicon glyphicon-flash"></span>
+        &nbsp;&nbsp;{actions_msg}
+        <i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
+    </div>
+    
+    <div id="bootstrap_print" class="list-group collapse">
+        <a href="{print_link}" class="list-group-item small" style="padding-left: 25px;">
+            <i class="fa fa-print" aria-hidden="true"></i> &nbsp;{print_msg}
+        </a>
+    </div>
+</div>
+</tmpl:print_link>
+
+<tmpl:share_link>
+{share_block}
+</tmpl:share_link>
+
+<tmpl:update_link></tmpl:update_link>

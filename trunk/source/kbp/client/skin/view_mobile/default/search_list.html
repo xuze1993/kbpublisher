@@ -1,0 +1,53 @@
+<div class="panel panel-default kbp-panel">
+	<div class="panel-heading">
+        {list_title}
+    </div>
+    
+    <div class="panel-heading">
+        {page_by_page}
+        
+        <tmpl:row_count>
+        | <span><a href="{search_in_link}">{search_in_title}</a></span>
+        </tmpl:row_count>
+    </div>
+    
+    {msg}
+    
+    <div class="list-group">
+        <tmpl:row>
+        <a href="{entry_link}" class="list-group-item">
+            <h4 class="list-group-item-heading">{entry_id}{title}</h4>
+            <p class="list-group-item-text">
+                {full_category}
+                
+                <tmpl:download_link></tmpl:download_link>
+                <br />
+            
+                <tmpl:show_date>
+                <span class="articleStaff2">{updated_date}</span>
+                </tmpl:show_date>
+                
+                <tmpl:show_filesize>
+                <span class="articleStaff2">{filesize}</span>
+                </tmpl:show_filesize>
+                
+                <tmpl:show_hits>
+                <span class="articleStaff2">{views_num_msg}: {hits}</span>
+                </tmpl:show_hits>
+                
+                <tmpl:show_comments>
+                <span class="articleStaff2">{comment_num_msg}: {comment_num}</span>
+                </tmpl:show_comments>
+            </p>
+        </a>
+        </tmpl:row>
+    </div>
+</div>
+
+
+<tmpl:by_page_bottom>
+<div style="padding: 10px 0px;text-align: center;">
+    {page_by_page_bottom}
+</div>
+<br />
+</tmpl:by_page_bottom>

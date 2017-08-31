@@ -1,0 +1,12 @@
+/* LOGIN */	
+div.login { 
+	font-size : 0.9em; 
+	font-weight: normal; 
+	text-align: right; 
+	padding-right: 5px;  
+	color: #000000; 
+	float: none; 
+}
+
+a.login {  color: #000000; }
+div.login svg { fill:#999; }

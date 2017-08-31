@@ -1,0 +1,33 @@
+<script type="text/javascript">
+<!--
+function Validate(form) {
+    return true;
+}
+//-->
+</script>
+
+{error_msg}
+
+<!--
+<form action="{action_link}" method="post" onsubmit="return Validate(this);">
+
+<table class="sTable tableCp5">
+<tr class="tdSubTitle">
+    <td class="tdSubTitle" colspan="6"><b>{confirm_registration_msg}</b></td>
+</tr>
+
+<tr class="trForm">
+    <td class="tdFormCaption">{required_sign} {confirmation_code_msg}:</td>
+    <td><input type="text" name="ec" id="ec" value="{ec}" class="longText" /></td>
+</tr>
+
+<tr>
+    <td></td>
+    <td><div><br /></div>
+        <input type="submit" name="submit" id="submit" value="{ok_msg}" class="button" />
+        <input type="button" value="{cancel_msg}" onclick="location.href='{cancel_link}'" class="button" />
+    </td>
+</tr>
+</table>
+</form>
+-->

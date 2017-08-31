@@ -1,0 +1,59 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $('#LeftMenuForumFilter').bind('change', function() {
+	        var value = $(this).val();
+	        if (value == 'all') {
+	            $('#LeftMenuForumFilterSelect').hide();
+	            return;
+	        }
+
+	        $('#LeftMenuForumID').hide();
+            xajax_getChildForums(value, 'ajaxPopulateForumChildSelect', 'spinner_browsecat');
+	    });
+	});
+
+    function ajaxPopulateForumChildSelect(values, count) {
+
+	    $('#LeftMenuForumFilterSelect').show();
+
+	    var select = document.getElementById('LeftMenuForumID');
+	    select.options.length = 0;
+	    for (i in values) {
+	        select.options[select.options.length] = new Option(values[i], i);
+	    }
+
+        if (count > 0) {
+            $('#LeftMenuForumID').show();
+        }
+	}
+</script>
+
+<div class="leftBlock">
+
+		<div style="padding-bottom: 5px;" class="nowrap">
+			<b>{forum_switch_msg}:</b>
+		</div>
+
+		<table class="sTable">
+		<tr>
+			<td>
+				<span style="margin-bottom: 5px;">
+				    <select id="LeftMenuForumFilter" style="width: 155px;">
+				        {filter_select}
+				    </select>
+				</span>
+
+				<span id="LeftMenuForumFilterSelect" style="display: none;display: {category_filter_display};">
+					<select style="width: 155px;" id="LeftMenuForumID">
+						{category_select}
+					</select>
+				</span>
+			</td>
+			<td style="vertical-align: top; text-align: right; padding-left: 3px;">
+				<input type="button" name="browse" id="browse" value=" &raquo; " title="{ok_msg}"
+					style="margin-left: 5px;" onclick="submitSwitchForum('{page}', '{rewrite}')" />
+			</td>
+		</tr>
+		</table>
+
+</div>

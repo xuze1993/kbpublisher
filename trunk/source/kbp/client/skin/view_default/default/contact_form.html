@@ -1,0 +1,150 @@
+<link rel="stylesheet" href="{base_href}client/skin/form.css" type="text/css" media="screen">
+<script type="text/javascript">
+<!--
+function closeQuickResponce() {
+    div = document.getElementById('quick_response');
+    div.innerHTML = '';
+} 
+
+function Validate(form) {
+    return true;
+}
+//-->
+</script>
+
+{user_msg}
+
+<div class="niceForm">
+
+<form action="{action_link}" method="post" id="aContentForm" 
+	enctype="multipart/form-data" onSubmit="return Validate(this);">
+
+<table class="sTable tableCp4">
+<tr>
+    <td class="tdSubTitle" colspan="2"><b>{menu_contact_us_msg}</b></td>
+</tr>
+
+<tmpl:not_registered>
+<tr class="trForm">
+    <td class="tdFormCaption">
+        <label for="name">{name_msg}:</label>
+    </td>
+    <td><input type="text" name="name" id="name" value="{name}" class="longText" {name_option} /></td>
+</tr>
+
+<tr class="trForm">
+    <td class="tdFormCaption">
+        <label for="email">{required_sign} {email_msg}:</label>
+    </td>
+    <td><input type="text" name="email" id="email" value="{email}" class="longText" {email_option} /></td>
+</tr>
+</tmpl:not_registered>
+
+<tr class="trForm">
+    <td class="tdFormCaption">
+        <label for="subject_id">{required_sign} {feedback_subject_msg}:</label>
+    </td>
+    <td>
+        <select name="subject_id" id="subject_id" style="width: 250px">
+        {subject_select}
+        </select>
+    </td>
+</tr>
+
+<tr class="trForm">
+    <td class="tdFormCaption">
+        <label for="title">{required_sign} {title_msg}:</label>
+    </td>
+    <td><input type="text" name="title" id="title" value="{title}" class="longText" style="width: 500px;" /></td>
+</tr>
+
+<tr class="trForm" style="vertical-align: top;">
+    <td class="tdFormCaption">
+        <label for="message">{required_sign} {question_comment_msg}:</label>
+    </td>
+    <td>
+        {demo_responce_msg}
+        <textarea rows="9" name="message" id="message" 
+            style="width: 500px; vertical-align: top; margin-right: 7px;" 
+            onkeyup="{onkeyup_action}">{message}</textarea>
+        
+        <span id="spinner_message" style="display: none;">
+            <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+        </span>                
+    </td>
+</tr>
+
+<tmpl:attachment>
+<tr class="trForm">
+    <td class="tdFormCaption">
+        <label for="file_{num}">{attachment_msg}:</label>
+    </td>
+    <td><input type="file" name="file_{num}" id="file_{num}"  class="longText"></td>
+</tr>
+</tmpl:attachment>
+
+<tmpl:allowed_extension>
+<tr class="trForm">
+    <td class="tdFormCaption"></td>
+    <td><span class="formComment">{allowed_extension_msg}: {allowed_extension}</span></td>
+</tr>
+</tmpl:allowed_extension>
+
+<tmpl:custom_row>
+<tr class="trForm" style="vertical-align: top;">
+    <td class="tdFormCaption">
+        <label for="custom_{id}">{required_sign} {title}</label>:
+    </td>
+    <td>
+        <div style="vertical-align: middle;">
+            <div style="width: 510px;display: inline-block;vertical-align: middle;">
+                {input}
+            </div>
+            
+            <tmpl:tooltip>
+            <div style="display: inline-block;vertical-align: middle;">
+                <img src="{base_href}client/images/icons/help.svg" alt="help"
+					style="cursor: help;width: 16px;height: 16px;" class="_tooltip" title="{tooltip}" />
+            </div>    
+            </tmpl:tooltip>
+        
+        </div>
+    </td>
+</tr>
+</tmpl:custom_row>
+
+<tmpl:captcha>
+<tr class="trForm" style="vertical-align: top;">
+    <td class="tdFormCaption"></td>
+    <td>
+        <br />
+        <img src="{captcha_src}" alt="{captcha_img_alt_msg}" id="captcha_img" />
+    </td>
+</tr>
+
+<tr class="trForm" style="vertical-align: top;">
+    <td class="tdFormCaption">{required_sign} {captcha_msg}:</td>
+    <td style="vertical-align: top;">
+        <input type="text" name="captcha" id="captcha" value="" class="longText" /> 
+        <br /> <span class="formComment">{captcha_comment_msg}</span>
+    </td>
+</tr>
+</tmpl:captcha>
+
+<tr>
+    <td></td>
+    <td>
+        <div id="quick_response"></div>
+        <div><br /></div>
+        <button type="submit" name="submit" id="submit" class="button"
+            onClick="validateForm();return false;">
+            {send_msg}
+        </button>
+            
+        <input type="button" value="{cancel_msg}" onclick="location.href='{cancel_link}'" class="button" />
+    </td>
+</tr>
+</table>
+</form>
+
+</div>

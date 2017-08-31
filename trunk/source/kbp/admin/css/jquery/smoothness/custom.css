@@ -1,0 +1,134 @@
+#tabs {
+    border: 0;
+}
+
+#tabs ul.ui-widget-header, #lower_tabs ul.ui-widget-header {
+    background: white;
+    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    line-height: 0.8;
+    border: 0px;
+}
+
+#tabs ul.ui-widget-header {
+    border-bottom: 1px solid #8592A2;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#tabs ul li.ui-state-default, #lower_tabs ul li.ui-state-default {
+    background: #e6e6e6 url(images/tabs.png) 50% 50% repeat-x;
+}
+
+#tabs ul li.ui-state-default {
+    margin-top: 2px;
+}
+
+#tabs ul li a:focus {
+    outline: none !important;
+}
+
+#tabs div.ui-tabs-panel {
+    padding: 10px 0 0 0;
+}
+
+#tabs ul li.ui-state-hover {
+    background: #dadada url(../../../../client/skin/jquery-ui/smoothness/images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
+}
+
+#tabs ul li.ui-state-active, #lower_tabs ul li.ui-state-active {
+    background: #ffffff url(../../../../client/skin/jquery-ui/smoothness/images/ui-bg_glass_65_ffffff_1x400.png) 50% 50% repeat-x;
+}
+
+#tabs ul li.ui-state-active {
+    padding-top: 2px;
+    margin-top: 0;
+}
+
+#lower_tabs li.ui-corner-top {
+    -webkit-border-top-left-radius: 0px;
+    border-top-left-radius: 0px;
+    -moz-border-radius-topleft: 0px;
+    -webkit-border-top-right-radius: 0px;
+    border-top-right-radius: 0px;
+    -moz-border-radius-topright: 0px;
+}
+
+
+.ui-sortable-placeholder {
+    border: 1px dashed #8592A2;
+    visibility: visible !important;
+    height: 100px !important;
+ }
+ 
+.ui-sortable-placeholder * {
+    visibility: hidden;
+}
+
+.ui-widget {
+    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+    font-size: 1em;
+}
+
+.ui-autocomplete-category {
+    color: #8c8c8c;
+    padding: .2em .4em;
+    margin: 3px 0;
+    line-height: 1.5;
+    border-bottom: 1px solid #dedede;
+}
+
+/* Overlays */
+.ui-widget-overlay {
+	opacity: .7;
+	filter: Alpha(Opacity=70);
+}
+
+/*getting rid of a border*/
+ul.ui-autocomplete li a.ui-state-focus {
+    border: 1px solid #dedede;
+    background: #dedede;
+    border-radius: 0;
+}
+
+.ui-dialog {
+	padding: 0;
+	border: 0;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+	background: #f5f5f5;
+	border: 0;
+	font-size: 18px;
+	font-weight: normal;
+	border-bottom: 1px solid #ccc;
+	border-radius: 0;
+	padding: 10px 20px;
+}
+
+.ui-dialog .ui-dialog-titlebar button {
+	border: 0;
+	background: #f5f5f5;
+	outline: none;
+}
+
+.ui-dialog .ui-icon-closethick {
+	background: none;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+	top: 40%;
+	right: 15px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close:before {
+	 content: "×";
+	 opacity: 0.65;
+	 font-size: 28px;
+	 font-family: Arial, Baskerville, monospace;
+}
+
+.ui-widget-overlay {
+	background: #0b0b0b;
+	opacity: 0.5 !important;
+}

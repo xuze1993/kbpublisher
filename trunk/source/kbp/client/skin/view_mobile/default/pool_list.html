@@ -1,0 +1,107 @@
+<script type="text/javascript" src="{client_href}jscript/PoolManager.js"></script>
+<script type="text/javascript">
+    function toggleAll(checked) {
+        $('input[name="id[]"]').each(function() {
+            $(this).prop('checked', checked);
+        });
+    }
+    
+    function checkButtons() {
+        var checked = $('input[name="id[]"]:checked').length;
+        
+        if (checked) {
+            $('.action_button').attr('disabled', false);
+            
+        } else {
+            $('.action_button').attr('disabled', true);
+        }
+    }
+    
+    function performPoolAction(action) {
+        // var action = $('#pool_action').val();
+        
+        if (action == 'delete') {
+            if (confirm("{sure_msg}")) {
+                var ids = []; // what's left
+                $('input[name="id[]"]:not(:checked)').each(function() {
+                    ids.push($(this).val());
+                });
+                
+                if (ids.length) {
+                    PoolManager.replace(ids);
+                    
+                } else {
+                    PoolManager.empty();
+                }
+                
+                location.reload();
+            }
+            
+        } else if (action == 'pdf') {
+            $('input[name="View"]').val('pdf');
+            $('#pool_form').submit();
+            
+        } else {
+            $('#pool_form').submit();
+        }
+    }
+    
+    function emptyPool() {
+        if (confirm("{sure_msg}")) {
+            PoolManager.empty();
+            location.reload();
+        }
+    }
+    
+    $(document).ready(function() {
+        {refresh_js}
+    });
+</script>
+
+<div style="margin: 10px 5px;">
+    <div class="fleft">
+        <div class="checkbox checkbox-primary">
+            <input type="checkbox" id="pool_all" onclick="toggleAll(this.checked);checkButtons();" />
+            <label for="pool_all" style="margin-left: 5px;">
+                {check_all_msg}
+            </label>
+        </div>
+    </div>
+    
+    <div class="fright">
+        <a href="#" rel="nofollow" onclick="emptyPool();">
+            {empty_pool_msg}
+        </a>
+    </div>
+    <div style="clear: both;"></div>
+    <div style="margin-bottom: 10px;"></div>
+    
+    {msg}
+
+    <form id="pool_form">
+        <input type="hidden" name="View" value="print" />
+        
+        <table class="table">    
+            <tmpl:row>
+            <tr>
+                <td>
+                    <div class="checkbox checkbox-primary">
+                        <input type="checkbox" name="id[]" id="checkbox_{id}" value="{id}" onclick="checkButtons();" />
+                        <label for="checkbox_{id}">{entry_id}{title}</label>
+                    </div>
+                </td>
+            </tr>
+            </tmpl:row>
+        </table>
+        
+        <div style="padding: 30px 30px;">
+            <tmpl:actions>
+            <span style="margin-right: 3px;">
+                <button type="button" class="action_button btn btn-default" onclick="performPoolAction('{action}');" disabled>
+                    {title}
+                </button>
+            </span>
+            </tmpl:actions>
+        </div>
+    </form>
+</div>

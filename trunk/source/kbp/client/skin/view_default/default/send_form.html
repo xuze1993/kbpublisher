@@ -1,0 +1,94 @@
+<script type="text/javascript">
+<!--
+function Validate(form) {
+    return true;
+}
+//-->
+</script>
+
+
+{user_msg}
+
+
+<form action="{action_link}" method="post" id="aContentForm" onsubmit="return Validate(this);">
+<input type="hidden" name="entry_title" id="entry_title" value="{entry_title}" />
+<input type="hidden" name="entry_link" id="entry_link" value="{entry_link}" />
+
+<table class="sTable tableCp3">
+<tr class="tdSubTitle">
+    <td class="tdSubTitle" colspan="2"><b>{send_link_msg}</b></td>
+</tr>
+<tr class="trForm">
+    <td class="tdFormCaption">
+        <label for="name">{required_sign} {your_name_msg}:</label>
+    </td>
+    <td>
+        <input type="text" name="name" id="name" value="{name}" class="longText" />
+    </td>
+</tr>
+<tr class="trForm">
+    <td class="tdFormCaption">
+        <label for="your_email">{required_sign} {your_email_msg}:</label>
+    </td>
+    <td><input type="text" name="your_email" id="your_email" value="{your_email}" class="longText" {ye_readonly} /></td>
+</tr>
+
+<tr class="trForm">
+    <td class="tdFormCaption">
+        <label for="friend_email">{required_sign} {friend_emal_msg}:</label>
+    </td>
+    <td>
+        <input type="text" name="friend_email" id="friend_email" value="{friend_email}" class="longText" />
+        <span class="formComment">{multiple_email_note_msg}</span>
+    </td>
+</tr>
+<tr class="trForm" style="vertical-align: top;">
+    <td class="tdFormCaption">
+        <label for="comment">{comment_msg}:</label>
+    </td>
+    <td><textarea cols="50" rows="5" name="comment" id="comment">{comment}</textarea></td>
+</tr>
+
+<tmpl:attach_article>
+<tr class="trForm">
+    <td class="tdFormCaption tdCaptionTop">
+        <label for="attach_article">{attach_article_msg}:</label>
+    </td>
+    <td><input type="checkbox" name="attach_article" id="attach_article" value="1" {ch_attach_article}></td>
+</tr>
+</tmpl:attach_article>
+
+<tmpl:captcha>
+<tr class="trForm" style="vertical-align: top;">
+    <td class="tdFormCaption"></td>
+    <td>
+        <br />
+        <img src="{captcha_src}" alt="{captcha_img_alt_msg}" id="captcha_img" />
+    </td>
+</tr>
+
+<tr class="trForm" style="vertical-align: top;">
+    <td class="tdFormCaption">
+        <label for="captcha">{required_sign} {captcha_msg}:</label>
+    </td>
+    <td style="vertical-align: top;">
+        <input type="text" name="captcha" id="captcha" value="" class="longText" /> 
+        <br /> <span class="formComment">{captcha_comment_msg}</span>
+    </td>
+</tr>
+</tmpl:captcha>
+
+<tr>
+    <td></td>
+    <td><div><br /></div>
+        <button type="submit" name="submit" id="submit" class="button"
+            onClick="validateForm();return false;" />
+        {ok_msg}
+        </button>
+        
+        <input type="button" value="{cancel_msg}" onclick="location.href='{cancel_link}'" class="button" />
+    </td>
+</tr>
+</table>
+</form>
+<br /><br />

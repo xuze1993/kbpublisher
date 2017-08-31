@@ -1,0 +1,88 @@
+{msg}
+
+{error_msg}
+
+<form action="{action_link}" method="post" enctype="multipart/form-data" name="aContentForm" id="aContentForm" onsubmit="LeaveScreenMsg.skipCheck();">
+{hidden_fields}
+
+<table border=0 cellpadding="5" cellspacing="1" width="100%">
+<tr> 
+    <td colspan="2" class="tdTitle">{detail_msg}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{title_msg}:</td>
+    <td>{title}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{description_msg}:</td>
+    <td>{description}</td>
+</tr>
+
+<!-- <tr class="trLighter">
+    <td class="tdFormCaption">{user_msg}:</td>
+    <td><a href="{user_link}">{username}</a></td>
+</tr> -->
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{generate_for_cat_msg}:</td>
+    <td>{category}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{generate_for_user_msg}:</td>
+    <td>{generate_for_user}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{download_msg}:</td>
+    <td>
+        <tmpl:generated_files>
+        <div class="trLighter" style="padding: 5px;">
+
+            <tmpl:generated_files_row>
+            <div style="padding: 3px;">
+                <a href="{download_link}" title="{download_msg}"><b>{export_file}</b></a>
+                ({date_generated_msg}: {date_generated})
+                | <a href="{generate_link}">
+                    <span style="margin-left: 5px;" onclick="$('#loadingMessagePage').show();">{generate_msg}</span>
+                </a>
+                | <a href="{download_link}">{download_msg}</a>
+            </div>
+            <div class="trLighter" style="padding: 6px;">
+                {detail_msg}:
+                <textarea name="output" rows="3" style="width: 100%;margin-bottom: 10px;">{export_result}</textarea>
+            </div>
+            </tmpl:generated_files_row>
+            
+            <tmpl:not_generated_files_row>
+            <div style="padding: 3px;">
+                <b>{export_file}:</b>
+                <a href="{generate_link}">
+                    <span style="margin-left: 5px;">{generate_msg}</span>
+                </a>
+            </div>
+            </tmpl:not_generated_files_row>
+        </div>
+        <br />
+        </tmpl:generated_files>
+
+        <div class="trLighter" style="padding: 5px;">
+
+        <tmpl:no_generated_files>
+        --
+        </tmpl:no_generated_files>           
+    </td>
+</tr>
+
+<tr> 
+    <td colspan="2" align="center"><div><br></div>
+        <div id="bottom_button">
+            <input type="button" value="{back_msg}" onClick="location.href='{cancel_link}'" class="button">
+            <input type="button" value="{update_msg}" onClick="location.href='{update_link}'" class="button">
+        </div>
+    </td>
+</tr>
+</table>
+</form>

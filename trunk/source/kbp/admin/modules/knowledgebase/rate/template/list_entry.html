@@ -1,0 +1,55 @@
+<table border="0" width="100%" cellpadding="4" cellspacing="1">
+<tr class="trLighter">
+    <td>
+        <strong><a href="{back_link}">{comments_msg}</a> / 
+        <span title="{title}">{short_title}</span></strong>
+    </td>
+    <td align="right" width="300">
+        <a href="{entry_link}">{entry_public_link_msg}</a> | 
+        <a href="{entry_link_update}">{update_entry_msg}</a> |
+        <a href="{delete_entry_link}" onclick="return window.confirm('{sure_delete_entry_comment_msg}')">{delete_entry_comment_msg}</a>
+    </td>
+</tr>
+</table>
+<br>
+
+{header}
+
+
+<script type="text/javascript">
+    $(document).ready(function() { 
+        TableListHandler.tableClass = 'tdBorder2';
+        TableListHandler.tr2Class = 'tdBorder2tr';
+        TableListHandler.init();
+    });
+</script>
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder2">
+<tr class="tdTitle">
+    <td width="220" class="tdTitle">{date_posted_msg}</td>
+    <td>{username_msg}</td>
+    <td width="1">{entry_status_msg}</td>
+    <td align="center" width="1">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+    
+    <td width="220"><b>{interval_date}</b>&nbsp;&nbsp;({formatted_date})</td>
+    <td>{username}</td>
+    
+    <td align="center" rowspan="2">
+        <div class="status help" style="width: 15px;">
+            <div title="{status}" style="background: {color};">&nbsp;&nbsp;</div>
+        </div>
+    </td>
+    
+    <td width="1" align="center" rowspan="2">{options_img}</td>
+</tr>
+<tr id="tr2_{id}" class="{class} tdBorder2tr" style="{style}" onDblClick="RecordToDo('{update_link}')">
+    <td colspan="2" style="padding: 8px;">{comment}</td>
+</tr>
+
+</tmpl:row>
+
+</table>

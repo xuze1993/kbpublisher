@@ -1,0 +1,107 @@
+<script>
+$(document).ready(function() {
+    portlet_ids = [[{column1_ids}], [{column2_ids}]];
+
+    $('.column1').sortable({
+        connectWith: '.column2',
+        items: '> *:visible',
+        update: function() {
+            saveLayout();
+        }
+    });
+
+    $('.column2').sortable({
+        connectWith: '.column1',
+        items: '> *:visible',
+        update: function() {
+            saveLayout();
+        }
+    });
+
+    $('#customizePopup').dialog({
+        autoOpen: false,
+        modal: true,
+        open: function() { // prevent the focus
+        	$('input:first').blur();
+        } 
+    });
+
+    $('.placeholder').click(function() {
+        $('#customizePopup').dialog('open');
+        active_part = this.id.substring(11);
+    });
+});
+     
+     
+function saveLayout() {
+    var col1 = $('.column1').sortable('toArray');
+    var col2 = $('.column2').sortable('toArray');
+    
+    if (col1.toString() != portlet_ids[0].toString() || col2.toString() != portlet_ids[1].toString()) {
+        portlet_ids = [col1, col2];
+        xajax_setUserHome(portlet_ids);
+    }
+}
+ 
+ 
+function togglePortlet(id, show) {
+    
+    if (show) {
+        var portlet = $('#' + id);
+        $('.column' + active_part).append(portlet);
+        portlet.show();
+        
+    } else {
+        $('#' + id).hide();
+        $('#' + id + '_customize').attr('checked', false);
+    }
+    
+    var col1 = $('.column1').sortable('toArray');
+    var col2 = $('.column2').sortable('toArray');
+    
+    portlet_ids = [col1, col2];
+    xajax_setUserHome(portlet_ids);
+    
+    var unchecked_left = $('#customizePopup input:checkbox:not(:checked)').length;
+    if (unchecked_left == 0) {
+        $('.placeholder').hide();
+        
+    } else {
+        $('.placeholder').show();
+    }
+}
+</script>
+
+<div id="customizePopup" title="{customize_page_msg}">
+    <br />
+    <tmpl:portlet_row>
+        <input type="checkbox" id="{block_id}_customize" {checked} 
+            onclick="togglePortlet({block_id}, this.checked);" />
+        <label for="{block_id}_customize">{block_name}</label>
+        <br />
+    </tmpl:portlet_row>
+    <br />
+</div>
+
+
+<table width="100%">
+    <tr valign="top">
+        <tmpl:column>
+        <td width="{percentage_column_width}%">
+            <div class="column{column_id}" style="width: 100%;padding-bottom: 10px;">
+            
+                <tmpl:portlet>
+                <div id="{id}" class="portlet" style="border: 1px solid #B9B9B9;display: {display};">
+                    {portlet}
+                </div>
+                </tmpl:portlet>
+                
+            </div>
+            
+            <div id="placeholder{column_id}" class="placeholder" style="display: {placeholder_display};">
+                + {add_module_msg}
+            </div>
+        </td>
+        </tmpl:column>
+    </tr>
+</table>

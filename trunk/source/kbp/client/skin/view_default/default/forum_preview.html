@@ -1,0 +1,25 @@
+{codesnippet_files}
+{xajax_js}
+<script type="text/javascript">
+    $(document).ready(function() {        
+        PopupManager = window.top.PopupManager;
+        PopupManager.setTitle("{preview_msg}");
+        
+        parent_window = PopupManager.getParentWindow();
+        parent_window.$('#loadingMessage').remove();
+        
+        var message = parent_window.CKEDITOR.instances.{instance_name}.getData();
+        xajax_parseMessage(message);
+    });
+</script>
+
+<div class="tdArticleTitle" id="top">
+    <h1 class="articleTitle" id="title">{preview_msg}</h1>
+</div>
+
+<div style="padding: 20px 0;" id="message" class="forumText"></div>        
+
+<div class="bottom_button bb_popup preview_buttons">
+    <input type="button" value="{close_msg}" class="button" id="close_button"
+        onclick="PopupManager.close();">
+</div>

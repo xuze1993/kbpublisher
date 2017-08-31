@@ -1,0 +1,34 @@
+<form method="post" name="test" id="aContentForm">
+<table border="0" width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+    
+<tr class="tdTitle">
+    <td width="70%">{item_test_msg}</td>
+    <td width="30%" align="center">{entry_status_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr class="{class}" style="{style}">
+    
+    <td width="70%" class="action">
+        <strong>{title}</strong> <br /> {descr} <br />
+        <span style="color: black;">{setting} {instruction}</span>
+    </td>
+    <td class="action" align="center" width="30%" style="{style2}">{msg}</td>
+</tr>
+</tmpl:row>
+
+<tmpl:no_report>
+<tr>
+    <td colspan="2">{no_report_msg}</td>
+</tr>
+</tmpl:no_report>
+</table>
+
+<tmpl:run_test>
+<br /><br />
+<div id="bottom_button" align="center">
+    <input type="submit" name="submit" value="{run_test_msg}" class="button">
+</div>
+</tmpl:run_test>
+
+</form>

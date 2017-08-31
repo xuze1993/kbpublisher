@@ -1,0 +1,79 @@
+{error_msg}
+
+<script type="text/javascript" src="tools/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="tools/ckeditor_custom/CKDropUploader.js"></script>
+<script type="text/javascript">
+    CKEDITOR.on('instanceReady', function(evt) {
+        CKDropUploader.init(1, 'definition');
+        //CKDropUploader.setUploadUrl('{ck_drop_upload_url}');
+        
+        LeaveScreenMsg.setEditor(evt.editor);
+        oEditor = evt.editor;
+        LeaveScreenMsg.setFckDefaultValue();
+        
+        evt.editor.on('dialogShow', function(dialogShowEvent) {
+            if(CKEDITOR.env.ie) {
+                $(dialogShowEvent.data._.element.$).find('a[href*="void(0)"]').removeAttr('href');
+            }
+        });
+        
+        $.waypoints('refresh');
+        
+        if (!$('#bottom_button').isOnScreen()) {
+            setButtons('up');
+        }
+    });
+</script>
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" name="" id="aContentForm" onSubmit="LeaveScreenMsg.skipCheck(); return Validate(this);">
+{hidden_fields}
+
+<table border=0 width="100%" cellpadding="5" cellspacing="1">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{phrase_msg}: {required_sign}</td>
+    <td><input type="text" name="phrase" value="{phrase}" id="phrase" class="longText" style="width: 500px;"></td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{definition_msg}: {required_sign}</td>
+    <td width="90%">{ckeditor}</td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{highlight_once_msg}:</td>
+    <td>
+        <span class="hasTooltip">
+	    	<input type="checkbox" name="display_once" value="1" {ch_display_once} /> {yes_msg}
+		</span>
+        <span class="tooltip">{glossary_highlight_tip_msg}</span>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{status_msg}:</td>
+    <td>{status_checkbox}</td>
+</tr>
+
+<tr>
+    <td></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            <input type="submit" name="submit" value="{save_msg}" class="button"
+                onClick="validateForm();return false;" />
+                
+            <input type="button" value="{cancel_msg}" 
+                onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'" class="button">
+                        
+            <span style="margin-left: 20px;">
+                <input type="button" value="{preview_msg}" class="button" 
+                    onClick="PopupManager.create('{preview_link}', 'r', 'r');">
+            </span>
+        </div>
+    </td>
+</tr>
+</table>
+
+</form>

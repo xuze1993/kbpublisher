@@ -1,0 +1,16 @@
+<div class="panel panel-default" style="margin: 0 5px;">
+    <a id="{anchor}"></a>
+    <div class="panel-heading" data-toggle="collapse" data-target="#bootstrap_attachment" style="cursor: pointer;">
+        <span class="glyphicon glyphicon-duplicate"></span>
+        &nbsp;&nbsp;{title_msg}
+        <i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
+    </div>
+    
+    <div id="bootstrap_attachment" class="list-group collapse">
+        <tmpl:row>
+        <a href="{attachment_link}" class="list-group-item small" style="padding-left: 25px;" {link_options}>
+            <span class="glyphicon glyphicon-file"></span> {filename} ({filesize})
+        </a>
+        </tmpl:row>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="panel panel-default kbp-panel">
+    <div class="panel-heading">
+        {comment_title_msg}
+
+        <tmpl:rss_link>
+        <a href="{comment_rss_link}" class="pull-right">
+            <i class="fa fa-rss-square" style="font-size: 1.5em;"></i>
+        </a>
+        </tmpl:rss_link>
+    </div>
+</div>
+
+<tmpl:row>
+<div id="{anchor}">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">{comment_name} | {formated_date}</div>
+        <div class="panel-body">
+            <p>
+                {comment}
+
+                <div class="commentLine"></div>
+
+                <tmpl:action>
+                <span class="pull-right">
+                    <tmpl:update>
+                    <a href="{update_link}">{update_msg}</a>
+                    </tmpl:update>
+
+                    <tmpl:delete>
+                    |    <a href="{delete_link}" onclick="return confirm('{sure_common_msg}')">{delete_msg}</a>
+                    </tmpl:delete>
+                </span>
+                </tmpl:action>
+
+                <span class="pull-left">
+                    {posted_msg}: {interval_date} <!--&nbsp; | <a href="{permalink}">{permalink_msg}</a>-->
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+</tmpl:row>
+
+<tmpl:by_page_bottom>
+<div style="text-align: center;">{page_by_page_bottom}</div>
+<br />
+</tmpl:by_page_bottom>
+
+<br />

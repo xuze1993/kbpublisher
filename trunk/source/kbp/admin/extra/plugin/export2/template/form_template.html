@@ -1,0 +1,102 @@
+<script type="text/javascript">
+$(document).ready(function() {
+    PopupManager.setTitle("{title}");
+    
+    CKEDITOR.on('instanceReady', function(evt) {
+        var parent_window = PopupManager.getParentWindow();
+        var value = parent_window.$('#pdf_{type}_tmpl').val();
+        evt.editor.setData(value);
+        
+        var margin_value = parent_window.$('#margin_{margin_type}').val();
+        $('#margin').val(margin_value);
+    });
+});
+
+function enableTemplate() {
+    _toggleTemplate(true);
+}
+
+function disableTemplate() {
+    _toggleTemplate(false);
+}
+
+function _toggleTemplate(status) {
+    var parent_window = PopupManager.getParentWindow();
+    
+    editor = CKEDITOR.instances.body;
+    var data = editor.getData();
+    parent_window.$('#pdf_{type}_tmpl').val(data);
+    
+    parent_window.$('#pdf_{type}').prop('checked', status);
+    
+    parent_window.$('#margin_{margin_type}').val($('#margin').val());
+    
+    PopupManager.close();
+}
+
+function submitToPopup() {
+    PopupManager.create('{popup_link}', 'r', 'r', 2, false, false, "{test_msg}");
+    
+    window.top.$('#aContentForm').attr('action', window.top.$('#aContentForm').attr('action') + '&action=preview');
+    window.top.$('#aContentForm').attr('target', PopupManager.prefix + '2');
+    
+    // additional data
+    editor = CKEDITOR.instances.body;
+    var data = editor.getData();
+    
+    var input = $('<input />').attr('type', 'hidden').attr('name', 'params[pdf][{type}_tmpl_tmp]').val(data);
+    window.top.$('#aContentForm').append($(input));
+    window.top.$('#aContentForm').submit();
+    
+    
+    var current_popup = PopupManager.getCurrentPopup();
+    current_popup.dialog('option', 'beforeClose', function(event, ui) {
+        window.top.$('#aContentForm').attr('target', '_self');
+        window.top.$('#aContentForm input[name=popup]').remove();
+        window.top.$('#aContentForm').attr('action', window.top.$('#aContentForm').attr('action').replace('&action=preview', ''));
+        
+        window.top.$('input[name="params[pdf][{type}_tmpl_tmp]"]').remove();
+    });
+}
+</script>
+
+{error_msg}
+
+<tmpl:margin_setting>
+<div style="width: 100%;" id="group{group_id}" class="tes">
+    <p class="trMoreDarker" style="padding: 6px 0px; margin-bottom: 1px; width: 100%;">
+        <span style="padding-left: 5px;"><b>Settings</b>:</span>
+    </p>
+</div>
+
+<table border="0" cellpadding="5" cellspacing="1" width="100%" class="tdBorder1">
+    <tr class="trLighter" valign="top">
+        <td width="220" align="left" class="tdFormCaption tdCaptionTop" 
+            style="width: 220px; min-width: 220px; white-space: normal;">
+            {margin_title}:
+        </td>
+        <td width="310" style="width: 310px; min-width: 310px;">
+            <input type="text" name="margin" id="margin" style="width: 298px;" value="{margin_value}" />
+        </td>
+        <td class="tdCaptionTop" style="padding-left: 5px;"></td>
+    </tr>
+</table>
+
+<br />
+</tmpl:margin_setting>
+
+<div class="trMoreDarker" style="padding: 6px 4px;">
+    <strong>{template_msg}:</strong>
+</div>
+
+<div class="trLighter" style="padding: 5px">
+    {ckeditor}
+</div>
+
+<br />
+
+<div align="center">
+    <input type="button" value="{save_msg}" class="button" onClick="enableTemplate();" />
+    <input type="button" value="{close_msg}" class="button" onClick="PopupManager.close();" />
+    <input type="button" value="{test_msg}" class="button" onClick="submitToPopup('plugin_export_test');" />
+</div>

@@ -1,0 +1,194 @@
+<script src="{base_href}client/jscript/jquery/jquery.editinplace.js"></script>
+<script src="{base_href}client/jscript/jquery/jquery.history.js"></script>  
+<script>
+    var prev_steps = [];
+    
+    function setEditInPlace() {
+        $('.edit_in_place').editInPlace({
+            show_buttons: true,
+            field_type: 'textarea',
+            textarea_rows: 3,
+            textarea_cols: 100
+        });
+    }
+    
+    function getNextStep() {
+        var entry_id = $('input[name=entry_id]').val();
+        var step_id = $('input[name=step_id]').val();
+        
+        var selected_radio = $('#trouble_step input[type=radio]:checked');
+        var classname = selected_radio.attr('class');
+        var val = selected_radio.val();
+
+        if (!val) {
+            alert('{trouble_select_step_msg}');
+            return;
+        }
+        
+        prev_steps.push({'entry_id': entry_id, 'step_id': step_id}); 
+        
+        if (classname == 'entry') {
+            entry_id = selected_radio.val();
+            step_id = 0;  
+        } else {
+            step_id = val;
+        }
+        
+        // assign new values
+        $('input[name=entry_id]').val(entry_id);
+        $('input[name=step_id]').val(step_id);
+        
+        window.location.hash = step_id;
+
+        xajax_getNextStep(entry_id, step_id);
+    }
+    
+    function getPrevStep() {
+        var last_index = prev_steps.length - 1;
+        var prev = prev_steps[last_index];
+        prev_steps.splice(last_index, 1);
+        
+        // assign new values
+        $('input[name=entry_id]').val(prev['entry_id']);
+        $('input[name=step_id]').val(prev['step_id']);
+        
+        if (prev['step_id'] > 0) {
+            window.location.hash = prev['step_id'];
+        } else {
+            window.location.hash = '';
+        }
+        
+        xajax_getNextStep(prev['entry_id'], prev['step_id']);        
+    } 
+
+    function Validate(form) {
+        return true;
+    }
+
+    function CommentToogle(toggle, path) {
+        if(toggle) {
+            $('#comment_form').toggle();
+        }
+    }
+    
+    function insertRawMessage(message, id) {
+        if ($('#comment_text_' + id).find('.inplace_field')) {
+            $('#comment_text_' + id).find('.inplace_field').val(message);        
+        } else {
+            $('#comment_text_' + id).html(message);        
+        }
+    }
+    
+    function insertNewComment(message) {
+        var div = document.createElement('div');
+        div.innerHTML = message;
+        
+        document.getElementById('comment_block').appendChild(div);
+        setEditInPlace();
+    }
+    
+    function postComment(step_id) {
+        var values = [];
+        values['comment'] = $('#comment').val();
+
+        if ($('#captcha').length == 1) {
+            values['captcha'] = $('#captcha').val();           
+        }
+        
+        if ($('#name').length == 1) {
+            values['name'] = $('#name').val();           
+        }
+        
+        if ($('#email').length == 1) {
+            values['email'] = $('#email').val();           
+        }
+                
+        values['comment'] = $('#comment').val();
+        
+        // get displayed comments count
+        var comment_count = $('div[id^=comment_text_]').length;
+        
+        xajax_postComment(step_id, values, comment_count);
+    }
+    
+    function deleteComment(id) {
+        if (confirm('{sure_common_msg}')) {
+            xajax_deleteComment(id);
+        }
+    }
+    
+    function setPrintLink(link) {
+        $("#comment_nav a").each(function() {
+            this.href = link;
+        });
+    }
+    
+    function setStartButton() {
+        if (prev_steps.length) {
+            $('#back_to_start').show();    
+        } 
+    }
+    
+    function backToStart() {
+        xajax_getNextStep(prev_steps[0].entry_id, prev_steps[0].step_id);
+        prev_steps = [];
+        window.location.hash = '';
+    }
+    
+    function setPrevSteps(steps) {
+        prev_steps = steps;
+    }
+    
+    $(document).ready(function(){
+        var entry_id = $('input[name=entry_id]').val();
+        var step_id = self.document.location.hash.substring(1);
+        
+        xajax_getNextStep(entry_id, step_id);
+        xajax_generatePrevSteps(entry_id, step_id);
+    });
+//-->
+</script>
+
+<div style="margin-bottom: 5px;">
+    
+    <div id="comment_nav" class="fright smallerText" style="padding-right: 10px;">
+        <a href="{print_link}">
+            <img src="{base_href}client/images/icons/print.gif" alt="print" 
+            width="16" height="15" border="0" />
+        </a>
+        &nbsp;<a href="{print_link}">{print_msg}</a>
+    </div>
+    
+    <div class="tdArticleTitle" id="top">
+        <h1 class="articleTitle">{title}</h1>
+    </div>
+    
+    <tmpl:description>
+    <div style="padding: 10px 5px;">
+        <div class="textBlock" style="padding: 5px;" id="entry_description">{body}</div>
+    </div>
+    </tmpl:description>    
+</div>
+    
+<div id="step" style="display: none;">
+    {step}
+</div>
+
+<input type="hidden" name="entry_id" value="{entry_id}" />
+<input type="hidden" name="step_id" value="0" />
+
+<div style="padding: 5px;" id="nextstep_msg">
+    {nextstep_msg}
+</div>
+ 
+{step_block}
+
+<div id="attachment_step_block"></div>
+<div id="related_article_step_block"></div>
+<div id="external_links_step_block"></div>
+
+{rating_block}
+
+<div id="comment_step_block">
+    {step_comment_block}
+</div>

@@ -1,0 +1,147 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#CategoryFilter').bind('change', function(){
+            var value = $(this).val();
+            if (value == 'all') {
+                var select = document.getElementById('CategoryID');
+                select.options.length = 0;
+                $('#category_filter_select').hide();
+                return;
+            }
+
+            $('#category_filter_select').hide();
+
+            xajax_getChildCategories(value, 'ajaxPopulateCategoryChildSelect', 'spinner_browsecat');
+        });
+    });
+
+    function ajaxPopulateCategoryChildSelect(values, count) {
+        var select = document.getElementById('CategoryID');
+        select.options.length = 0;
+        for (i in values) {
+            select.options[select.options.length] = new Option(values[i], i);
+        }
+
+        if (count > 0) {
+            $('#category_filter_select').show();
+        }
+    }
+</script>
+
+<tmpl:header>
+<div class="header" id="header_div">
+    <div class="login">
+        {login_block_tmpl}
+    </div>
+
+    <tmpl:logo>
+    <span style="margin-right: 10px;">
+        <a href="{header_title_link}"><img src="{image_data}" /></a>
+    </span>
+    </tmpl:logo>
+
+    <a href="{header_title_link}" class="header">{header_title}</a>
+</div>
+</tmpl:header>
+
+
+<tmpl:form></tmpl:form>
+
+<div class="content" id="content_div">
+
+<tmpl:no_header>
+<div class="login">
+    {login_block_tmpl}
+</div>
+</tmpl:no_header>
+
+    <table class="sTable tableCp4 tableCs1">
+    <tr style="vertical-align: bottom;">
+
+        <td class="nowrap" style="width: 25%;">
+
+            <div style="padding-bottom: 8px;" class="nowrap smallerText">
+                <b>{search_msg}:</b>&nbsp;&nbsp;&nbsp;&nbsp;
+                <!-- <a href="{advanced_search_link}">{advanced_search_msg}</a> -->
+            </div>
+
+            <div class="searchBeige">
+                {search_block}
+            </div>
+        </td>
+
+        <td class="nowrap" style="width: 35%;">
+
+            <div style="padding-bottom: 5px;" class="nowrap smallerText">
+                <b>{browse_msg}:</b>
+            </div>
+            <form action="{form_category_action}" id="category_browse" style="margin:0px;">
+                {hidden_category}
+
+                <span style="float: left;">
+                <select name="CategoryFilter" id="CategoryFilter" class="colorInput"
+                    style="width: 150px; margin-right: 10px;">
+                    {filter_select}
+                </select>
+                </span>
+
+                <span id="category_filter_select" style="float: left; display: {category_filter_display};">
+                    <select name="CategoryID" style="width: 150px;" class="colorInput" id="CategoryID">
+                        {category_select}
+                    </select>
+                </span>
+
+                <span id="spinner_browsecat" style="display: none;">
+                    <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+                </span>
+
+                <input type="button" name="browse" id="browse" value=" &raquo; " title="{browse_button_msg}"
+                    style="margin-left: 5px;" onclick="submitBrowseCategory('{category_page}', '{rewrite}')" />
+
+                <div style="clear: both"></div>
+            </form>
+        </td>
+
+
+
+        <td class="nowrap" style="text-align: right;">
+            {menu_top_tmpl}
+        </td>
+    </tr>
+    </table>
+
+    <div style="padding-top: 5px;"></div>
+
+
+    <hr class="default" />
+    <div class="navigation" style="margin-bottom: 20px;text-align: left;">
+        {navigation}
+    </div>
+
+    <a id="content"></a>
+
+    {msg}
+    {content}
+
+    <div class="bottom">
+        <hr class="botom" />
+
+        <tmpl:rss_block>
+        <div class="fright">
+            <a href="{rss_link}">
+                <img src="{client_href}images/icons/rssv2.gif" alt="RSS" width="80" height="15" />
+            </a>
+        </div>
+        </tmpl:rss_block>
+
+        <div class="copyright" style="text-align: left;">
+            {copyright_info}
+        </div>
+
+        <div class="footer_info">
+            {footer_info}
+        </div>
+    </div>
+
+</div>
+<br />

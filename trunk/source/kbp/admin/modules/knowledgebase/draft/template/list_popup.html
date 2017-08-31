@@ -1,0 +1,47 @@
+<script type="text/javascript">
+$(document).ready(function() {
+    PopupManager.setTitle("{popup_title}");
+});
+
+function attachEntry(id, title, link) {
+    var parent_window = PopupManager.getParentWindow();
+    parent_window.$('body').trigger('kbp{type}DraftSelected', [{id: id, title: title}]);
+}
+</script>
+
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+
+    <td width="1" class="tdTitle">{id_msg}</td>
+    <td>{entry_title_msg}</td>
+    <td width="1">{entry_status_msg}</td>
+    <td width="1" align="center">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr class="{class}" style="{style}">
+
+    <td width="1" align="right"><b>{id}</b></td>
+    <td>{short_title}</td>
+    <td align="center">
+        <div class="status help" style="width: 15px;">
+            <div title="{status}" style="background: {status_color};">&nbsp;&nbsp;</div>
+        </div>
+    </td>
+    <td align="center" width="1">
+        <a href="#" onClick="attachEntry('{id}', '{escaped_title}', this); return false;">
+            <img src="images/icons/attach.svg" width="14" height="14" style="padding: 0px 4px;" />
+        </a>
+    </td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{close_msg}" class="button" onclick="PopupManager.close();" />
+</div>
+
+<tmpl:bulk></tmpl:bulk>

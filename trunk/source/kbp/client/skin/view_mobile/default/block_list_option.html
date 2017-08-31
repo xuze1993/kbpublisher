@@ -1,0 +1,70 @@
+<script>
+    function doSubscribe(mode) {
+        xajax_doSubscribe(mode);
+    }
+</script>
+
+<div id="list_option_block" class="collapse">
+    
+    <tmpl:form>
+    <form action="{form_search_action}" style="margin-top: 15px;margin-bottom: 40px;" 
+        onsubmit="return validateQuickSearch('{alert_empty_search}', 'searchq3')">
+        {hidden_search}
+        <input type="hidden" name="s" value="1" />
+        <input type="hidden" name="in" value="{search_in}" />
+        <input type="hidden" name="c[0]" value="{category_id}" />
+        
+        <div class="input-group">
+            <input type="search" name="q" id="searchq3" class="form-control" value="{q}" placeholder="{search_category_msg}" />
+            <span class="input-group-btn">
+                <input type="submit" name="sb" id="sb" value="{search_msg}" title="{search_button_msg}" class="btn btn-default" />
+            </span>
+        </div>
+        
+        <div class="checkbox checkbox-primary">
+            <input type="checkbox" name="cp" id="cp" value="1" title="{search_all_parent_msg}" checked />
+            <label for="cp">
+                {search_all_parent_msg}
+            </label>
+        </div>
+        
+    </form>
+    </tmpl:form>
+    
+    <tmpl:forum_form>
+    </tmpl:forum_form>        
+    
+    <div style="margin-bottom: 30px;">
+        <tmpl:view_pdf>
+        <a href="{pdf_link}" class="list-group-item" title="{category_pdf_desc_msg}">
+            <i class="fa fa-file-pdf-o" aria-hidden="true"></i> &nbsp;{category_pdf_msg}
+        </a>
+        </tmpl:view_pdf>
+        
+        <tmpl:view_subscribe>
+        <a href="#1{id}" onclick="doSubscribe(1); return false;" class="list-group-item" id="div_subscribe_yes" style="display: {subscribe_yes_display};">
+            <i class="fa fa-envelope" aria-hidden="true"></i> &nbsp;{subscribe_msg}
+        </a>
+        <a href="#0{id}" onclick="doSubscribe(0); return false;" class="list-group-item" id="div_subscribe_no" style="display: {subscribe_no_display};">
+            <i class="fa fa-envelope" aria-hidden="true"></i> &nbsp;{unsubscribe_msg}
+        </a>
+        </tmpl:view_subscribe>
+
+        <tmpl:view_subscribe_parent>
+        <a href="{susbscription_link}" class="list-group-item">
+            <i class="fa fa-envelope" aria-hidden="true"></i> &nbsp;{unsubscribe_msg}
+        </a>
+        </tmpl:view_subscribe_parent>
+        
+        <tmpl:view_print>
+        <a href="{print_link}" class="list-group-item">
+            <i class="fa fa-print" aria-hidden="true"></i> &nbsp;{print_msg}
+        </a>
+        </tmpl:view_print>
+    
+    </div>
+        
+    <tmpl:view_update>
+    </tmpl:view_update>
+        
+</div>

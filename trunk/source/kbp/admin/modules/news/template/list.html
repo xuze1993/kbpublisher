@@ -1,0 +1,65 @@
+{msg}
+
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    
+    <tmpl:bulk>
+    <td width="1">
+        <input type="checkbox" name="id_check" value="1" style="margin: 0px;" />
+    </td>    
+    </tmpl:bulk>
+    
+    <td width="1">{id_msg}</td>    
+    <td width="1"></td>    
+    <td width="1"></td>
+    
+    <td class="tdTitle" width="120">{date_msg}</td>
+    <td>{title_msg}</td>
+    <td width="1">{hits_num_msg}</td>
+    
+    <td width="1">{entry_status_msg}</td>
+    <td width="1" align="center" class="action">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+    
+    <tmpl:bulk>
+    <td width="1">
+        <input type="checkbox" name="id[]" value="{id}" id="ch_{id}" style="margin: 0px;" {bulk_ids_ch_option} />    
+    </td>
+    </tmpl:bulk>
+    
+    <td width="1" align="right"><b>{id}</b></td>    
+    
+    <td width="1">
+        <tmpl:if_schedule>
+        <img src="images/icons/clock.svg" width="12" height="12" alt="clock"
+            class="_tooltip" title="{schedule_msg}" />
+        </tmpl:if_schedule>
+    </td>    
+    
+    <td width="1">
+        <tmpl:if_private>
+        <img src="images/icons/lock2_{image_color}.svg" width="12" height="12" alt="key" 
+            class="_tooltip" title="<b>{private1_msg}</b><br/>{roles_msg}" />
+        </tmpl:if_private>
+    </td>
+    
+    <td>{date_posted_formatted}</td>
+    <td><a href="{entry_link}" style="{style}" title="{title}">{short_title}</a></td>
+    <td align="center">{hits}</td>
+    
+    <td align="center">{active_img}</td>
+    <td class="action" width="1" align="center">
+        {options_img}
+    </td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div style="padding-top: 2px;"></div>
+{footer}

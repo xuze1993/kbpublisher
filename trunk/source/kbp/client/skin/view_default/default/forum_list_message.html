@@ -1,0 +1,371 @@
+<link href="{client_href}skin/jquery/jquery.colorbox.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="{base_href}client/jscript/common_forum.js"></script>
+<script type="text/javascript" src="{client_href}jscript/jquery/jquery.colorbox-min.js"></script>
+<script type="text/javascript">
+<!--
+
+var update_mode = false;
+var attachment_changes = {
+    deleted: [],
+    added: []
+};
+
+$(document).ready(function() {
+    if (window.Dropzone) {
+        Dropzone.autoDiscover = false;
+    }
+    initGallery();
+});
+
+function initGallery() {
+    $('a.gallery').colorbox({
+        photo: true,
+        current: '{{current}} / {{total}}',
+        title: function() {
+            var url = $(this).attr('href');
+            return '<a href="' + url + '" target="_blank">' + $(this).html() + '</a>';
+        }
+    });
+}
+
+function deleteMessage(id) {
+    if (!confirm('{sure_common_msg}')) {
+		return false;
+	}
+
+    xajax_deleteMessage(id);
+}
+
+function deleteAttachmentToMessage(message_id, attachment_id) {
+    confirm2('{sure_common_msg}', function() {
+        $("#forumMsgUpdateAttachment" + attachment_id).remove();
+
+        $("#forumMsgAttachment" + attachment_id).hide();
+        $("#forumMsgAttachment" + attachment_id).attr('data-removed', true);
+
+        attachment_changes.deleted.push(attachment_id);
+
+        d.options.maxFiles ++;
+        $('#dropzoneInactiveBlock' + message_id).hide();
+        $('#dropzoneActiveBlock' + message_id).show();
+        $('#attachUpdateContainer' + message_id).removeClass('dz-max-files-reached');
+
+        checkForDelimiter(message_id);
+    });
+}
+
+function checkForDelimiter(message_id) {
+    var selector = 'div:not([data-removed])[id^=forumMsgAttachment]';
+    var has_image_attachments = $('#attachTypeImage' + message_id).find(selector).length;
+    var has_non_image_attachments = $('#attachTypeNonImage' + message_id).find(selector).length;
+
+    if (has_image_attachments && has_non_image_attachments) {
+        $('#attachTypeDelim' + message_id).show();
+        $('#attachTypeDelimUpdate' + message_id).show();
+
+    } else {
+        $('#attachTypeDelim' + message_id).hide();
+        $('#attachTypeDelimUpdate' + message_id).hide();
+    }
+
+    if (!has_image_attachments && !has_non_image_attachments) {
+        $('#attachCaption' + message_id).hide();
+        $('#attachUpdateCaption' + message_id).hide();
+
+    } else {
+        $('#attachCaption' + message_id).show();
+        $('#attachUpdateCaption' + message_id).show();
+    }
+}
+
+function deleteMessageFadeOut(id) {
+	$('#forumBlock' + id).fadeOut(1000);
+    $('#forumBlock' + id).next().fadeOut(1000);
+}
+
+function update(id) {
+    if (update_mode) { // already updating
+        return;
+    }
+
+    if (window.CKEDITOR) {
+        update_mode = true;
+        $('.update').css('color', '#999999');
+
+        xajax_loadMessageForm(id, 'forumActionSpinner' + id);
+    }
+}
+
+
+function insertForm(message_id, html) {
+    //var id_str = 'forumMsg' + id;
+
+    $('#forumMsg' + message_id).hide();
+    $('#forumUpdate' + message_id).html(html);
+
+    CKEDITOR.replace('forumMessageCk' + message_id, {'customConfig': '{config_path}'});
+
+    CKEDITOR.instances['forumMessageCk' + message_id].on('instanceReady', function(evt) {
+        var data = CKEDITOR.instances['forumMessageCk' + message_id].getData();
+        CKEDITOR.instances['forumMessageCk' + message_id].setData(data);
+    });
+
+    // action block
+    $('#forumAction' + message_id).hide();
+
+    // attachments
+    <tmpl:attachment_js>
+    $('#attachUpdateContainer' + message_id).show();
+
+    if (document.querySelector('#attachUpdateContainer' + message_id).dropzone) {
+        Dropzone.forElement('#attachUpdateContainer' + message_id).destroy();
+    }
+
+    var url_str = '{file_upload_url}';
+    var url = url_str.replace('message_id', message_id);
+
+    var attachments_num = $('#forumUpdate' + message_id).find('div[id^=forumMsgUpdateAttachment]').length;
+    var max_files = Math.abs({max_files_num} - attachments_num);
+
+    d = new Dropzone('#attachUpdateContainer' + message_id, {
+        url: url,
+        addRemoveLinks: true,
+        previewsContainer: '#preview_container' + message_id,
+        thumbnailWidth: 80,
+        thumbnailHeight: 80,
+        dictRemoveFile: '{delete_msg}',
+        parallelUploads: 5,
+        maxFiles: max_files,
+        maxFilesize: {max_file_size},
+        acceptedFiles: {allowed_extensions},
+        //forceFallback: true,
+        fallback: function() {
+            $('#drop_enabled_caption').hide();
+            $('#drop_disabled_caption').show();
+        },
+        //createImageThumbnails: false
+    });
+
+    d.removeAllFiles();
+    $('#attachUpdateContainer' + message_id + ' a.dz-remove').each(function() {
+        $(this)[0].click();
+    });
+
+    d.on('success', function(file, response) {
+        data = jQuery.parseJSON(response);
+        attachment_changes.added.push(data.attachment_id);
+    });
+
+    d.on('removedfile', function(file) {
+        $('#dropzoneInactiveBlock' + message_id).hide();
+        $('#dropzoneActiveBlock' + message_id).show();
+    });
+
+    d.on('maxfilesreached', function(file) {
+        $('#dropzoneActiveBlock' + message_id).hide();
+        $('#dropzoneInactiveBlock' + message_id).show();
+    });
+
+    d.on('error', function(file, errorMessage) {
+        alert(errorMessage);
+        this.removeFile(file);
+    });
+
+    </tmpl:attachment_js>
+}
+
+function addFile(id, el) {
+    var file = el.files[0];
+    d.addFile(file);
+
+    $('#input_file' + id).replaceWith($('#input_file' + id).clone(false));
+}
+
+function updateSavedMessage(message_id) {
+    var selector = 'div[data-removed][id^=forumMsgAttachment]';
+    $('#forumMsg' + message_id).find(selector).remove();
+
+    destroy(message_id);
+}
+
+function revert(message_id) {
+    var selector = 'div[data-removed][id^=forumMsgAttachment]';
+    $('#forumMsg' + message_id).find(selector).removeAttr('data-removed').show();
+    checkForDelimiter(message_id);
+
+    destroy(message_id);
+}
+
+function destroy(message_id) {
+    if (CKEDITOR.instances['forumMessageCk' + message_id]) {
+        CKEDITOR.instances['forumMessageCk' + message_id].destroy();
+    }
+
+    $('#forumUpdate' + message_id).empty();
+    $('#forumMsg' + message_id).show();
+
+    attachment_changes = {
+        deleted: [],
+        added: []
+    };
+
+    //$('.forumDeleteAttachment').hide();
+
+    // action block
+    $('#forumAction' + message_id).show();
+
+    $('#attachContainer' + message_id).hide();
+
+    hljs.initHighlighting.called = false;
+    hljs.initHighlighting();
+
+    update_mode = false;
+    $('.update').css('color', '#121212');
+
+    //$('#forumMsg' + message_id).parent().find('div:hidden[id^=forumMsgAttachment]').remove();
+    initGallery();
+}
+
+function save(id) {
+    var data = CKEDITOR.instances['forumMessageCk' + id].getData();
+
+    hljs.initHighlighting.called = false;
+    hljs.initHighlighting();
+
+    if (window.d && d.getQueuedFiles().length > 0) {
+        d.processQueue();
+    }
+
+    xajax_updateMessage(id, data, attachment_changes);
+}
+
+function quote(id) {
+    CKEDITOR.instances.message.focus();
+
+    var text = '';
+    if (window.getSelection) {
+        text = window.getSelection().toString();
+
+    } else if (document.selection && document.selection.type != 'Control') {
+        text = document.selection.createRange().text;
+    }
+
+    xajax_getQuotedMessage(id, text);
+}
+
+//-->
+</script>
+
+<div class="tdArticleTitle" id="top" style="background-color: white;">
+    <div style="float: left;">
+        <h1 class="articleTitle">{entry_title}</h1>
+    </div>
+    <div class="fright smallerText menuItemOption"
+        style="padding: 10px 8px 0 8px;border: none; background: transparent;font-size: 1.2em;">
+            <a href="#show" onclick="$('#list_option_block').toggle(); return false;"
+                style="font-weight: normal;">
+                {list_option_msg}
+            </a>
+        </div>
+    <div style="clear: both;"></div>
+</div>
+
+{block_list_option_tmpl}
+<div>&nbsp;</div>
+
+{msg}
+
+<div class="forumHeader">
+    <div style="float: left;">
+        {post_num} {posts_in_this_topic_msg}
+    </div>
+    <div style="float: right;">
+        <tmpl:post_link>
+        <span class="forumHeaderButton" style="margin-right: 10px;">
+            <a href="#reply"
+                onclick="CKEDITOR.instances.message.focus();" rel="nofollow">{reply_to_topic_msg}</a>
+        </span>
+        </tmpl:post_link>
+
+        <tmpl:new_topic_link>
+        <span class="forumHeaderButton">
+            <a href="{topic_add_link}">{start_topic_msg}</a>
+        </span>
+        </tmpl:new_topic_link>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+
+<tmpl:by_page_top>
+<div class="bpForumBlock">
+    {page_by_page}
+</div>
+</tmpl:by_page_top>
+
+<br />
+
+<tmpl:row>
+<a name="{anchor}" id="{anchor}"></a>
+<div class="forumBlock" id="forumBlock{id}" {style}>
+
+	<div class="forumTitle">
+	    <span class="fright smallerText">
+            <a href="{anchor_link}">#{message_num}</a>&nbsp;
+
+            <img data-dropdown="#share_dropdown_{id}" style="cursor: pointer;width: 10px; height: 10px;"
+                src="{base_href}client/images/icons/share.svg" />
+
+            <div id="share_dropdown_{id}" class="dropdown dropdown-tip dropdown-anchor-right dropdown-fixed">
+                {share_block}
+            </div>
+        </span>
+	    <span class="forumUser">{first_name} {last_name}</span> |
+	    <span>{formated_date}</span>
+	</div>
+
+	<div class="forumText">
+	    <div id="forumMsg{id}" class="textBlock">
+	        <div id="forumBody{id}">
+	            {message}
+            </div>
+
+            <div id="forumMsgBlockAttachment{id}">
+                {attachment_block}
+            </div>
+        </div>
+
+        <div id="forumUpdate{id}"></div>
+
+	    <div class="forumLine"></div>
+
+        <div id="forumAction{id}" class="forumAction fright">
+            <div>
+
+                <span id="forumActionSpinner{id}" style="display: none;text-decoration: none;">
+                    <img src="{base_href}client/images/ajax/indicator.gif" />
+                </span>
+
+                {action_buttons}
+            </div>
+        </div>
+
+	    <div class="smallerText">
+	        {posted_msg}: {interval_date_posted} &nbsp;
+
+            <span id="forumMsgUpdater{id}" style="margin-left: 15px;">
+                <tmpl:updater>
+                {updated_msg}: {interval_date_updated} {by_msg} <b>{updater_first_name} {updater_last_name}</b>
+                </tmpl:updater>
+            </span>
+        </div>
+	</div>
+
+</div><br />
+</tmpl:row>
+
+<tmpl:by_page_bottom>
+<div class="bpForumBlock">
+    {page_by_page}
+</div>
+<br/>
+</tmpl:by_page_bottom>

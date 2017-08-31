@@ -1,0 +1,26 @@
+<style>
+    td.mainCell > div.boxMsgDiv {
+        display: none;
+    }
+</style>
+
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post">
+{hidden_fields}
+
+{hint_msg}
+
+<br/>
+<div style="text-align: center;">
+    
+    <input type="submit" name="submit" id="submit" value="{save_rule_msg}" 
+        class="button" />
+    
+    <input type="submit" name="submit_back" id="submit_back" value="{back_msg}" 
+        class="button" />
+    
+</div>
+
+</form>

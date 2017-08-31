@@ -1,0 +1,45 @@
+<div class="menuBlock">
+    <table class="sTable" style="margin: 0; padding: 0;">
+        <tr>
+            <td>
+                <tmpl:row>
+                <div class="{class}" style="display: inline-block;">
+                    <a href="{item_link}"{options}>
+						<div class="menuItemSpace" style="display: inline-block;">{item_menu}</div>
+					</a>
+                </div>
+                </tmpl:row>
+
+                <tmpl:more_button>
+                <div class="menuItem" style="display: inline-block;" data-dropdown="#more_menu">
+                    <a href="#">
+						<div class="menuItemSpace" style="display: inline-block; padding inherit 10px;">...</div>
+					</a>
+                </div>
+
+                <div id="more_menu" class="dropdown dropdown-tip dropdown-relative">
+                    <ul class="dropdown-menu">
+                        <tmpl:more_row>
+                        <li><a href="{item_link}"{options}>{item_menu}</a></li>
+                        <li class="dropdown-divider"></li>
+                        </tmpl:more_row>
+                    </ul>
+                </div>
+                </tmpl:more_button>
+            </td>
+
+            <td style="width:30px; padding-left: 12px;">
+                <tmpl:form>
+                <div id="left_menu_toggle" style="cursor: pointer;" title="{action_title}"
+					data-title="{next_action_title}" onclick="toggleLeftMenu();">
+                    	<img src="{base_href}client/images/icons/toggle_menu2.svg" alt="toggle" />
+                </div>
+                </tmpl:form>
+            </td>
+
+            <td style="text-align: right;width: 200px; padding: 4px;">
+            	{search_block}
+            </td>
+        </tr>
+    </table>
+</div>

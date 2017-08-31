@@ -1,0 +1,69 @@
+<script type="text/javascript">
+<!--
+function Validate(form) {
+    return true;
+}
+//-->
+</script>
+
+
+{user_msg}
+
+
+<form action="{action_link}" method="post" id="aContentForm" onsubmit="return Validate(this);">
+    <input type="hidden" name="entry_title" id="entry_title" value="{entry_title}" />
+    <input type="hidden" name="entry_link" id="entry_link" value="{entry_link}" />
+    
+    <div class="form-group">
+        <label for="name">{required_sign} {your_name_msg}</label>
+        <input type="text" name="name" id="name" class="form-control" value="{name}" />
+    </div>
+    
+    <div class="form-group">
+        <label for="your_email">{required_sign} {your_email_msg}</label>
+        <input type="text" name="your_email" id="your_email" class="form-control" value="{your_email}" {ye_readonly} />
+    </div>
+    
+    <div class="form-group">
+        <label for="friend_email">{required_sign} {friend_emal_msg}</label>
+        <input type="text" name="friend_email" id="friend_email" class="form-control" value="{friend_email}" />
+        <span class="formComment">{multiple_email_note_msg}</span>
+    </div>
+    
+    <div class="form-group">
+        <label for="comment">{comment_msg}</label>
+        <textarea name="comment" id="comment" class="form-control">{comment}</textarea>
+    </div>
+    
+    <tmpl:attach_article>
+    <div class="form-group">
+        <label for="attach_article">{attach_article_msg}</label>
+        <input type="checkbox" name="attach_article" id="attach_article" class="form-control" value="1" {ch_attach_article} data-mini="true" />
+    </div>
+    </tmpl:attach_article>
+    
+    <tmpl:captcha>
+    <div class="form-group">
+        <div>
+            <img src="{captcha_src}" alt="{captcha_img_alt_msg}" id="captcha_img" />
+            <br />
+            <span class="formComment">{captcha_comment_msg}</span>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="captcha">{captcha_msg}</label>
+        <input type="text" name="captcha" id="captcha" class="form-control" value="" />
+    </div>
+    </tmpl:captcha>
+    
+    <div style="width: 50%;margin: 40px auto;">
+        <button type="submit" name="submit" id="submit" class="btn btn-default btn-block"
+            onClick="validateForm();return false;" />
+            {ok_msg}
+        </button>
+    </div>
+
+</form>
+
+<br />

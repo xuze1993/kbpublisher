@@ -1,0 +1,82 @@
+<script type="text/javascript" src="admin/jscript/livesearch/quicksilver.js"></script>
+<script type="text/javascript" src="admin/jscript/livesearch/livesearch.js"></script>
+<script type="text/javascript" src="admin/jscript/livesearch/map.js"></script>
+<script>
+$(document).ready(function() {
+    $('#map_filter').liveUpdate('map').focus();
+});
+
+function expandAllCategories() {
+    $('span.map_show_all').hide();
+    $('div.children').children('div').show(300);
+}
+
+function collapseAllCategories() {
+    $('span.map_show_all').show();
+    $('div.children').children('div.unvisible').hide(300);
+}
+</script>
+
+<div class="tdTitle" style="margin-bottom: 12px;">
+    <div>{list_title}</div>
+</div>
+
+{msg}
+
+<div style="float: left;">
+    <input type="search" id="map_filter" value="" class="colorInput hidden_x_icon" 
+        style="width: 250px;" placeholder="{filter_msg}" results>
+</div>
+
+<div style="float: right;">
+    <span style="margin-right: 20px;">
+        <a href="#" onclick="xajax_setCategoryView('column');">{column_view_msg}</a> | 
+        <a href="#" onclick="xajax_setCategoryView('tree');">{tree_view_msg}</a>
+    </span>    
+    <span>
+        <a href="#" onclick="expandAllCategories();">{expand_all_msg}</a> | 
+        <a href="#" onclick="collapseAllCategories();">{collapse_all_msg}</a>
+    </span>
+</div>
+
+<div style="clear: both;"></div>
+
+<br /><br />
+
+<table id="map" class="sTable tableCs1">
+
+<tmpl:row_tr>
+<tr style="vertical-align: top;">
+
+    <tmpl:row_td>
+    <td style="width: 1px;padding: 5px;">{item_img}</td>
+    <td style="width: {td_width}%; padding: 5px 3px {top_category_padding}px 3px;">
+        <div>
+            <a href="{link}"><b>{name}</b></a>
+        </div>
+        
+        <div class="children">
+            <tmpl:child_category>
+            <div style="display: {display};padding-left: {padding}px;margin: 5px 0px;" class="{class}">
+                <a href="{link}">{name}</a>
+            </div>
+            </tmpl:child_category>
+            
+            <tmpl:show_all_children>
+            <span title="{show_all_msg}" style="padding-left: {show_all_padding}px;" class="map_show_all cpointer" onclick="$(this).hide();$(this).parent().children('div').show(300);">
+                ...
+            </span>
+            </tmpl:show_all_children>
+        </div>
+    </td>
+    </tmpl:row_td>
+    
+    <tmpl:row_empty_td>
+    <td></td>
+    </tmpl:row_empty_td>
+
+</tr>
+</tmpl:row_tr>
+
+</table>
+<br />

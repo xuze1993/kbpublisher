@@ -1,0 +1,215 @@
+<script src="../client/jscript/jquery/jquery.jeditable.mini.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        <tmpl:update>
+        makeCommentsEditable();
+        </tmpl:update>
+    });
+    
+    function makeCommentsEditable() {
+        $('div.formatted_comment').editable(function(value, settings) { 
+            var comment_id = $(this).parent().parent().attr('id').substr(8);
+            xajax_updateComment(comment_id, value);
+            
+            return value;
+        }, {
+            type: 'textarea',
+            rows: 3,
+            submit: '{ok_msg}',
+            cancel: '{cancel_msg}',
+            data: function(value, settings) {
+                var raw_comment = $(this).next().html();
+                return raw_comment;
+            }
+        });
+    }
+    
+    function addComment() {
+        var comment = $.trim($('#comment').val());
+        
+        $('#growls').empty();
+        
+        if (comment == '') {
+            $.growl.error({title: "", message: "{empty_comment_msg}", fixed: true});
+            return false;
+        }
+        
+        var status = 0;
+        if ($('#active').is(':checked')) {
+            status = 1;
+        }
+        
+        xajax_addComment(comment, status);
+    }
+    
+    function insertComment(html) {
+        //$('#commentsBlock').prepend(html).slideDown();
+        $(html).hide().prependTo('#commentsBlock').fadeIn('slow');
+        makeCommentsEditable();
+    }
+    
+    function insertUpdatedComment(id, formatted_message, raw_message) {
+        $('#comment_' + id).find('div.formatted_comment').html(formatted_message);
+        $('#comment_' + id).find('div.raw_comment').html(raw_message);
+    }
+    
+    function updateCommentStatus(id, status) {
+        confirm2("{sure_status_msg}", function() {
+            xajax_updateCommentStatus(id, status);
+        });
+    }
+    
+    function deleteComment(id) {
+        confirm2("{sure_common_msg}", function() {
+            xajax_deleteComment(id);
+        });
+    }
+    
+    function deleteAllComments() {
+        confirm2("{sure_delete_entry_comment_msg}", function() {
+            xajax_deleteAllComments();
+        });
+    }
+</script>
+
+<tmpl:entry_view>
+
+    <div style="margin-bottom: 15px; text-align: right;">
+    <tmpl:subscribe>
+        <div id="div_subscribe_yes" style="display: {subscribe_yes_display};">
+            <a href="#1{id}" onclick="xajax_subscribe(1); return false;">{subscribe_msg}</a>
+        </div>
+        <div id="div_subscribe_no" style="display: {subscribe_no_display};">
+            <a href="#0{id}" onclick="xajax_subscribe(0); return false;">{unsubscribe_msg}</a>
+        </div>
+    </tmpl:subscribe>
+    
+    <tmpl:delete_all>
+    | <a href="#" onclick="deleteAllComments();">{delete_entry_comment_msg}</a>
+    </tmpl:delete_all>
+    </div>
+
+</tmpl:entry_view>
+
+
+<tmpl:comment_view>
+
+    <table border="0" width="100%" cellpadding="4" cellspacing="1">
+    <tr class="trLighter">
+        <td>
+            <strong>
+                <a href="{back_link}">{comments_msg}</a> /
+                <span title="{title}">{short_title}</span>
+            </strong>
+        </td>
+        <td align="right" width="400">
+            <tmpl:subscribe>
+                <div id="div_subscribe_yes" style="display: {subscribe_yes_display};">
+                    <a href="#1{id}" onclick="xajax_subscribe(1); return false;">{subscribe_msg}</a>
+                </div>
+                <div id="div_subscribe_no" style="display: {subscribe_no_display};">
+                    <a href="#0{id}" onclick="xajax_subscribe(0); return false;">{unsubscribe_msg}</a>
+                </div>
+                |
+            </tmpl:subscribe>
+        
+            <a href="{entry_link}">{entry_public_link_msg}</a> |
+            <a href="{entry_link_update}">{update_entry_msg}</a>
+            
+            <tmpl:delete_all>
+            | <a href="#" onclick="deleteAllComments();">{delete_entry_comment_msg}</a>
+            </tmpl:delete_all>
+        </td>
+    </tr>
+    </table>
+    <br>
+
+</tmpl:comment_view>
+
+
+
+<div style="background-color: #EFEFEF;padding: 4px 6px !important; border-bottom: 1px solid #D4D4D4;">
+    <div style="float: left;">
+        <b>{comments_msg}:</b> <span id="comments_num"><b>{num_records}</b></span>
+    </div>
+    
+    <tmpl:add_new>
+    <div style="float: right;">
+        <a class="noformat" href="#" onclick="$('#comment_form').toggle();return false;" rel="nofollow">
+            <b>{add_new_msg}</b>
+        </a>    
+    </div>
+    </tmpl:add_new>
+    <div style="clear: both"></div>
+</div>
+
+<div id="comment_form" style="display: none;">
+    <table border="0" width="100%" cellpadding="5" cellspacing="1">
+    <tr class="trLighter">
+        <td class="tdFormCaption tdCaptionTop">{comment_msg}:&nbsp;{required_sign}</td>
+        <td width="90%">
+            <textarea style="width: 100%" rows="5" id="comment" name="comment">{comment}</textarea>
+        </td>
+    </tr>
+    
+    <tr class="trLighter">
+        <td class="tdFormCaption">{status_published_msg}:</td>
+        <td>{status_checkbox}</td>
+    </tr>
+    
+    <tr>
+        <td></td>
+        <td><div><br></div>
+            <input type="button" value="{ok_msg}" class="button" onclick="addComment();" />
+        </td>
+    </tr>
+    </table>
+</div>
+
+<div id="commentsBlock" style="margin-top: 20px;">
+    <tmpl:row>
+    <div class="commentBlock" id="comment_{id}">
+        <div class="commentTitle">
+            <span class="commentUser">{username} {name} {email}</span> | 
+            <span class="commentDate"><b>{formatted_date}</b></span>
+        </div>
+        <div class="commentText textBlock">
+            <div class="formatted_comment">{comment}</div>
+            <div class="raw_comment" style="display: none;">{raw_comment}</div>
+            
+            <div class="commentLine"></div>
+            
+            <div style="float: right;">
+                <tmpl:update_status>
+                <div id="status_yes_{id}" title="{set_status_msg}" style="display: {status_yes_display};float: left;margin-right: 5px;">
+                    <a href="#" onclick="updateCommentStatus({id}, 1); return false;">{status_not_published_msg}</a>
+                </div>
+                <div id="status_no_{id}" title="{set_status_msg}" style="display: {status_no_display};float: left;margin-right: 5px;">
+                    <a href="#" onclick="updateCommentStatus({id}, 0); return false;">{status_published_msg}</a>
+                </div>
+                </tmpl:update_status>
+                
+                <tmpl:update>
+                <div style="float: left;margin-right: 5px;">
+                    | <a href="#" onclick="$(this).parents().eq(2).find('.formatted_comment').click();return false;">{update_msg}</a>
+                </div>
+                </tmpl:update>
+                
+                <tmpl:delete>
+                <div style="float: left;">
+                    | <a href="#" onclick="deleteComment('{id}')">{delete_msg}</a>
+                </div>
+                </tmpl:delete>
+            </div>
+    
+            <div>
+                {posted_msg}: {interval_date}
+            </div>
+        </div>
+    </div>
+    </tmpl:row>
+</div>
+
+<div style="text-align: center">
+    {page_by_page_bottom}
+</div>

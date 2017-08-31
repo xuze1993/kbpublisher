@@ -1,0 +1,23 @@
+<html>
+<head>
+    <title>{document_title}</title>
+</head>
+<body>
+
+<tmpl:category_row>
+<h{hnum}>{title}</h{hnum}>
+
+{description}
+
+<tmpl:entry_row>
+<a name="entry_{id}"></a>
+<h{hnum}>{title}</h{hnum}>
+{custom_tmpl_top}
+{body}
+{custom_tmpl_bottom}
+{page_break}
+</tmpl:entry_row>  
+</tmpl:category_row>
+
+</body>
+</html>

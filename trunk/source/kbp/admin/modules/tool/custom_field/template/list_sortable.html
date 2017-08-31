@@ -1,0 +1,28 @@
+<form method="post" onSubmit="LeaveScreenMsg.skipCheck();">
+    <div>
+        <b>{reorder_msg} / {position_msg}</b>
+    </div>
+    
+    <tmpl:display_group>
+    <div style="margin: 20px 0 10px 0;border-bottom: 1px solid #D4D4D4;padding-bottom: 5px;">
+        {display_title}
+    </div>
+    
+    <ul id="custom_sortable{display_id}" class="custom_sortable {class}">
+        <tmpl:row>
+        <li id="id_{id}" class="trDarker" style="cursor: move;background: #e7e7e7;">
+            {title}
+            <input type="hidden" name="sort_id[{display_id}][]" value="{id}" />
+        </li>
+        </tmpl:row>
+    </ul>
+    </tmpl:display_group>
+    
+    <br />
+    
+    <div style="text-align: center;">
+        <input type="submit" name="submit" value="{save_msg}" class="button" />
+        <input type="button" value="{cancel_msg}" class="button" 
+            onClick="LeaveScreenMsg.skipCheck();location.href='{cancel_link}'" />
+    </div>
+</form>

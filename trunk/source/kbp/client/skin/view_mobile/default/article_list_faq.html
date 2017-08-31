@@ -1,0 +1,76 @@
+<tmpl:js>
+<script type="text/javascript">
+    $(document).ready(function() {
+        
+        $('#featured_button').add('#article_button').bind('click', function(e) {
+            
+            var button_id = $(this).attr('id');
+            var type = button_id.substring(0, button_id.length - 7);
+            
+            if ($('#' + button_id + ' i').hasClass('fa-plus-circle')) { // expanding
+                $('#' + button_id + ' i').removeClass('fa-plus-circle').addClass('fa-minus-circle');
+                
+                $('#' + type + '_list .faq').each(function() {
+                    var coll = $(this);
+                    coll.collapse('show');
+                });
+                
+            } else { // collapsing
+                $('#' + button_id + ' i').removeClass('fa-minus-circle').addClass('fa-plus-circle');
+
+                $('#' + type + '_list .faq').each(function() {
+                    var coll = $(this);
+                    coll.collapse('hide');
+                });
+            }
+        });
+                
+    });
+</script>
+</tmpl:js>
+
+<div class="panel panel-default kbp-panel">
+    <div class="panel-heading">
+        <a href="#/" id="{block_id}_button" class="pull-left" style="padding-right: 10px;">
+            <i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 1.2em;color: #777777;"></i>
+        </a>
+         
+        {list_title}
+        
+        <tmpl:list_option_button>
+        <a href="#/" class="pull-right" onclick="$('#list_option_block').toggle();" style="padding-right: 5px;">
+            <i class="fa fa-cog" aria-hidden="true" style="font-size: 1.5em;color: #777777;"></i>
+        </a>
+        </tmpl:list_option_button>
+    </div>
+</div>
+
+{block_list_option_tmpl}
+
+<tmpl:row_title>
+</tmpl:row_title>
+
+<div id="{block_id}_list" class="faq_container no-margin">
+    <tmpl:row>
+    <div class="panel panel-default" style="border-top: 0;">
+    	<div class="panel-heading collapsed" data-toggle="collapse" href="#{block_id}_{id}" style="cursor: pointer;background: white;">
+            <h4 class="list-group-item-heading">
+                &nbsp;{title}
+            </h4>
+        </div>
+        
+        <div id="{block_id}_{id}" class="collapse faq">
+            <div class="panel-body">
+                {body}
+                
+                <div style="margin-top: 15px;font-size: 0.9em;">
+                    <a href="{entry_full_link}" rel="nofollow">
+                        <i class="fa fa-share-square-o" aria-hidden="true"></i>
+                        <span style="margin-left: 5px;">{article_full_view_msg}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </tmpl:row>
+</div>

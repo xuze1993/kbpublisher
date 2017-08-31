@@ -1,0 +1,16 @@
+<div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-target="#bootstrap_share" style="cursor: pointer;">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+        &nbsp;&nbsp;{caption}
+        <i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
+    </div>
+    
+    <div id="bootstrap_share" class="list-group collapse">
+        <tmpl:item>
+        <a href="{url}" class="list-group-item small" style="padding-left: 25px;">
+            <img src="{icon}" class="ui-li-icon ui-corner-none" />
+            <span style="margin-left: 5px;">{title}</span>
+        </a>
+        </tmpl:item>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+<script type="text/javascript" src="{client_href}jscript/CookiePoolManager.js"></script>
+<script type="text/javascript">
+    function toggleSection(el, id) {
+        var section = $(el).parents().eq(2);
+        section.nextUntil('.forumSection').toggle();
+
+        var src = $(el).find('img').attr('src');
+        var _src = src.split('/');
+        var image = _src.pop();
+
+        if (image == 'section_arrow_up.gif') {
+            image = 'section_arrow_down.gif';
+            CookiePoolManager.add(id);
+
+        } else {
+            image = 'section_arrow_up.gif';
+            CookiePoolManager.remove(id);
+        }
+
+        $(el).find('img').attr('src', _src.join('/') + '/' + image);
+    }
+</script>
+
+<div class="tdTitle" style="margin-bottom: 12px;">
+	<div class="pageByPage fright" style="background: #3d5e78;">{page_by_page}</div>
+	<b>{list_title}</b>
+
+    <tmpl:list_option_button>
+    <div class="fright menuItemOption">
+        <a href="#show" onclick="$('#list_option_block').toggle(); return false;">
+            {list_option_msg}
+        </a>
+    </div>
+    </tmpl:list_option_button>
+</div>
+
+{block_list_option_tmpl}
+
+{msg}
+
+<table class="sTable tableCp5" style="background: #F7F7F7;">
+
+<tmpl:row>
+<tr valign="middle" class="{class}" {style}">
+
+    <td style="padding: 3px;"
+        <tmpl:section>colspan="4"</tmpl:section>
+        >
+        <div style="padding-left: {padding}px;padding-top: 3px;margin: 5px 0px;">
+            <div style="float: left;">{item_img}</div>
+            <div style="float: left;margin-left: 9px;">
+                <a href="{link}" style="font-size: 1.2em;margin-right: 30px;">{name}</a>
+                <div class="catDescription" style="padding-top: 2px;">{description}</div>
+            </div>
+
+            <tmpl:section>
+            <div class="forumSectionToggle" onclick="toggleSection(this, {id});">
+                <img src="{base_href}client/images/icons/section_arrow_{arrow_direction}.gif" />
+            </div>
+            </tmpl:section>
+
+            <div style="clear: both;"></div>
+        </div>
+    </td>
+    <tmpl:info>
+    <td align="center">
+        <span style="font-size: 1.3em">{num_entry}</span> {forum_entry_num_msg}
+    </td>
+    <td align="center">
+        <span style="font-size: 1.3em">{num_message}</span> {forum_message_num_msg}
+    </td>
+    <td width="150">
+        <tmpl:last_post>
+        <a href="{topic_link}">{topic_title}</a><br />
+        {username}<br />
+        <span class="articleStaff" style="color: #9c9c9c">{date_formatted}</span>
+        </tmpl:last_post>
+    </td>
+    </tmpl:info>
+</tr>
+</tmpl:row>
+
+</table>
+
+<br />
+
+<tmpl:by_page_bottom>
+<div style="padding-left: 10px;">{page_by_page}</div>
+<br />
+</tmpl:by_page_bottom>

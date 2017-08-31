@@ -1,0 +1,93 @@
+{menu_block}
+
+{header2}
+
+<script src="jscript/bulk.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        TableListHandler.titleClass = 'tdTitle,.trMoreDarker';
+        TableListHandler.tableClass = 'tdBorder2';
+        TableListHandler.bulkRowIdName = 'entry_id';
+        TableListHandler.init();
+    });
+</script>
+
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+<tr valign="top">
+    
+    <tmpl:filter>
+    <td width="190">
+        {filter_block_tmpl}
+    </td>
+    <td width="10">&nbsp;</td>
+    </tmpl:filter>
+    
+    <td>
+        <tmpl:report>
+        <div style="margin-bottom: 10px;">
+            {nav}
+        </div>
+        
+        {header}
+        
+        <form action="" name="bulk_form" id="bulk_form" onsubmit="return BulkOnSubmit();">
+            {hidden_fields}
+        
+            <table border="0" cellpadding="5" cellspacing="1" width="100%" class="tdBorder2">
+            <tr class="tdTitle">
+                <td width="20%">{time_msg}</td>
+                <td width="20%">{entry_type_msg}</td>
+                <td width="20%">{action_msg}</td>
+                <td width="20%">{entry_id_msg}</td>
+                <td width="20%">{user_ip_msg}</td>
+            </tr>
+            
+            <tmpl:row>
+                <tmpl:row_day>
+                <tr class="trMoreDarker">
+                    <td colspan="5">
+                        {day}
+                    </td>
+                </tr>
+                </tmpl:row_day>
+            
+                <tr id="row_{row_id}" class="{class}">
+                    <td>{date_formatted}</td>
+                    <td>{entry_type}</td>
+                    <td>{action}</td>
+                    <td class="context_menu">
+					    <tmpl:entry_id>
+                        <a href="#" title="{entry_title}" data-dropdown="#{row_id}_dde" class="_tooltip">
+                            {entry_id}
+                        </a>
+                        
+                        <div id="{row_id}_dde" class="dropdown dropdown-tip dropdown-relative">
+                            <ul class="dropdown-menu">
+                                <li><a href="{entry_filter_link}">{filter_msg}</a></li>
+                                
+                                <tmpl:entry_details>
+                                <li class="dropdown-divider"></li>
+                                <li><a href="{entry_details_link}">{detail_msg}</a></li>
+                                </tmpl:entry_details>
+                            </ul>
+                        </div>
+						</tmpl:entry_id>
+                    </td>
+                    <td>{user_ip_formatted}</td>
+                </tr>
+                
+                <tmpl:user_details></tmpl:user_details>
+            </tmpl:row>
+            
+            </table>
+        
+        </form>
+        
+        </tmpl:report>
+        
+        <tmpl:no_report>
+        {hint}
+        </tmpl:no_report>
+    </td>
+</tr>
+</table>

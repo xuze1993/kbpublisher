@@ -1,0 +1,26 @@
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    <td class="tdTitle" colspan="3">{aricle_stat_msg}</td>
+</tr>
+<tr class="trMoreDarker">
+    <td nowrap>{date_posted_msg}</td>
+    <td>{entry_title_msg}</td>
+    <td align="center">{entry_status_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr class="trLighter">
+
+    <td nowrap>{date}</td>
+    <td width="100%"><a href="{entry_link}">{title}</a></td>
+    
+    <td align="center">
+        <div class="status help" style="width: 15px;">
+            <div title="{status}" style="background: {color};">&nbsp;&nbsp;</div>
+        </div>
+    </td>    
+    
+</tr>
+</tmpl:row>
+
+</table>

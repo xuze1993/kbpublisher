@@ -1,0 +1,102 @@
+<script type="text/javascript">
+    <tmpl:supervisor_highlight>
+    $(document).ready(function() {
+        var highlighted_ids = [{highlighted_ids}];
+        for (var i in highlighted_ids) {
+            $('#row_' + highlighted_ids[i]).mouseover();
+            $('#row_' + highlighted_ids[i] + ' td:first').click();
+        }
+    });
+    </tmpl:supervisor_highlight>
+
+    function initSort() {
+        $('#sortable_views').sortable({
+            placeholder: 'view_placeholder',
+            items: 'li:not(.not_sortable)',
+            stop: function(event, ui) {
+                LeaveScreenMsg.changes = true;
+            }
+        });
+        $('#sortable_views').disableSelection();
+
+        LeaveScreenMsg.setDoCheck(1);
+        LeaveScreenMsg.check();
+    }
+</script>
+
+<div id="trigger_list">
+    {header}
+
+    <table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+    <tr class="tdTitle">
+
+        <tmpl:bulk>
+        <td width="1">
+            <input type="checkbox" name="id_check" value="1" style="margin: 0px;" />
+        </td>
+        </tmpl:bulk>
+
+        <td>{id_msg}</td>
+        <td></td>
+
+        <td class="tdTitle" width="100%">{name_msg}</td>
+
+        <td>{entries_msg}</td>
+        <td>{posts_msg}</td>
+        <td>{sort_order_msg}</td>
+        <td>{category_admin_msg}</td>
+
+        <td>{status_msg}</td>
+        <td align="center">{action_msg}</td>
+    </tr>
+
+    <tmpl:row>
+    <tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+
+        <tmpl:bulk>
+        <td width="1">
+            <input type="checkbox" name="id[]" value="{id}" id="ch_{id}" style="margin: 0px;" {bulk_ids_ch_option} />
+        </td>
+        </tmpl:bulk>
+
+        <td align="right">{id}</td>
+        <td>
+            <tmpl:if_private>
+            <img src="images/icons/lock2_red.svg" width="12" height="12" alt="key"
+                class="_tooltip" title="<b>{private1_msg}</b><br/>{roles_msg}" />
+            </tmpl:if_private>
+        </td>
+
+        <tmpl:level_0>
+        <td><a href="{top_category_link}" style="{style}"><b>{name}</b></a> [{num_subcat}]</td>
+        </tmpl:level_0>
+
+        <tmpl:other_level>
+        <td style="padding-left: {padding}px;">
+            <img src="images/icons/join.gif" width="14" height="9"> {name}
+        </td>
+        </tmpl:other_level>
+
+        <td align="center"><a href="{entry_link}">{num_entries}</a></td>
+        <td align="center">{num_messages}</td>
+        <td align="center" width="1">
+            <input type="text" name="value[sort_order][{id}]" value="{sort_order}"
+                class="sortOrderText" onclick="this.select()" disabled>
+        </td>
+        <td nowrap>{admin_user}</td>
+
+        <td align="center">{active_img}</td>
+        <td class="action" width="1" align="center">
+            {options_img}
+        </td>
+    </tr>
+    </tmpl:row>
+
+    </table>
+
+    <div style="padding-top: 2px;"></div>
+    {footer}
+
+</div>
+
+<!-- <td align="center">{entry_img}</td> -->

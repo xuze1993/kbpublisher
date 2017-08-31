@@ -1,0 +1,52 @@
+<div class="tdTitle" style="margin-bottom: 2px;">
+    <div >{list_title}</div>
+</div>
+
+<tmpl:by_page_bottom>
+<div class="forumHeader" style="padding-left: 5px;">
+    {page_by_page}
+</div><br />
+</tmpl:by_page_bottom>
+
+<br />
+        
+<tmpl:row>
+<div style="margin-bottom: 10px;">
+    <!-- {item_img} -->
+    <a href="{topic_link}" class="articleLink">{title}</a>
+</div>
+<div class="forumBlock" id="forumBlock{id}">
+    
+	<div class="forumTitle">
+	    <span class="forumUser">{first_name} {last_name}</span> |
+	    <span>{formated_date}</span>
+	</div>
+
+	<div class="forumText">
+	    <div id="forumMsg{id}">
+	        {message}
+        </div>
+
+	    <div class="forumLine"></div>
+
+	    <div class="smallerText">
+	        {posted_msg}: {interval_date_posted} &nbsp;
+            
+            <span id="forumMsgUpdater{id}" style="margin-left: 15px;">
+                <tmpl:updater>
+                {updated_msg}: {interval_date_updated} {by_msg} <b>{updater_first_name} {updater_last_name}</b>
+                </tmpl:updater>
+            </span>
+        </div>
+	</div>
+
+</div><br />
+</tmpl:row>
+
+<tmpl:by_page_bottom>
+<div class="forumHeader" style="padding-left: 5px;">
+    {page_by_page}
+</div>
+</tmpl:by_page_bottom>
+    
+<br />

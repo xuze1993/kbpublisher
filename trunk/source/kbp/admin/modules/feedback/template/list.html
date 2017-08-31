@@ -1,0 +1,64 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        TableListHandler.tableClass = 'tdBorder2';
+        TableListHandler.grouped = 2;
+        TableListHandler.init();
+    });
+</script>
+
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder2">
+<tr class="tdTitle">
+    <tmpl:bulk>
+    <td width="1">
+        <input type="checkbox" name="id_check" value="1" style="margin: 0px;" />
+    </td>    
+    </tmpl:bulk>
+    
+    <td class="tdTitle" width="100">{date_posted_msg}</td>
+    <td>{subject_msg}</td>
+    <td>{username_msg}</td>    
+    <td>{email_msg}</td>    
+    <td width="1">{attachment_num_msg}</td>
+
+    <td width="1">{answered_status_msg}</td>
+    <td width="1">{placed_status_msg}</td>
+    <td align="center" width="1">{action_msg}</td> 
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}_1" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+    
+    <tmpl:bulk>
+    <td width="1" rowspan="2" valign="top">
+        <input type="checkbox" name="id[]" value="{id}" id="ch_{id}" style="margin: 0px;" {bulk_ids_ch_option} />    
+    </td>
+    </tmpl:bulk>
+    
+    <td width="220">{interval_date}&nbsp;&nbsp;({formatted_date})</td>
+    <td>{subject}</td>
+    <td><a href="{userfilter_link}">{username}</a></td>    
+    <td><a href="mailto:{email}">{email}</a></td>
+    <td align="center">{attachment_num}</td>
+    
+    <td align="center" rowspan="2">{answered_img}</td>
+    <td align="center" rowspan="2">{placed_img}</td>
+    
+    <td class="action" rowspan="2" width="1" align="center">
+        {options_img}
+    </td>
+</tr>
+
+<tr id="row_{id}_2" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+    <td colspan="5" style="padding-bottom: 10px;">
+        <b>{title}</b><br>
+        {question}
+    </td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div style="padding-top: 2px;"></div>
+{footer}

@@ -1,0 +1,81 @@
+<script type="text/javascript">
+function createApprovalDialog() {
+    var options = {
+        modal: true,
+        width: 700,
+        open: function() {
+            $('.ui-dialog').css('box-shadow', '#555 2px 2px 2px');
+        },
+        position: {
+            my: 'center top',
+            at: 'center top+30%',
+            of: window
+        },
+        appendTo: '#aContentForm'
+    }
+    
+    $('#approval_dialog').dialog(options);
+    
+    var categories = []; 
+    $('#category').children('option').each(function() {
+        categories.push(this.value);
+    });
+            
+    xajax_getWorkflowBlock(categories);
+}
+
+function publishValidateCallback() {
+    confirmForm('{publish_alert}', 'submit_publish');
+}
+
+function approveValidateCallback() {
+    createApprovalDialog();
+}
+</script>
+
+
+<tmpl:publication_button>
+<input type="submit" name="submit_publish" id="submit_publish" value="{publish_msg}" 
+    onClick="validateForm('submit_publish', 'validatePublish', 'publishValidateCallback');return false;" class="button" />
+</tmpl:publication_button>
+
+<tmpl:submission_block>
+<input type="button" value="{submission_title}" 
+    onClick="validateForm('submit_approve', 'validatePublish', 'approveValidateCallback');" class="button" />
+    
+<div id="approval_dialog" title="{submission_title}" style="display: none;">
+    
+    <tmpl:author>
+    <div style="margin-top: 10px; margin-bottom: 20px;">
+        <div class="infoBoxBody">{draft_author_note_msg}</div>
+    </div>
+    </tmpl:author>    
+    
+    <tmpl:comment>
+    <div style="margin-top: 10px;">
+        {submission_desc_msg}
+    </div>
+    <div style="text-align: center; margin-top: 10px;">
+        <textarea rows="5" name="step_comment" 
+            style="width: 100%; background: #F7F7F7;">{step_comment}</textarea>
+    </div>
+    </tmpl:comment>
+    
+    <div id="workflow_block" style="margin-top: 20px;"></div>
+    
+    <tmpl:author>
+    <div style="margin-top: 10px;">
+        <input type="checkbox" name="draft_author" id="draft_author" 
+            style="margin-right: 7px;" />
+        <label for="draft_author">{author_hint}</label>
+    </div>
+    </tmpl:author>
+    
+    <div style="text-align: center; margin-top: 25px; margin-bottom: 10px;">
+        <input type="submit" name="submit_approve" value="{button_value}" class="button" />
+            
+        <input type="button" value="{cancel_msg}" class="button" 
+            onclick="$('#approval_dialog').dialog('close');">
+    </div>
+</div>
+</tmpl:submission_block>

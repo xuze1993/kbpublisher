@@ -1,0 +1,35 @@
+{msg}
+
+<div style="margin-top: 30px; margin-bottom: 30px;">
+    <form action="{form_search_action}">
+        {hidden_search}
+        <div class="input-group">
+            <input type="search" name="qf" class="form-control" value="{qf}" results="5" />
+            <span class="input-group-btn">
+                <input type="submit" name="submit" id="submit" value="{search_msg}" class="btn btn-default" />
+            </span>
+        </div>
+    </form>
+</div>
+
+<div style="text-align: center;margin: 30px 10px;">
+    <tmpl:row_tr>
+        
+        <tmpl:row_td>
+        <a href="{tag_link}" class="btn btn-default btn-sm" style="margin: 5px;">
+            {title}
+            <span class="badge btn-primary">{entry_num}</span>
+        </a>
+        </tmpl:row_td>
+        
+        <tmpl:row_empty_td></tmpl:row_empty_td>
+        
+    </tmpl:row_tr>
+</div>
+
+<tmpl:by_page_bottom>
+<div style="padding: 10px 0px;text-align: center;">
+    {page_by_page_bottom}
+</div>
+<br />
+</tmpl:by_page_bottom>

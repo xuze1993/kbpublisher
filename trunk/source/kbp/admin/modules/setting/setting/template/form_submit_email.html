@@ -1,0 +1,29 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        toggleSMTPSettings($('#mailer').val());
+	});
+    
+    function toggleSMTPSettings(value) {
+        if (value == 'smtp') {
+            $('div[id^=template_smtp_]').show();
+            $('div[id^=template_smtp_]').removeClass('auto_hidden');                    
+        } else {
+            $('div[id^=template_smtp_]').hide();
+            $('div[id^=template_smtp_]').addClass('auto_hidden');
+        }
+        
+        if(value == 'sendmail') {
+            $('div[id^=template_sendmail_path]').show();
+            $('div[id^=template_sendmail_path]').removeClass('auto_hidden');
+        } else {
+            $('div[id^=template_sendmail_path]').hide();
+            $('div[id^=template_sendmail_path]').addClass('auto_hidden');    
+        }
+    }
+</script>
+
+<input type="submit" name="submit" value="{test_msg} / {save_msg}" class="button"
+    onClick="validateForm('submit', false, false, 'setting');return false;" />
+    
+<input type="submit" name="set_default" id="default_submit" value="{defaults_msg}" class="button"
+    onClick="return confirmForm('{sure_default_msg}', 'default_submit');">

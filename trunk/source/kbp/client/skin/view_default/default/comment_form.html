@@ -1,0 +1,157 @@
+<link rel="stylesheet" href="{base_href}client/skin/search2.css" />
+<link rel="stylesheet" href="{base_href}client/skin/jquery/magnific-popup.css" />
+<script type="text/javascript" src="{base_href}client/jscript/jquery/jquery.magnific-popup.min.js"></script>
+<script type="text/javascript">
+<!--
+$(document).ready(function() {
+    $('#bbcode_help_link').magnificPopup({
+        type: 'inline'
+    });
+});
+
+function Validate(form) {
+    return true;
+}
+
+function commentToggle(toggle) {
+    if(toggle) {
+        $('#comment_form').toggle();
+    }
+}
+
+function slideToCommentForm() {
+    $('#comment_form').show();
+
+    $('{context}').animate({
+        scrollTop: $('#comment_form').offset().top - 20
+    }, 500, 'swing', function() {
+        $('#comment').focus();
+    });
+}
+//-->
+</script>
+
+{user_msg}
+
+<div class="tdSubTitle">
+    <div>
+        <tmpl:add_js>
+        <a class="noformat" href="#" onclick="commentToggle({toggle_form});return false;" rel="nofollow">
+            <b>{comment_title}</b>
+        </a>
+        </tmpl:add_js>
+        <tmpl:add_login>
+        <a class="noformat" href="{login_link}" rel="nofollow">
+            <b>{comment_title}</b>
+        </a>
+        </tmpl:add_login>
+    </div>
+</div>
+
+<div id="comment_form" style="display: {display_form};">
+
+<form action="{action_link}" method="post" id="aContentForm" onsubmit="return Validate(this);">
+<input type="hidden" name="id" value="{id}">
+<input type="hidden" name="user_id" value="{user_id}">
+<input type="hidden" name="entry_id" value="{entry_id}">
+<input type="hidden" name="date_posted" value="{date_posted}">
+
+<span style="display: none;">
+    <input type="text" name="captcha2" id="captcha2" value="" class="longText" />
+</span>
+
+<table class="sTable tableCp5">
+
+<tmpl:not_registered>
+<tr class="trForm">
+    <td class="tdFormCaption">
+        <label for="name">{name_msg}:</label>
+    </td>
+    <td>
+        <input type="text" name="name" id="name" value="{name}" class="longText" />
+    </td>
+</tr>
+
+<tr class="trForm">
+    <td class="tdFormCaption">
+        <label for="email">{email_msg}:</label>
+    </td>
+    <td>
+        <input type="text" name="email" id="email" value="{email}" class="longText" />
+    </td>
+</tr>
+</tmpl:not_registered>
+
+<tr class="trForm" style="vertical-align: top;">
+    <td class="tdFormCaption">
+        <label for="comment">{required_sign}  {comment_msg}:</label>
+        <br /><span class="formComment nowrap">({use_bbcode_msg})</span>
+        <br /><br />
+        <span>
+        <a id="bbcode_help_link" class="help_link" href="#bbcode_help_block">
+            <img src="{base_href}client/images/icons/help.svg" width="20" height="20" />
+        </a>
+        </span>
+    </td>
+    <td style="vertical-align: top;">
+        <textarea rows="7" name="comment" id="comment" style="width: 100%;">{comment}</textarea>
+    </td>
+</tr>
+
+<tmpl:captcha>
+<tr class="trForm" style="vertical-align: top;">
+    <td class="tdFormCaption"></td>
+    <td>
+        <img src="{captcha_src}" alt="{captcha_img_alt_msg}" id="captcha_img" />
+    </td>
+</tr>
+
+<tr class="trForm" style="vertical-align: top;">
+    <td class="tdFormCaption">
+        <label for="captcha">{required_sign} {captcha_msg}:</label>
+    </td>
+    <td style="vertical-align: top;">
+        <input type="text" name="captcha" id="captcha" value="" class="longText" />
+        <br /><span class="formComment">{captcha_comment_msg}</span>
+    </td>
+</tr>
+</tmpl:captcha>
+
+<tmpl:subscribe>
+<tr class="trForm">
+    <td class="tdFormCaption">
+        <label for="subscribe">{subscribe_comment_msg}:</label>
+    </td>
+    <td>
+        <input type="checkbox" name="subscribe" id="subscribe" value="1" {ch_subscribe} />
+        <label for="subscribe">{subscribe_comment_desc_msg}</label>
+    </td>
+</tr>
+</tmpl:subscribe>
+
+<tr>
+    <td></td>
+    <td><div><br /></div>
+        <button type="submit" name="submit" id="submit" class="button"
+            onClick="validateForm();return false;">
+            {send_msg}
+        </button>
+
+        <tmpl:cancel_btn>
+        <input type="button" value="{cancel_msg}" onclick="location.href='{cancel_link}'" class="button" />
+        </tmpl:cancel_btn>
+    </td>
+</tr>
+</table>
+</form>
+
+<br />
+
+<div id="bbcode_help_block" class="help_block mfp-hide">
+    <h2>{bbcode_how_msg}</h2>
+    <div>{bbcode_help_block}</div>
+</div>
+
+</div>
+
+<br />

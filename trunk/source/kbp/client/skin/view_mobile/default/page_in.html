@@ -1,0 +1,100 @@
+<tmpl:search_suggest></tmpl:search_suggest>
+<tmpl:header></tmpl:header>
+
+<script type="text/javascript">
+    $(document).ready(function() {        
+        $('#bootstrap_search_block').on('shown.bs.collapse', function() {
+             $('#searchq').focus();
+        });
+    });
+</script>
+
+<div id="content_div">
+    
+    <div class="navbar navbar-kbp" id="header">
+        <div class="navbar-header pull-left">
+            <a id="header_title" class="navbar-brand" href="{header_title_link}">{header_title}</a>
+                    
+            <tmpl:logo>
+            <span style="margin-left: 10px;">
+                <img src="{image_data}" />
+            </span>
+            </tmpl:logo>
+        </div>
+        
+        <div class="navbar-header pull-right">
+            <a href="#" class="navbar-brand" data-toggle="collapse" data-target="#bootstrap_search_block" style="padding-right: 10px;">
+	            <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a href="#" class="navbar-brand" data-toggle="modal" data-target="#bootstrap_section_block" style="padding-left: 10px;padding-right: 10px;">
+            	<i class="fa fa-align-justify" aria-hidden="true" style="color: white;"></i>
+            </a>
+            
+            <a href="#" class="navbar-brand" data-toggle="modal" data-target="#bootstrap_login_block" style="padding-left: 10px;">
+                <i class="fa fa-user" aria-hidden="true" style="color: white;"></i>
+            </a>
+        </div>
+    </div>
+    
+    
+    <div id="bootstrap_search_block" class="collapse">
+        {search_block}
+    </div>
+    
+    <div id="bootstrap_section_block" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="color: black;background-color: #eeeeee;">
+                <div style="padding: 10px 15px;">
+                    <button type="button" class="close" data-dismiss="modal" style="font-size: 20px;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <i class="fa fa-align-justify" aria-hidden="true"></i> &nbsp;&nbsp;{sections_msg}
+                </div>
+                {menu_top_tmpl}
+            </div>
+        </div>
+    </div>
+    
+    <div id="bootstrap_login_block" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="color: black;background-color: #eeeeee;">
+                <div style="padding: 10px 15px;">
+                    <button type="button" class="close" data-dismiss="modal" style="font-size: 20px;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <i class="fa fa-user" aria-hidden="true"></i> &nbsp;&nbsp;{user_menu_msg}
+                </div>
+                {login_block_tmpl}
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        {navigation}
+    </div>
+
+    <tmpl:form></tmpl:form>
+    
+    <div class="contentMain">
+        {msg}
+        {content}
+    </div>
+    
+</div>
+    
+<nav class="navbar navbar-kbp bottom">
+    <div class="container">
+        <div class="col-sm-12 text-center navbar-text">
+            <div class="copyright" style="text-align: left;">
+                {copyright_info}
+            </div>
+            
+            <tmpl:rss_block>
+            <a href="{rss_link}" id="rss_block" class="pull-right">
+                <i class="fa fa-rss"></i><span style="margin-left: 5px;">RSS</span>
+            </a>
+            </tmpl:rss_block>
+        </div>
+    </div>
+</nav>

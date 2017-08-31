@@ -1,0 +1,74 @@
+<script type="text/javascript" src="jscript/CategoriesSelectHandler.js"></script>
+<script type="text/javascript" src="jscript/BrowserDetect.js"></script>
+<script language="javascript" type="text/javascript">    
+	function subForm() {
+	    LeaveScreenMsg.skipCheck();	
+	    selRoleHandler.selectAll();        
+	}
+
+	window.onload = init;
+		
+</script>
+
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" name="" id="aContentForm" onsubmit="subForm();">
+{hidden_fields}
+
+<table border=0 width="100%" cellpadding="5" cellspacing="1">
+<tr>
+	<td colspan="2" class="tdTitle"><b>{edit_message_msg}</b></td>
+</tr>
+
+<tr class="trMoreDarker">
+	<td>{date_msg}:</td>
+	<td>{date_posted_formatted}</td>
+</tr>
+
+<tr class="trMoreDarker">
+	<td>{user_msg}:</td>
+	<td>{user}</td>
+</tr>
+
+<tr class="trMoreDarker">
+	<td>{entry_msg}:</td>
+	<td><a href="{entry_link}">{entry}</a></td>
+</tr>
+
+<tr class="trlighter">
+	<td class="tdFormCaption" valign="top">{message_msg}: {required_sign}</td>
+	<td><textarea name="message" rows="4" cols="80">{message}</textarea></td>
+</tr>
+
+<tmpl:attachment_block>
+<tr class="trlighter">
+	<td colspan="2">
+	    <b>{attachment_msg}: </b>({check_to_delete_msg})
+        <tmpl:attachment>
+            <div>
+                <input type="checkbox" name="attachment[]" value="{id}"/>
+                <a href="{download_link}" style="margin-left: 10px;">{filename}</a>
+            </div>
+        </tmpl:attachment>
+    </td>
+</tr>
+</tmpl:attachment_block>
+
+<tr class="trlighter">
+	<td class="tdFormCaption">{status_msg}: {required_sign}</td>
+	<td>{status_checkbox}</td>
+</tr>
+
+<tr> 
+	<td></td>
+	<td><div><br></div>
+		<div id="div_entry_submit">
+			<input type="submit" name="submit" value="{ok_msg}" class="button">		
+			<input type="button" value="{cancel_msg}" 
+				onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'" class="button">
+		</div>
+	</td>
+</tr>
+</table>
+</form>

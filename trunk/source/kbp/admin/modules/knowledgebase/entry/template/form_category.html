@@ -1,0 +1,138 @@
+<script type="text/javascript" src="{base_href}admin/jscript/CategoryManager.js"></script>
+<script type="text/javascript" src="{base_href}admin/jscript/category/{mode}.js"></script>
+<script type="text/javascript">
+    var categories = [{categories}];
+    
+    $(document).ready(function() {
+        PopupManager.setTitle("{popup_title}");
+        
+        var parent_window = PopupManager.getParentWindow();
+        
+        CategoryManager.creation_allowed = {creation_allowed};
+        CategoryManager.category_limit = {category_limit};
+        CategoryManager.url = '{popup_link}';
+        CategoryManager.referer = '{referer}';
+        CategoryManager.non_active_categories = [{non_active_categories}];
+        CategoryManager.status_icon = {status_icon};
+        
+        <tmpl:sortable>
+        CategoryManager.enableSorting();
+        </tmpl:sortable>
+        
+        <tmpl:parent>
+        CategoryManager.parent_categories = {{parent_categories}};
+        </tmpl:parent>
+        
+        CategoryManager.msg = {
+            enter_category: "{enter_category_msg}",
+            no_matches: "{no_matches_msg}",
+            enter_category3: "{enter_category3_msg}",
+            enter_category2: "{enter_category2_msg}",
+            status_published: "{status_published_msg}",
+            status_not_published: "{status_not_published_msg}",
+            non_active_category: "{non_active_category_msg}",
+            delete: "{delete_msg}"
+        }
+        
+        CategoryManager.init(categories);
+        
+        $('body').trigger('kbpCategoryPopupOpened', [{select_id: "{select_id}"}]);
+        
+        <tmpl:set_new_category>
+        parent_window.CategoryManager.addCategory({new_category}, '{new_category_name}');
+        PopupManager.close();
+        </tmpl:set_new_category>
+    });
+    
+    
+    function transferCategories() {
+        var popupCategories = [];
+        
+        $('input[name="sort_id[]"]').each(function() {
+            popupCategories.push({
+                value: this.value,
+                text: $(this).parent().find('span').text()
+            });
+        });
+        
+        $('body').trigger('kbpCategoryPopupClosed', [
+            {
+                categories: popupCategories,
+                select_id: "{select_id}",
+                handler_name: '{handler_name}',
+                category_link: '{category_link}',
+                sure_common_msg: '{sure_common_msg}'
+             }
+        ]);
+        
+        PopupManager.close();
+    }
+</script>
+<style>
+    <tmpl:secondary_block>
+    #category_list.ui-sortable li:not(.ui-sortable-helper) {
+        #background: #DADADA !important;
+        border: 1px dashed #333333;
+        #font-weight: bold;
+        margin-bottom: 40px;
+    }
+    
+    #category_list.ui-sortable li:not(.ui-sortable-helper) ~ li:not(.ui-sortable-helper) {
+        margin-bottom: 10px !important;
+    }
+    </tmpl:secondary_block>
+</style>
+
+<div style="margin: 0;">
+    <table style="width: 100%;">
+        <tr>
+            <td width="100%">
+                <input type="text" id="category_filter" value="" placeholder="{type_category_msg}" 
+                    style="width: 97% !important;" />
+            </td>
+            
+            <tmpl:add_link>
+            <td width="100" align="center">
+            <span style="margin-left: 10px;">
+                <button type="button" name="add_category" title="{add_new_category_msg}" onclick="CategoryManager.openCategoryPopup();"
+                     class="button" style="min-width: 30px;">
+                    <img src="../client/images/icons/plus.svg" height="14" 
+                        style="vertical-align: middle; padding: 3px;"/>
+                </button>
+            </span>
+            </td>
+            </tmpl:add_link>
+        </tr>
+    </table>
+</div>
+
+<br/><br/>
+
+<form>
+    <div id="category_row" style="display: none;position: relative;">    
+        
+        <div style="padding: 5px;">
+            <strong>{main_title}</strong>
+            
+            <tmpl:secondary_block>
+            <div id="also_listed_block" style="display: none;position: absolute; top: 75px;">
+                <strong>{also_list_in_msg}</strong>
+            </div>
+            </tmpl:secondary_block>
+        </div>
+        
+        <div>
+            <ul id="category_list" style="padding: 10px 0;">
+            </ul>
+        </div>
+    </div>
+</form>
+
+<br /><br />
+<div class="bottom_button bb_popup">
+    <input type="button" class="button" id="submit_button" value="{button_title}" onclick="transferCategories();" />
+    
+    <tmpl:cancel_button>
+    <input type="button" class="button" value="{cancel_msg}" onclick="PopupManager.close();" />
+    </tmpl:cancel_button>
+</div>

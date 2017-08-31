@@ -1,0 +1,21 @@
+<div class="panel panel-default" style="margin: 0 5px;">
+    <div class="panel-heading" data-toggle="collapse" data-target="#bootstrap_{key}" style="cursor: pointer;">
+        <span class="glyphicon glyphicon-{icon_key}"></span>
+        &nbsp;&nbsp;{title_msg}
+        <i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
+    </div>
+    
+    <div id="bootstrap_{key}" class="list-group collapse">
+        <tmpl:row>
+        <a href="{entry_link}" class="list-group-item small" style="padding-left: 25px;" {link_options}>
+            <span class="glyphicon glyphicon-file"></span> {entry_id}{title}
+        </a>
+        </tmpl:row>
+
+        <tmpl:category_link>
+        <a href="{category_link}" class="list-group-item small" style="padding-left: 25px;">
+            <span class="glyphicon glyphicon-share-alt"></span> {category_link_msg}
+        </a>
+        </tmpl:category_link>
+    </div>
+</div>

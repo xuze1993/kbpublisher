@@ -1,0 +1,54 @@
+{error_msg}
+
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" name="" id="">
+{hidden_fields}
+
+<table border=0 cellpadding="5" cellspacing="1" width="100%" class="tdBorder1">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{detail_msg}</b></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{range_msg}:</td>
+    <td>{range_title}</td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{date_started_msg}:</td>
+    <td>{formatted_date_started} ({interval_date_started})</td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{date_finished_msg}:</td>
+    <td>{formatted_date_finished} ({interval_date_finished})</td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{is_error_msg}:</td>
+    <td>{is_error}</td>
+</tr>
+
+<tr>
+    <td colspan="2" bgcolor="#F4F4F4">
+        <table border=0 cellpadding="0" cellspacing="0" width="100%" class="tdBorder1">
+            <tr class="trLighter">
+                <td class="tdFormCaption" colspan="2" style="width: 100%;">
+                    <div style="padding-bottom: 3px;">
+                    {output_msg}:
+                    </div>
+                    <textarea name="output" rows="20" style="width: 100%;">{output}</textarea>
+                </td>
+            </tr>
+        </table>        
+    </td>
+</tr>
+
+<tr> 
+    <td></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            <input type="button" value="{back_msg}" onClick="location.href='{cancel_link}'" class="button">
+        </div>
+    </td>
+</tr>
+</table>
+</form>

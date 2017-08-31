@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html dir="{dir}">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Search</title>
+    </head>
+    <body>
+        
+
+    <table width="100%">
+    <tr align="center"><td colspan="3"><h1>Search: {search_string}</h1></td></tr>
+
+    <tr bgcolor="#aaaaaa">
+        <td><b>File</b></td>
+        <td><b>Matches count</b></td>
+        <td></td>
+    </tr>
+
+    <tmpl:row>
+    <tr bgcolor="#f1f1f1">
+        <td>{path}</td>
+        <td>{count}</td>
+        <td>
+            <a href="{edit_link}">Edit</a>
+        </td>
+    </tr>
+    </tmpl:row>
+
+    <tmpl:no_row>
+    <tr bgcolor="#f1f1f1">
+        <td colspan="3">
+            No matches found
+        </td>
+    <tr bgcolor="#f1f1f1">
+    </tmpl:no_row>
+
+    <tr>
+        <td colspan="3" align="center"><br />
+            <button onclick="location.href='test_language.php'">Back</button>        
+        </td>
+    </tr>
+    
+    </table>
+
+
+    </body>
+</html>

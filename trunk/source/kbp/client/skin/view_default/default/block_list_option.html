@@ -1,0 +1,126 @@
+<script type="text/javascript" src="{client_href}jscript/jquery/jquery.placeholder.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        // $('input, textarea').placeholder();
+        //
+        // $('#searchq3').focus(function() {
+        //     $(this).animate({width: '180px'}, 200);
+        // });
+        //
+        // $('#searchq3').blur(function() {
+        //     if ($('#searchq3').val() == '') {
+        //         $(this).animate({width: '130px'}, 200);
+        //     }
+        // });
+    });
+</script>
+<div id="list_option_block" class="abbLine" style="display: none; text-align: right;">
+
+<table class="sTable">    
+<tr>
+    <td style="padding-right: 20px; text-align: left; width: 200px;">
+
+		<form action="{form_search_action}" class="sb_wrapper" style="width: 170px;"
+			onsubmit="return validateQuickSearch('{alert_empty_search}', 'searchq3')">
+			
+            <input type="hidden" name="s" value="1" />
+            <input type="hidden" name="in" value="{search_in}" />
+            <input type="hidden" name="cp" value="1" />
+            {hidden_search}
+        
+            <div class="search_container">
+                <input type="text" name="q" id="searchq3" value="{q}" 
+                    placeholder="{search_category_msg}" />
+                    
+                <button type="submit" name="sb" title="{search_button_msg}">
+                    <img src="{base_href}client/images/icons/search_submit2.gif" alt="s" 
+						style="vertical-align: middle;" />
+                </button>
+            </div>
+        
+	        <tmpl:form>
+	            <input type="hidden" name="c[0]" value="{category_id}" />
+	        </tmpl:form>
+        
+	        <tmpl:forum_form>
+	            <input type="hidden" name="topic_id" value="{entry_id}" />
+	        </tmpl:forum_form>
+    
+		</form>
+
+    </td>
+    <td style="text-align: right;" class="itemImage">
+        
+        <tmpl:view_add_topic>
+        <span class="smallerText" style="padding: 6px 0 6px 15px;white-space: nowrap; float: right;">
+            <img src="{base_href}client/images/icons/edit.svg" alt="edit" style="width: 15px;height: 15px;" />&nbsp;
+            <a href="{add_link}" class="abLink" rel="nofollow">{add_entry_msg}</a>
+        </span>
+        </tmpl:view_add_topic>
+        
+        <tmpl:view_post_link>
+        <span class="smallerText" style="padding: 6px 0 6px 15px;white-space: nowrap; float: right;">
+            <img src="{base_href}client/images/icons/edit.svg" alt="edit" style="width: 15px;height: 15px;" />&nbsp;
+            <a href="#reply" class="abLink" rel="nofollow" onclick="{post_link}">{reply_to_topic_msg}</a>
+        </span>
+        </tmpl:view_post_link>
+        
+        <tmpl:view_update>
+        <span class="smallerText" style="padding: 6px 0 6px 15px;white-space: nowrap; float: right;">
+            <img src="{base_href}client/images/icons/edit.svg" alt="edit" style="width: 15px;height: 15px;" />&nbsp;
+            <a href="{update_link}" class="abLink" rel="nofollow">{update_msg}</a>
+        </span>
+        </tmpl:view_update>
+        
+        <tmpl:view_print>
+        <span class="smallerText" style="padding: 6px 0 6px 15px;white-space: nowrap; float: right;">
+            <img src="{base_href}client/images/icons/printer.svg" alt="print" style="width: 14px;height: 14px;" />&nbsp;
+            <a href="{print_link}" class="abLink" rel="nofollow">{print_msg}</a>
+        </span>
+        </tmpl:view_print>
+        
+        <tmpl:view_rss>
+        <span class="smallerText" style="padding: 6px 0 6px 15px;white-space: nowrap; float: right;">
+            <img src="{base_href}client/images/icons/rss-feed.svg" alt="rss" style="width: 14px;height: 14px;" />&nbsp;
+            <a href="{rss_link}" class="abLink" title="{rss_title_msg}">{rss_title_msg}</a>
+        </span>
+        </tmpl:view_rss>
+        
+        <tmpl:view_subscribe_parent>
+        <span class="smallerText" style="padding: 6px 0 6px 15px;white-space: nowrap; float: right;">
+            <img src="{base_href}client/images/icons/email.svg" alt="email" style="width: 15px;height: 15px;" />&nbsp;
+            <a href="{susbscription_link}" class="abLink" rel="nofollow">{unsubscribe_msg}</a>
+        </span>
+        </tmpl:view_subscribe_parent>
+        
+        <tmpl:view_subscribe>
+        <span class="smallerText" style="padding: 6px 0 6px 15px;white-space: nowrap; float: right;">
+            <span id="spinner2" style="display: none;">
+                <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+            </span>
+            
+            <img src="{base_href}client/images/icons/email.svg" alt="email" style="width: 15px;height: 15px;" />&nbsp;
+            
+            <span id="div_subscribe_yes" style="display: {subscribe_yes_display};">
+                <a href="#1{id}" onclick="xajax_doSubscribe(1, 'spinner2'); return false;" 
+                    class="abLink" rel="nofollow">{subscribe_msg}</a>
+            </span>
+            <span id="div_subscribe_no" style="display: {subscribe_no_display};">
+                <a href="#0{id}" onclick="xajax_doSubscribe(0, 'spinner2'); return false;" 
+                    class="abLink" rel="nofollow">{unsubscribe_msg}</a>
+            </span>
+        </span>
+        </tmpl:view_subscribe>
+        
+        <tmpl:view_pdf>
+        <span class="smallerText" style="padding: 6px 0 6px 15px;white-space: nowrap; float: right;">
+            <img src="{base_href}client/images/icons/pdf.svg" alt="pdf" style="width: 15px;height: 15px;" />&nbsp;
+            <a href="{pdf_link}" class="abLink" title="{category_pdf_desc_msg}" rel="nofollow">{category_pdf_msg}</a>
+         </span>
+        </tmpl:view_pdf>
+        
+    </td>
+</tr>
+</table>
+
+</div>

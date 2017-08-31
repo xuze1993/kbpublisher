@@ -1,0 +1,137 @@
+<script type="text/javascript" src="{base_href}client/jscript/ExpandableLayout.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        if ($('#debug').length) {
+            $('#content').prepend($('#debug'));
+            $('#debug').show();
+        }
+
+        var sidebar_width = $('#sidebar').width();
+        expanded_sidebar_width = (sidebar_width > 1) ? sidebar_width : 300;
+
+        setHeight();
+        $(window).resize(setHeight);
+
+        var left = (sidebar_width > 9) ? sidebar_width - 9 : sidebar_width;
+        $('#divider').css('left', left);
+
+        if (sidebar_width > 1) {
+            $('#sidebar').css('overflow', 'auto');
+            $('#sidebar').css('overflow-x', 'hidden');
+            $('#divider div').removeClass('sidebar_hidden').addClass('sidebar_shown');
+
+        } else {
+            $('#sidebar').css('overflow', 'hidden');
+            $('#divider div').removeClass('sidebar_shown').addClass('sidebar_hidden');
+        }
+
+        $('#sidebar').resizable({
+            minWidth: 0,
+            maxWidth: 500,
+            handles: 'e'
+        }).bind('resize', sidebarResized);
+    });
+</script>
+
+<div style="overflow: hidden;">
+
+    <div id="header_div" class="header">
+        <table class="sTable tableCp2">
+            <tr>
+                <tmpl:menu_top>
+                <td style="width: 40px; vertical-align: bottom;">
+                    <div style="margin-left: 5px;">
+                        {menu_top_tmpl}
+                    </div>
+                </td>
+                </tmpl:menu_top>
+
+                <td style="vertical-align: bottom;">
+                    <tmpl:logo>
+                    <span style="margin-right: 10px;">
+                        <a href="{header_title_link}"><img src="{image_data}" /></a>
+                    </span>
+                    </tmpl:logo>
+
+                    <a href="{header_title_link}" class="header">{header_title}</a>
+                </td>
+
+                <td style="width: 50px; vertical-align: bottom;">
+                    <tmpl:form>
+                    <div id="sidebar_toggle" style="cursor: pointer;"
+                        title="{action_title}" data-title="{next_action_title}"
+                        onclick="toggleSidebar();">
+                        <img src="{base_href}client/images/icons/toggle_menu2_white.svg" alt="toggle"
+                            style="opacity: 0.8;"/>
+                    </div>
+                    </tmpl:form>
+                </td>
+
+                <td style="width: 280px; vertical-align: bottom;">
+                    <div style="margin-right: 30px;" class="searchInFixed">
+                        {search_block}
+                    </div>
+                </td>
+                <td style="width: 1px;  vertical-align: bottom; padding-bottom: {not_registered_padding};">
+                    <div class="login">
+                        {login_block_tmpl}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <tmpl:header></tmpl:header>
+    <tmpl:no_header></tmpl:no_header>
+
+    <div id="container" style="position: relative; height: 563px;">
+        <tmpl:form>
+        <div id="sidebar" {sidebar_width}>
+            {menu_content_tmpl}
+        </div>
+
+        <div id="divider">
+            &nbsp;
+            <div title="{show_hide_sidebar_msg}" onClick="toggleSidebar();">&nbsp;&nbsp;&nbsp;</div>
+        </div>
+        </tmpl:form>
+
+        <div id="content">
+
+            <div style="padding: 10px;">
+                <div class="navigation">
+                    {navigation}
+                </div>
+
+                <div>
+                    <!-- <a id="content"></a> -->
+                    {msg}
+                    {content}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="footer">
+        <tmpl:rss_block>
+        <div id="rss_block" class="fright">
+            <a href="{rss_link}">
+                <img src="{client_href}images/icons/rssv2.gif" alt="RSS" width="80" height="15" />
+            </a>
+        </div>
+        </tmpl:rss_block>
+
+        <div class="copyright">
+            {copyright_info}
+        </div>
+
+        <div class="footer_info">
+            {footer_info}
+        </div>
+    </div>
+
+    <!-- need it here in this view -->
+    {top_category_menu_block}
+
+</div>

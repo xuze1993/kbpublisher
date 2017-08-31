@@ -1,0 +1,33 @@
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    <td width="1" class="tdTitle">{id_msg}</td>
+    <td>{title_msg}</td> 
+    <td>{description_msg}</td>
+    <td width="1">{key_msg}</td>
+    
+    <td width="1" align="center">{status_active_msg}</td>
+    <td width="1" width="1">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+                                    
+    <td width="1" align="right"><b>{id}</b></td>
+    <td>
+        <span title="{preview_msg}" style="text-decoration: underline;cursor: pointer;" onclick="PopupManager.create('{preview_link}', false, false, {popup});">
+            {title}
+        </span>
+    </td>
+    <td>{description}</td>
+    <td width="1">{tmpl_key}</td>
+    
+    <td align="center">{active_img}</td>
+    <td class="action" width="1" align="center">
+        {options_img}
+    </td>
+</tr>
+</tmpl:row>
+
+</table>

@@ -1,0 +1,97 @@
+<tmpl:approval>
+<link rel="stylesheet" href="css/split_button.css" />
+<script type="text/javascript" src="../client/jscript/bootstrap.min.js"></script>
+<script type="text/javascript">
+    function approveValidateCallback() {
+        submitRedirectForm('approve');
+    }
+    
+    function rejectValidateCallback() {
+        submitRedirectForm('reject');
+    }
+    
+    function submitRedirectForm(key) {
+        $('<input type="hidden" name="assignee_redirect" value="' + key + '" />').appendTo('#aContentForm');
+        
+        $('#submit_button').attr('onclick', '');
+        $('#submit_button').click();
+    }
+</script>
+</tmpl:approval>
+    
+{menu_block}
+
+{error_msg}
+
+<form action="{action_link}" method="post" name="aContentForm" id="aContentForm" onsubmit="subForm();">
+{hidden_fields}
+
+{form_block}
+
+<div style="padding: 20px 0px 0px 170px;">
+    <div id="bottom_button">        
+        <div id="div_entry_submit">
+            
+            <div id="autosave_infoblock" class="bbInfo"></div>
+            
+            <div>
+                <tmpl:no_approval>
+                <input type="submit" name="submit" value="{save_draft_msg}" class="button"
+                    onClick="validateForm();return false;" />
+                </tmpl:no_approval>
+                    
+                {submission_block}
+                
+                <tmpl:approval>
+                <span class="split_button">
+                    <input type="submit" name="submit" id="submit_button" class="button"
+                        onClick="validateForm();return false;" value="{save_draft_msg}" />
+                        
+                    <button data-toggle="dropdown" class="button">
+                        <span class="caret"></span>
+                    </button>
+                    
+                    <ul class="dropdown-menu">
+                        <li onClick="validateForm();return false;">{save_draft_msg}</li>
+                        <li onClick="validateForm(false, false, 'approveValidateCallback');return false;">{save_draft_and_approve_msg}</li>
+                        <li onClick="validateForm(false, false, 'rejectValidateCallback');return false;">{save_draft_and_reject_msg}</li>
+                    </ul>
+                </span>
+                </tmpl:approval>
+                
+                <span>
+                    <input type="button" value="{cancel_msg}" class="button" onClick="cancelHandler('{cancel_link}');">
+                </span>
+                
+                <span style="margin-left: 25px;">
+                    <input type="button" value="{preview_msg}" class="button" onClick="PopupManager.create('{preview_link}', 'r', 'r');">
+                </span>
+                
+                <tmpl:continue_update>
+                <div style="margin-top: 8px;" class="bbInfo">
+                    <input type="checkbox" name="continue_update" value="1" id="save_update" /> 
+                    <label for="save_update">{save_update_msg}</label>
+                </div>
+                </tmpl:continue_update>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</form>
+
+{related_templates}
+
+
+<!--
+
+<input type="submit" name="submit" id="submit_button" class="button"
+                        style="margin-right: -3px; min-width: 105px;"
+                        onClick="validateForm();return false;" value="{save_draft_msg}" />
+
+                    <input type="button" data-toggle="dropdown" class="button"
+                        style="margin-left: -2px; min-width: 25px;"
+                        onClick="return false;" value="&uarr;" />
+
+ -->

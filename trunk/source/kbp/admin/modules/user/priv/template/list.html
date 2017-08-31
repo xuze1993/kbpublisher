@@ -1,0 +1,58 @@
+{xajax_js}
+
+<script type="text/javascript">
+    function initSort() {
+        $('#sortable_views').sortable({
+            placeholder: 'view_placeholder',
+            items: 'li:not(.not_sortable)',
+            stop: function(event, ui) {
+                var ids = $('#sortable_views').sortable('toArray');
+                
+                var index = 2;
+                for (var i in ids) {
+                    $('#' + ids[i] + ' span.new_priv_level').html(index);
+                    index ++;
+                }
+                
+                LeaveScreenMsg.changes = true;
+            }
+        });
+        $('#sortable_views').disableSelection();
+        
+        LeaveScreenMsg.setDoCheck(1);
+        LeaveScreenMsg.check();
+    }
+</script>
+
+<div id="priv_list">
+    {header}
+    
+    <table border="0" width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+    <tr class="tdTitle">
+        <td width="1" class="tdTitle">{id_msg}</td>
+        <td>{title_msg}</td>
+        <td>{description_msg}</td>
+        <td width="1">{priv_level_msg}</td>    
+        <td width="1">{users_msg}</td>
+        
+        <td width="1">{status_msg}</td>
+        <td align="center" width="1">{action_msg}</td>
+    </tr>
+    
+    <tmpl:row>
+    <tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+        
+        <td width="1" align="right">{id}</td>
+        <td>{name}</td>
+        <td>{description}</td>
+        <td width="1" align="center">{sort_order}</td>    
+        <td align="center"><a href="{user_link}">{user_num}</a></td>
+        
+        <td align="center">{active_img}</td>
+        <td class="action" align="center" width="1">{options_img}</td>
+    </tr>
+    </tmpl:row>
+    
+    </table>
+
+</div>

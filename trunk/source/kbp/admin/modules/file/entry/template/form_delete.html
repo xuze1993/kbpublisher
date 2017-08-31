@@ -1,0 +1,44 @@
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post">
+{hidden_fields}
+
+<table border=0 width="100%" cellpadding="5" cellspacing="1">
+<tr>
+    <td colspan="2" class="tdTitle" style="padding: 1px;"></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{filename_msg}:</td>
+    <td>{filename}</td>
+</tr>
+
+<tr> 
+    <td></td>
+    <td><div><br></div>
+        <tmpl:from_db_button>
+        <input type="submit" name="submit_no" id="submit_no" value="{delete_button_value}" 
+            class="button">
+        </tmpl:from_db_button>
+        
+        <tmpl:from_disk_button>
+        <input type="submit" name="submit_yes" value="{yes_from_disk_msg}" 
+            class="button">
+        </tmpl:from_disk_button>
+        
+        <tmpl:update_button>
+        <input type="button" value="{update_msg}" class="button" 
+            onclick="window.top.location.href = '{update_link}';">
+        </tmpl:update_button>
+        
+        <input type="button" value="{cancel_msg}" 
+            onClick="location.href='{cancel_link}'" class="button">
+    </td>
+</tr>
+</table>
+</form>
+
+<script type="text/javascript">
+ document.getElementById('submit_no').focus();
+</script>

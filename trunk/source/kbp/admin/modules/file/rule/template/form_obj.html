@@ -1,0 +1,73 @@
+<script type="text/javascript" src="jscript/TagManager.js"></script>
+
+{msg}
+
+<table border=0 width="100%" cellpadding="5" cellspacing="1">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{file_option_msg}:</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{category_msg}: {required_sign}</td>
+    <td>
+        {category_block_search_tmpl}
+        {category_block_tmpl}
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{author_msg}:  {required_sign}</td>
+    <td id="tdAdmin">
+        
+        <tmpl:author>
+        <div class="popUpDiv" id="more_html_default" style="float: left;background: transparent;">
+            <div>
+                <input type="hidden" name="author_id" value="{author_id}"><span>{name}</span>
+            </div>
+        </div>
+        </tmpl:author>
+        
+        <div style="padding-bottom: 3px;float: right;" id="test">
+            <input type="button" value="+" class="button2 button2_add"
+                onclick="PopupManager.create('{user_popup_link}', 'r', 'r');">
+        </div>
+        
+        <span id="writeroot"></span>
+
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{tags_msg}:</td>
+    <td>
+        {block_tag_tmpl}
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{private_msg}:</td>
+    <td>
+        {block_private_tmpl}
+    </td>
+</tr>
+
+{custom_field_block_bottom}
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{entry_status_msg}:</td>
+    <td>
+        <select name="file_active" id="active" style="width: 300px;">
+            {status_select}
+        </select>
+    </td>
+</tr>
+
+</table>
+
+
+<tmpl:entry_view></tmpl:entry_view>
+<tmpl:group_size></tmpl:group_size>
+<tmpl:entry_id></tmpl:entry_id>
+<tmpl:posted></tmpl:posted>
+<tmpl:sort_order_row></tmpl:sort_order_row>
+<tmpl:filename></tmpl:filename>

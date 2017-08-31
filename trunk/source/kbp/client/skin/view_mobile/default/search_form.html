@@ -1,0 +1,83 @@
+<script type="text/javascript">
+<!--
+$(document).ready(function() {
+    $('#in').change(function(event) {
+        resetForm(this.value);
+    });
+});
+
+function resetForm(val) {
+    $('.search_extra_item').remove();
+    
+    if (val !== 'all') {
+        //xajax_getExtraFields(val);
+    }
+}
+</script>
+
+
+{user_msg}
+
+<tmpl:header></tmpl:header>
+<tmpl:et_row></tmpl:et_row>
+<tmpl:in_row></tmpl:in_row>
+<tmpl:by_row></tmpl:by_row>
+<tmpl:period_row></tmpl:period_row>
+<tmpl:search_suggest></tmpl:search_suggest>
+<tmpl:cat_selected_row></tmpl:cat_selected_row>
+
+<form action="{action_link}">
+	
+<input type="hidden" name="s" value="1" />
+{hidden}
+        
+<div class="form-group">
+    <label for="searchq" style="width: 10%;">{search_string_msg}</label>
+    <input name="q" type="text" id="searchq" class="form-control" value="{q}" data-clear-btn="true" />
+</div>
+
+<div class="form-group">
+    <label for="in">{search_in_msg}</label>
+    <select name="in" id="in" class="form-control">
+        {search_in_select}
+    </select>
+    <br />
+    <select name="by" id="by" class="form-control">
+        {search_by_select}
+    </select>
+</div>
+
+<tmpl:article_type></tmpl:article_type>
+
+
+<br />
+
+<div style="width: 50%;margin: 40px auto;">
+    <input type="submit" name="sb" id="sb" value="{search_msg}" class="btn btn-default btn-block" />
+</div>    
+
+</form>
+
+<div style="text-align: center;margin-bottom: 20px;">
+    <a href="#search_help_block" data-toggle="modal" data-target="#search_help_block">
+        {search_how_msg}
+    </a>
+</div>
+
+
+<div class="modal fade" id="search_help_block" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">{search_how_msg}</h4>
+            </div>
+          
+            <div class="modal-body">
+                {search_help_block}
+            </div>
+        </div>
+    </div>
+</div>

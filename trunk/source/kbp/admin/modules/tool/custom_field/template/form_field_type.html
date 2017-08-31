@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="css/tabs.css" type="text/css">
+<script>
+    $(document).ready(function(){
+        $("#tabs").tabs({disabled: [1,2,3,4,5,6,7]});
+    });
+</script>
+
+<div class="infoBoxBody">
+    {input_type_note_msg}
+</div>
+<br>
+
+<div id="tabs">
+<ul>
+   <tmpl:tab_row>
+   <li><a href="#tab-{id}"><span>{title}</span></a></li>
+   </tmpl:tab_row>
+</ul>
+
+
+<div id="tab-0">
+<table border="0" width="100%" cellpadding="4" cellspacing="1">
+    
+<tr class="tdTitle">
+    <td colspan="2" style="padding: 1px;"></td>
+</tr>
+
+<tmpl:row>
+<tr class="{class}" style="{style}"    
+                    onMouseOver="OverColor(this, 'trOver', 'trHighlight')"
+                    onMouseOut="OverColor(this, '{class}', 'trHighlight')"
+                    onDblClick="RecordToDo('{create_link}')">
+    
+    <td width="90%">
+        <strong><a href="{create_link}">{title}</a></strong> <br /> {descr}
+    </td>
+</tr>
+</tmpl:row>
+
+</table>
+</div>
+
+</div>

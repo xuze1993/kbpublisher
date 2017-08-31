@@ -1,0 +1,37 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#tabs').tabs();
+    });
+</script>
+
+{header}
+
+<div id="tabs" style="margin-bottom: 10px;display: none;">
+    {export_block}
+</div>
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    <td width="230">{date_msg}</td>
+    <td>{search_string_msg}</td>
+    <td width="150">{search_in_msg}</td>
+    <td width="1">{returned_rows_msg}</td>
+    <td width="1">{detail_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr class="{class}" style="{style}" onDblClick="RecordToDo('{detail_link}')">
+                                    
+    <td width="230"><b>{date_search_interval}</b> ({date_search_formatted})</td>
+    <td>{search_string}</td>
+    <td>{search_type}</td>
+    <td align="center"><a href="{search_link}">{returned_rows}</a></td>
+    <td align="center">
+        <a href="{detail_link}">
+            <img src="images/icons/info.svg" alt="view" />
+        </a>       
+    </td>
+</tr>
+</tmpl:row>
+
+</table>

@@ -1,0 +1,6 @@
+﻿Caro [first_name] [last_name],
+
+O seu pedido de adesão a Base de Conhecimento foi recebida. Uma vez revisado o seu perfil, enviaremos um e-mail com suas informações de login. Este
+demorará de 2 a 3 dias úteis.
+
+Muito obrigado pela participação.

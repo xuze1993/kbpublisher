@@ -1,0 +1,4 @@
+[articles.num] de seus artigos não foram atualizados por um semestre. Seu status foi definido como "desatualizado". 
+
+Siga este link para vê-los: 
+[articles.link.filtered.outdated]

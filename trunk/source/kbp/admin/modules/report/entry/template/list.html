@@ -1,0 +1,97 @@
+<script src="jscript/bulk.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#tabs").tabs();
+        $("#tab-export").tabs({
+            create: function() {
+                $('#export_block').show();
+            }
+        });
+        
+        TableListHandler.tableClass = 'tdBorder2';
+        TableListHandler.bulkRowIdName = 'entry_id';
+        TableListHandler.init();
+    });
+</script>
+
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+<tr valign="top">
+    <td width="190">
+        {filter_block_tmpl}
+    </td>
+    <td style="padding: 5px;">&nbsp;</td>
+    <td>
+        {header}
+        
+        <div id="tabs" class="flora">
+            <ul>
+               <li><a href="#tab-1"><span>{tab_report_msg}</span></a></li>
+               <li><a href="#tab-export"><span>{tab_export_msg}</span></a></li>
+               <!-- <li><a href="#tab-save"><span>{tab_save_msg}</span></a></li> -->
+            </ul>
+    
+            
+            <div id="tab-1"></div>
+    
+            <div id="tab-export" style="padding: 5px;">
+                <div id="export_block" style="display: none;">
+                    {export_block}
+                </div>
+            </div>
+        
+            <form action="" name="bulk_form" id="bulk_form" onsubmit="return BulkOnSubmit();">
+                {hidden_fields}
+            
+                <table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder2">
+                <tr class="tdTitle">
+                    <td width="1" class="tdTitle">
+                        <input type="checkbox" name="id_check" value="1" style="margin: 0px;" />
+                    </td>
+                    <td width="1">{id_msg}</td>
+                    <td>{title_msg}</td>
+                    <td width="50">{hits_num_msg}</td>
+                    <td>{rate_msg}</td>
+                </tr>
+                
+                <tmpl:row>
+                <tr id="row_{entry_id}" class="{class}">
+                    <td width="1">
+                        <input type="checkbox" name="entry_id[]" value="{entry_id}" id="ch_{entry_id}" style="margin: 0px;" />    
+                    </td>
+                    <td width="1">
+                        <a href="{entry_link}">{entry_id}</a>
+                    </td>
+                    <td>
+                        <a href="{entry_link}">{title}</a>
+                    </td>
+                    <td width="50" align="center">{value}</td>
+                    <td width="260">
+                        <div style="width: {rate_width}px;height: 10px;background: #35528f;float: left;">
+                        </div>
+                        <span style="padding-left: 5px;">{rate}%</span>
+                    </td>
+                </tr>
+                </tmpl:row>
+                
+                </table>
+                
+                <div style="padding-top: 2px;">
+                    <table border="0" cellpadding="3" cellspacing="0" width="100%">
+                        <tr class="trDarker" valign="top"> 
+                            <td class="bulkArrow">
+								<img src="images/icons/arrow_1b.svg" width="14" height="14" alt="">
+                            </td>
+                            <td style="padding: 7px 10px;">
+								<a href="" onclick="bulkSubmit('{sure_common_msg}', '{no_checked_msg}', 'entry_id');return false;">
+									{view_details_msg}
+								</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            
+            </form>
+        </div>
+    </td>
+</tr>
+</table>

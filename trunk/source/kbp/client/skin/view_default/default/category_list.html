@@ -1,0 +1,39 @@
+<div class="tdTitle" style="margin-bottom: 2px;">
+    
+    <tmpl:list_option_button>
+    <div class="fright menuItemOption">
+        <a href="#show" onclick="$('#list_option_block').toggle(); return false;">
+            {list_option_msg}
+        </a>
+    </div>
+    </tmpl:list_option_button>
+    
+    <div class="fleft">{list_title}</div>
+    <div style="clear: both;"></div>
+</div>
+
+{block_list_option_tmpl}
+<div style="margin-bottom: 10px;"></div>
+
+<table class="sTable tableCs1">
+
+<tmpl:row_tr>
+<tr style="vertical-align: top;">
+
+    <tmpl:row_td>
+    <td style="width: 1px;padding: 2px 5px 0 8px;">{item_img}</td>
+    <td style="width: {td_width}%;">
+        <a class="catLink" href="{category_link}">{name}</a><br />
+        <div class="catDescription" style="padding-top: 2px;">{description}</div>
+    </td>
+    </tmpl:row_td>
+    
+    <tmpl:row_empty_td>
+    <td></td>
+    </tmpl:row_empty_td>
+
+</tr>
+</tmpl:row_tr>
+
+</table>
+<br /><br />

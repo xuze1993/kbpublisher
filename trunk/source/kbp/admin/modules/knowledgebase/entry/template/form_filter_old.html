@@ -1,0 +1,80 @@
+<script type="text/javascript" src="jscript/common_filter_form.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        parse_xajax_getChildCategories();
+    });
+
+</script>
+
+{xajax_js123}
+
+
+<form action="" style="margin: 0px;">
+{hidden_fields}
+
+<table>
+<tr valign="bottom">
+
+    <tmpl:advance_button>
+    <td valign="bottom">
+        <input type="button" value="{as_btn_value}" id="advanced_show_btn" title="{search_extra_msg}" 
+            class="button2 button2_filter" onclick="ToogleAdvancedSearch();">
+    </td>
+    </tmpl:advance_button>
+    
+    <td>
+        <div style="padding-bottom: 3px;">{category_msg}:</div>
+        <select name="filter[ct]" class="colorInput" style="width: 120px;" id="ct">
+        {filter_select}
+        </select>
+    </td>
+        
+    <td>
+        <input type="hidden" name="filter[ch]" value="0">
+        <input type="checkbox" name="filter[ch]" value="1" class="colorInput" {ch_checked}
+            onMouseOver="Tip('{search_child_help_msg}', BALLOON, true, OFFSETX, -20)"
+            onMouseOut="UnTip()">
+    </td>
+    <td valign="bottom"></td>        
+    
+    <td>
+        <div style="padding-bottom: 3px;">{entry_status_msg}:</div>
+        <select name="filter[s]" class="colorInput" style="width: 120px;">
+        {status_select}
+        </select>
+    </td>
+    
+    <td>
+        <div style="padding-bottom: 3px;">{entry_type_msg}:</div>
+        <select name="filter[et]" class="colorInput" style="width: 120px;">
+        {type_select}
+        </select>
+    </td>    
+    
+    <td>
+        <div style="padding-bottom: 3px;">{search_str_msg}:</div>
+        <input type="text" name="filter[q]" value="{q}" class="colorInput middleText" style="width: 150px;">
+    </td>
+    
+    <td valign="bottom">
+        <button type="submit" name="do_search" value="1" 
+            class="button2 button2_filter">&rarr;</button>
+    </td>    
+</tr>
+</table>
+
+<div id="category_filter_select" style="display: {category_filter_display};">
+    <div style="padding: 3px 0px 0px 8px;">
+        <img src="images/icons/join.gif" width="14" height="9" alt="Join">
+        <select name="filter[c]" style="width: 200px;" class="colorInput" id="category_child">
+        {category_select}
+        </select>
+    </div>
+</div>
+
+<div id="advanced_search" style="display: {as_display};">
+    {custom_field_tmpl}    
+</div>
+
+</form>

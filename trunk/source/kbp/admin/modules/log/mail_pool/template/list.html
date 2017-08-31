@@ -1,0 +1,29 @@
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+  <td class="tdTitle" width="230">{date_created_msg}</td>
+  <td class="tdTitle" width="230">{date_executed_msg}</td>
+  <td>{type_msg}</td>
+  <td width="1">{num_tries_msg}</td>
+  <td width="1">{mail_sent_msg}</td>
+  <td width="1">{detail_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr class="{class}" style="{style}" onDblClick="RecordToDo('{detail_link}')">
+    
+  <td width="230"><b>{date_created_interval}</b> ({date_created_formatted})</td>
+  <td width="230">{date_sent_formatted}</td>
+  <td>{letter_type_str}</td>
+  <td align="center">{failed}</td>
+  <td align="center">{is_sent}</td>
+  <td align="center">
+        <a href="{detail_link}" class="_tooltip" title="{failed_message}">
+            <img src="images/icons/info.svg" alt="view" />
+        </a>
+  </td>
+</tr>
+</tmpl:row>
+
+</table>

@@ -1,0 +1,24 @@
+<script type="text/javascript">
+<!--
+//function validate() {
+    
+//}
+
+function goNextPage() {
+    showLoadingMsg(function() {
+        f = document.getElementById('setup_form');
+        f.submit(true);
+    });
+}
+//-->
+</script>
+
+{user_msg}
+{user_do_msg}
+<br/>
+{phrase_msg}
+<br><br>
+
+<textarea name="install_info" id="install_info" class="dataTextarea">{install_info}</textarea>
+
+

@@ -1,0 +1,313 @@
+<link rel="stylesheet" type="text/css" href="../client/skin/jquery/tooltipster/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-kbp_title.css">
+<style>
+    #password_block img {
+        float: right;
+    }
+</style>
+<script type="text/javascript">
+<!--
+function setPasswordDisabled(id) {
+
+    if(!document.getElementById(id)) {
+        return;
+    }
+
+    ch = document.getElementById(id);
+    p = document.getElementById('password');
+    p2 = document.getElementById('password_2');
+    p_old = document.getElementById('password_old');
+
+    if(ch.checked == true) {
+        p.disabled = true;
+        p2.disabled = true;
+
+        if (p_old) {
+            p_old.disabled = true;
+        }
+    } else {
+        p.disabled = false;
+        p2.disabled = false;
+
+        if (p_old) {
+            p_old.disabled = false;
+        }
+    }
+}
+
+function setUsername() {
+    email = document.getElementById('email');
+    username = document.getElementById('username');
+    username.value = email.value;
+
+    if (email.value) {
+        $('body').trigger('kbpErrorResolved', [{field: 'username'}]);
+    }
+}
+
+function init() {
+    if (window.selRoleHandler) {
+        selRoleHandler.setSelectWidth('role');
+    }
+}
+
+function subForm() {
+    LeaveScreenMsg.skipCheck();
+    selRoleHandler.selectAll();
+}
+
+
+window.onload = init;
+// filter fields ids
+var ids = ['password', 'password_2'];
+LeaveScreenMsg.setFilterFields(ids);
+
+$(document).ready(function() {
+    $('#not_change_pass').click(function() {
+        if ($(this).is(':checked')) {
+            $('#password, #password_2').val('');
+        }
+    });
+});
+
+//-->
+</script>
+
+{menu_block}
+{error_msg}
+
+<!-- onSubmit="return validate_employee_form({is_admin});" -->
+<form action="{action_link}" method="post" name="" id="aContentForm" onsubmit="subForm();">
+{hidden_fields}
+
+<table border=0 cellpadding="5" cellspacing="1" width="100%">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b> &nbsp;</td>
+</tr>
+
+<tmpl:more_info>
+<tr class="trMoreDarker">
+    <td>{id_msg}:</td>
+    <td>{id}
+        <tmpl:login_as_user>
+            - <a href="{login_user_link}">{login_as_user_msg}</a>
+        </tmpl:login_as_user>
+    </td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{imported_id_msg}:</td>
+    <td>{imported_user_id}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{signing_date_msg}:</td>
+    <td>{formatted_date_full} &nbsp;&nbsp;({interval_date_full})</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{last_logged_msg}:</td>
+    <td>{formatted_date_lastauth_full} &nbsp;&nbsp;{interval_date_lastauth_full}</td>
+</tr>
+</tmpl:more_info>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{first_name_msg}: {required_sign}</td>
+    <td><input name="first_name" type="text" class="longText" id="first_name" value="{first_name}"></td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{last_name_msg}: {required_sign}</td>
+    <td><input name="last_name" type="text" class="longText" id="last_name" value="{last_name}"></td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{middle_name_msg}:</td>
+    <td><input name="middle_name" type="text" class="longText" id="middle_name" value="{middle_name}"></td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{email_msg}: {required_sign}</td>
+    <td><input name="email" type="text" id="email" value="{email}" class="longText"></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{phone_msg}:</td>
+    <td><input name="phone" type="text" id="phone" value="{phone}" class="longText"></td>
+</tr>
+
+<tmpl:not_account>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{company_msg}:</td>
+    <td>
+
+        <table cellpadding="0" cellspacing="0">
+        <tr>
+            <td>{company_select}</td>
+            <td valign="center">&nbsp;
+				<input type="button" value="+" class="button2 button2_add"
+				    onclick="PopupManager.create('{company_popup_link}', 'r', 'r');">
+            </td>
+            <tmpl:set_by_email>
+            <td>
+                <span style="margin-left: 10px;">
+                <a href="javascript: xajax_fetchCompany($('#email').val()); void(0);">
+                    {set_by_email_msg}
+                </a>
+                </span>
+            </td>
+            </tmpl:set_by_email>
+        </tr>
+        </table>
+
+    </td>
+</tr>
+</tmpl:not_account>
+
+<tmpl:role_box>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{role_msg}:</td>
+    <td>
+        <div>
+            <table width="100%" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        {role_block_tmpl}
+                    </td>
+                    <td width="1" valign="top">
+                        <span class="tooltip">{role_tip_msg}</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </td>
+</tr>
+</tmpl:role_box>
+
+<tmpl:priv_box>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{priv_msg}</td>
+    <td valign="top">
+        <span class="hasTooltip">
+	    	{priv_select} &nbsp;&nbsp;{exceed_users_note}
+            <div id="priv_help" style="display: none;" class="nowrap"></div>
+            &nbsp;&nbsp;&nbsp;<span>{license_limit_user_msg}</span>
+		</span>
+        <span class="tooltip">{privilege_tip_msg}</span>
+    </td>
+</tr>
+</tmpl:priv_box>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{username_msg}: {required_sign}</td>
+    <td valign="top">
+        <input name="username" type="text" id="username" value="{username}" class="longText"> &nbsp;&nbsp;
+        <a href="javascript: setUsername(); void(0);">{username_as_email_msg}</a>
+    </td>
+</tr>
+
+<tmpl:not_account>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{password_msg}: {required_sign}</td>
+    <td valign="top" id="password_block">
+        <input type="password" name="password" id="password" class="longText">
+
+        <tmpl:not_change_pass>
+            <input type="checkbox" name="not_change_pass" id="not_change_pass" value="1"
+                onChange="setPasswordDisabled('not_change_pass');" {pass_change_checked}>
+                <label for="not_change_pass">{not_change_pass_msg}</label>
+        </tmpl:not_change_pass>
+
+        {generate_pass_block}
+    </td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{password_repeat_msg}: {required_sign}</td>
+    <td><input type="password" name="password_2" id="password_2" class="longText"></td>
+</tr>
+
+<!-- <tr class="trLighter">
+    <td class="tdFormCaption">{api_access_msg}:</td>
+    <td>
+        <input type="checkbox" name="extra[{api_rule_id}][value1]" id="api_access" value="1" {ch_api_access}>
+        <label for="api_access">{yes_msg}</label>
+    </td>
+</tr> -->
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{user_comment_msg}:</td>
+    <td><textarea cols="60" rows="4" name="user_comment" id="user_comment">{user_comment}</textarea></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{admin_comment_msg}:</td>
+    <td><textarea cols="60" rows="4" name="admin_comment" id="admin_comment">{admin_comment}</textarea></td>
+</tr>
+</tmpl:not_account>
+
+<tmpl:subscribe>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{subscribe_msg}:</td>
+    <td>
+
+        <table border="0" cellspacing="0" cellpadding="0">
+        <tr valign="top">
+            <td>{subscription_select}</td>
+            <td>
+                <div style="padding-left: 10px;">
+                    <a href="javascript:selectAll(true, 'subscription'); void(0);">{all_msg}</a> |
+                    <a href="javascript:selectAll(false, 'subscription'); void(0);">{none_msg}</a>
+                </div>
+            </td>
+        </tr>
+        </table>
+
+    </td>
+</tr>
+</tmpl:subscribe>
+
+
+<!--
+<tr class="trLighter">
+    <td class="tdFormCaption"></td>
+    <td valign="top">
+    <input type="hidden" name="temp_password" value="0">
+    <input type="checkbox" name="temp_password" value="1" {ch_temp_password}> The password is temporary (Employee will be prompted to change it.)
+    </td>
+</tr>
+-->
+
+<tmpl:not_account>
+<tr class="trLighter">
+    <td class="tdFormCaption">{entry_status_msg}:</td>
+    <td>{status_select}</td>
+</tr>
+</tmpl:not_account>
+
+<tmpl:notify>
+<tr class="trLighter">
+    <td class="tdFormCaption">{notify_user_msg}:</td>
+    <td valign="top">
+        <input type="checkbox" name="notify" id="notify" value="1" {notify_ch}>
+        <label for="notify">{yes_msg}</label>
+    </td>
+</tr>
+</tmpl:notify>
+
+<tr>
+    <td></td>
+    <td><div><br></div>
+
+        <div id="bottom_button">
+
+            <input type="submit" name="submit" value="{save_msg}" class="button"
+                onClick="validateForm();return false;" />
+
+            <input type="button" value="{cancel_msg}"  class="button"
+                onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'">
+
+        </div>
+
+    </td>
+</tr>
+</table>
+</form>
+
+<img src="images/s.gif" alt="" onLoad="setPasswordDisabled('not_change_pass')">

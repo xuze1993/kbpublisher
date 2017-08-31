@@ -1,0 +1,45 @@
+body {
+    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-size: 1.6em;
+    font-weight: normal;
+}
+
+div.page_break {
+    page-break-after: always;
+}
+
+div.customField {
+    
+}
+
+div.customFieldItem {
+    margin-bottom: 4px;
+}
+
+#toc ul {
+    list-style-type: none;
+}
+
+#articleTitle h1, h2 {
+    margin: 0px;
+    line-height: 150%;
+}
+
+#articleTitle h2 {
+    font-size: 1.3em;
+    font-weight: normal;
+}
+
+#articleTitle {
+    padding: 1px 4px;
+    border-bottom: 1px solid #D4D4D4;
+}
+
+@media print {    
+    .noPrint, .noPrint * {
+        display: none !important;
+    }
+}

@@ -1,0 +1,98 @@
+<tmpl:radio_behavior>
+<script type="text/javascript" src="jscript/CheckBoxGroup.js"></script>
+<script>
+myOptions = new CheckBoxGroup();
+myOptions.addToGroup('dv[]');
+myOptions.setRadioButtonBehavior();
+</script>
+</tmpl:radio_behavior>
+         
+<div class="infoBoxBody">
+    {apply_value_note}
+</div>
+<br>
+
+<div>
+<form action="{action_link}" method="post" name="apply" id="aContentForm" 
+    onsubmit="LeaveScreenMsg.skipCheck();" >
+
+<table border="0" width="100%" cellpadding="4" cellspacing="1">
+    
+<tr class="tdTitle">
+    <td class="tdTitle" style="padding: 1px;"></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{field_type_msg}: {field_type_str}</td>
+</tr>
+<tr class="trMoreDarker">
+    <td>{entry_type_msg}: {entry_type_str}</td>
+</tr>
+
+<tmpl:text>
+<tr>
+    <td class="trDarker">
+        {title}: <input type="text" name="value" value="" class="longText">
+    </td>
+</tr>
+</tmpl:text>
+
+<tmpl:checkbox>
+<tr>
+    <td class="trDarker">
+        {title}: <input type="checkbox" name="value" value="1" {default_value_ch}> {caption}
+    </td>
+</tr>
+</tmpl:checkbox>
+
+<tmpl:range> 
+<tr class="trDarker">
+    <td>{title}:</td>
+</tr>
+
+<tr>
+    <td>
+        <input type="hidden" name="range_id" id="range_id" value="{range_id_val}" />
+        <div id="range_block" style="padding: 0px;">
+            {range_block}
+        </div>
+    </td>
+</tr>
+</tmpl:range>
+
+<tmpl:textarea>
+<tr>
+    <td class="trDarker">
+        {title}: <br />
+        <textarea cols="" rows="5" name="value" style="width: 100%"></textarea>
+    </td>
+</tr>
+</tmpl:textarea>
+
+<tmpl:date>
+<tr>
+    <td class="trDarker">
+        <script>
+        $(document).ready(function(){
+            $('input[name="value"]').datepicker({changeMonth: true, changeYear: true});
+        });
+        </script>            
+        {title}: <input type="text" name="value" value="{value}"/>
+    </td>
+</tr>
+</tmpl:date>
+
+<tr>
+    <td align="center"><div><br></div>
+        <input type="submit" name="submit" value="{add_values_msg}" class="button"
+            onClick="validateForm();return false;" />
+            
+        <input type="button" value="{cancel_title}" 
+            onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'" class="button">
+    </td>
+</tr>
+
+</table>
+</div>
+
+</form>

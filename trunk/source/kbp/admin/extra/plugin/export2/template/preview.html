@@ -1,0 +1,50 @@
+<p>If you don't want to install KBPublisher using the <a href="[link:article|115]">install wizard</a>, you can install it manually as follows:</p>
+
+<ol>
+	<li>Unpack the distribution package.<br />
+	&nbsp;</li>
+	<li>Place it somewhere in your web-server's document root, preferably&nbsp; the parent directory of your root web directory. For many people, this will be the <strong>public_html</strong> directory.<br />
+	&nbsp;</li>
+	<li>By default, the distribution package is in a folder called <strong>kb</strong>, and this link will be included in the URL of the knowledgebase. For example, the default URL of the knowledgebase will be <strong>www.your_domain/kb/</strong>, where <em>your_domain</em> is your domain name.<br />
+	<br />
+	You can rename the 'kb' folder as you wish.&nbsp; If, for example, you rename it to 'kbbase' and place it in the document root directory, the URL for knowledge base will be <a href="http://www.your_domain/kbbase/"><strong>www.your_domain/kbbase/</strong></a><strong>. </strong><br />
+	&nbsp;</li>
+	<li>Create an empty MySQL database to be used by KBPublisher, or use existing one.<br />
+	&nbsp;</li>
+	<li>Create a directory to store files uploaded by the <strong>File </strong>option. We recommend that you name it <strong>kb_file</strong> and place it somewhere outside your document root directory. It should not be accessible via http (web browser).<br />
+	<br />
+	Create a directory to store cache files. We recommend that you name it <strong>kb_cache</strong> and place it somewhere outside your document root directory. It should not be accessible via http (web browser).<br />
+	<br />
+	The structure of directories should look like this:<br />
+	<br />
+	<img alt="" height="96" src="data:image/gif;base64,R0lGODlhhQBgAMQAAP//7YCAgMaZAP/10f/mcf/9vf/7sc6wTcCdL/74o6t8Av/2lbeZTv/vgbiKBdGmCPr43fbsx9OvLNzIi//6irKOMv/9zMqmLundtv3648Wvcresk97ARvXnqTMzM/T09CH5BAAAAAAALAAAAACFAGAAAAX/4CeOpBiUaKqubOu+cCzPdG3fOH7mfO//wKBweNsRj8hkanJoNjUvD0na8lA/V6XWxDpEAGCABkFGMKCobDZ1la638JQEQqlTLGFwhT2tlt5xREYpDwMcDxKJEheMZA4KfyJuVoBYVliYlpWBSQIYEhl5ohCQfVRtfJKYqJxBJ68fsAGeHBkFt7gFFgYZpSOXqsGRqpOUrXECExO7Bs3OBQYYe6bCgKhux4IsAgcdBQng4AvjCRMMw9jCfcSZ7dmdEhHjCw0NBPcNHQzn65rAab8yGXvnYxAKAQ8g1LvH8F6EChsISsyBEMKAixgxRlAQMQalgRORGCyBAKGAkwIc/6h8pIBfyJcwYx4ZKbOmzZtaaOLcybOnDZ0+g7Jg4uQAGj8BfWzaCfSDlzxjypxJpS7HUqEl5ti5I2rasKo4rt5sWuiQokWNEDxC52/FQJDGPv76h1WEJ1Ci8pCKdCrpV7790rmTKSuW4VkYauXCtavXH1aDq8pVE/Cj2JvJljnbDE0a4HbWAru75rMpN2/hxJEzxxZyP9CjK/utKyDevIX49LmsJlfF29+CT9GtaToh7oYEHnasG7Jixucbl0exzJxG05IPUKZcqaBl9e/gRYYfT35i0/Lo0ws5r74mUSdHw/5lcfn1u6ZPw0QlM5XGGsFuzQcQT1rZgUceXsnwH/8MC9IXElmGIKIIIxc44oskb1WWoXDWAKeJJWDVdFcoeYGxl2iksQPggKsk1Vd9ShQmCy22LKYLLxfClmKLK34VXDA9iqgMM5sZ0FmCOsqmYmQousgOT6d9k9o85eyW5JM8MunXjwJpGVNt8oxzXD77PPbPZBtiGBqQ6bzYU0XHNaScgO0B4dxzGnFEZw2WwYgVdtqtxJKVdRZq6KGIJjoEe4o2eiijjrby3hNR2BfpCPh9oV8ZZsQ3m5+XilBgHQeGgaQ6oNYJoVkTprXWOsWk2uiIJZqYY5uzRSrjYTTaeKNjU0Ama6KZEclZNEjiGqKipnUjZThUsgYrbKG6AObWbfbkVmZgvVVbnELZIjdntT7ciecA0ZEbw3UmoSRod4SqK69EkM5rL0/13qsvcfseM6lRlebq3wzDirdCfmDs1ylVXjJIMFajcoUgwwUvG2BMq0qYCIUWtgaSj20JdObIw0H5CYklnqika1smyTKXMO36Sq82NnarsFT9yOVkAu9UbJHNHPkZy9W4rGSLFtsUZWoJRGulmyHuiI3U1AZ1rZjhkvn0XB+bGSubbQBXcStwhisnRECMTVtC516UrkfU7WkooO5y512/eOet99589+333+OFAAA7" width="133" /><br />
+	<br />
+	&nbsp;</li>
+	<li>If you are installing a new version of KBPublisher:</li>
+</ol>
+
+<blockquote>
+<ul>
+	<li>Create tables using db dump file at <strong>kb/setup/db/install.sql</strong></li>
+	<li>Create&nbsp;an&nbsp;admin user using file at <strong>kb/setup/db/create_user.sql</strong></li>
+</ul>
+
+<p>If you are upgrading&nbsp;from a previous version of KBPublisher:</p>
+
+<ul>
+	<li>Use DB dump file<strong> kb/setup/db/upgrade_from_[version]_to_[version].sql</strong></li>
+	<li><em>Do not forget to backup old DB.</em></li>
+</ul>
+</blockquote>
+
+<ol start="6">
+	<li>Configure your <strong>kb/admin/config.inc.php</strong> configuration file.<br />
+	&nbsp;</li>
+	<li>In some cases you have to configure your <strong>kb/index.php</strong> file to set&nbsp;the correct path to admin directory and <strong>kb/rss.php</strong>, <strong>kb/captcha.php</strong> files to set&nbsp;the correct path to kb installation directory.<br />
+	Normally these will work without any modifications.<br />
+	&nbsp;</li>
+	<li>Give your <strong>kb_upload</strong>, <strong>kb_file</strong>, <strong>kb_cache</strong> directory full write permissions.<br />
+	In unix you can type "chmod 777 &lt;directory&gt;". On Windows you must go through your webserver to give it write permissions.<br />
+	&nbsp;</li>
+	<li>You're done.</li>
+</ol>

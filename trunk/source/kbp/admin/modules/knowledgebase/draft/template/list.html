@@ -1,0 +1,66 @@
+{msg}
+
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    <tmpl:bulk>
+    <td width="1">
+        <input type="checkbox" name="id_check" value="1" style="margin: 0px;" />
+    </td>
+    </tmpl:bulk>
+
+    <td class="tdTitle" width="1">{id_msg}</td>
+    <td width="70">{entry_id_msg}</td>
+    <td width="140">{posted_msg}</td>
+    <td width="140">{updated_msg}</td>
+    <td>{entry_title_msg}</td>
+    <td width="100">{author_msg}</td>
+    <td width="1">{assignees_msg}</td>
+    <td width="1">{step_stat_msg}</td>
+    <td width="1">{entry_status_msg}</td>
+    <td align="center" width="1">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+    <tmpl:bulk>
+    <td width="1" valign="top">
+        <input type="checkbox" name="id[]" value="{id}" id="ch_{id}" style="margin: 0px;" {bulk_ids_ch_option} />
+    </td>
+    </tmpl:bulk>
+
+    <td width="1">
+        <strong>{id}</strong>
+    </td>
+    <td>{entry_id}</td>
+    <td>
+        <span title="{interval_date_posted}">{formated_date_posted}</span>
+    </td>
+    <td>
+        <span title="{interval_date_updated}">{formated_date_updated}</span>
+    </td>
+
+    <td>
+		<a href="{preview_link}" style="{style}" title="{title}">{short_title}</a>
+    </td>
+
+    <td>{author}</td>
+    <td align="center"><span {assignee_tip}>{assignee_num}</span></td>
+    <td align="center" nowrap>{step}</td>
+    <td align="center">
+        <div class="status help" style="width: 15px;">
+            <div title="{status}" style="background: {status_color};">&nbsp;&nbsp;</div>
+        </div>
+    </td>
+
+    <td class="action" width="1" align="center">
+        {options_img}
+    </td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div style="padding-top: 2px;"></div>
+{footer}

@@ -1,0 +1,57 @@
+<div class="tdTitle" style="margin-bottom: 10px; padding-right: 10px;">
+    <div style="float: right; padding-right: 5px;">
+    	<img src="{base_href}client/images/icons/printer.svg" alt="print" style="width: 14px;height: 14px;vertical-align: bottom;" />
+        &nbsp;<a href="{print_link}" class="smallerText2" style="font-weight: normal;">{print_msg}</a>
+    </div>
+
+    <div class="fleft">{menu_glossary_msg}</div>
+    <div style="clear: both;"></div>
+</div>
+
+<div>
+    <form action="{form_search_action}">
+        {hidden_search}
+        <input type="search" name="qf" value="{qf}" class="colorInput" 
+			style="width: 250px;" results="5" />
+        <input type="submit" value="{search_msg}" />
+    </form>
+</div>
+
+<br />
+
+
+<tmpl:letters>
+<table class="sTable tableCp4 tableCs1">
+<tr class="trDarker">
+    <tmpl:letter>
+        <td style="text-align: center; {letter_active}">
+            <a href="{letter_link}"><div style="cursor: pointer;width: 100%;">{letter}</div></a>
+        </td>
+    </tmpl:letter>
+    <td  style="text-align: center;">
+        <a href="{all_letter_link}"><div style="cursor: pointer;width: 100%;">{all_msg}</div></a>
+    </td>
+</tr>
+</table>
+<br />
+</tmpl:letters>
+
+
+<div style="padding: 5px; text-align: left;">
+
+    <ul style="padding-left: 12px;">
+    <tmpl:row>
+        <li>
+            <b>{phrase}</b>
+            <div class="textBlock" style="padding: 2px 0px 12px 0px;">{definition}</div>
+        </li>
+    </tmpl:row>
+    </ul>
+
+</div>
+<br />
+
+<tmpl:by_page_bottom>
+<div style="padding-left: 25px;">{page_by_page_bottom}</div>
+<br />
+</tmpl:by_page_bottom>

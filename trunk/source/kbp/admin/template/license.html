@@ -1,0 +1,123 @@
+<!DOCTYPE html public "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>License</title>
+<meta http-equiv="content-type" content="text/html; charset={meta_charset}">
+<link rel="stylesheet" type="text/css" href="css/window.css">
+</head>
+<body bgcolor="#f4f4f4">
+
+<br><br>
+<tmpl:not_found>
+
+</tmpl:not_found>
+
+<tmpl:no_key>
+
+<tmpl:no_key>
+
+
+<form action="" method="post" name="loginForm">
+<table height="80%" width="100%">
+<tr>
+    <td align="middle" valign="center">
+    
+        <div style="width: 400px;">{error_msg}</div><br><br>
+        
+        <table border="0" cellpadding="0" cellspacing="0" class="outset2" width="400">
+        <tr>
+            <td>
+        
+            <table border="0" cellpadding="0" cellspacing="0" class="outset1" width="100%">
+            <tr>
+                <td>
+            
+                <table border="0" cellpadding="0" cellspacing="0" style=" background-color: ButtonFace;" width="100%"><!--  class="inset3" -->
+                <tr>
+                    <td colspan="2">
+                    
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" background="images/login/blue_line_bgr.jpg">
+                        <tr>
+                            <td><img src="images/s.gif" width="1" height="23"></td>
+                            <td style="padding: 0px 5px;"><img src="images/logo/logo_small.gif" alt=""></td>
+                            <td width="100%" class="loginTitle">{login_title_msg}</td>
+                        </tr>
+                        </table>
+                    
+                    </td>
+                </tr>
+                <tr><td colspan="2"></td></tr>
+                <tr>
+                    <td>
+                    <!-- <td background="images/login/engine2.jpg"> -->
+                        <img src="images/s.gif" width="60" height="1">
+                    </td>
+                    <td style="padding: 15px 10px 10px 10px;" width="100%">    
+                        
+                        <table border="0" cellpadding="0" cellspacing="3">
+                        <tr>
+                            <td nowrap>{login_msg} .....&nbsp;&nbsp;</td>
+                            <td><input type="text" name="login_username" value="{login_username}" size="31" /></td>
+                        </tr>
+                        <tr>
+                            <td>{password_msg}</td>
+                            <td><input type="password" name="login_password" value="" size="31" /></td>
+                        </tr>
+                        
+                        <tr><td height="6" colspan="2"></td></tr>
+                         
+                        <tmpl:captcha>
+                        <tr valign="top">
+                            <td></td>
+                            <td><br /><img src="{captcha_src}" alt="code" /></td>
+                        </tr>
+                        
+                        <tr valign="top">
+                            <td></td>
+                            <td>
+                                <input type="text" name="captcha" id="captcha" value="" size="31" /> 
+                                <div style="padding-top: 3px; width: 200px;">
+                                {captcha_comment_msg}
+                                </div>
+                            </td>
+                        </tr>
+                        </tmpl:captcha>
+                
+                        
+                        <!-- <tr><td height="6" colspan="2"></td></tr>     -->
+                        <tr>
+                            <td></td>
+                            <td><br>
+                                <input type="submit" name="login" value="{login_msg}" class="button" />
+                                <!-- <input type="button" value="{cancel_msg}" onclick="location.href='{cancel_link}'" class="button" />     -->
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td></td>
+                            <td>
+                                <a href="{cancel_link}">{public_area_msg}</a>
+                            </td>
+                        </tr>                            
+                        
+                        </table>
+                        
+                    </td>
+                </tr>
+                </table>
+        
+                </td>
+            </tr>
+            </table>
+    
+            </td>
+        </tr>
+        </table>
+        
+    </td>
+</tr>
+</table>
+    
+</form>
+</body>
+</html>

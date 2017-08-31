@@ -1,0 +1,23 @@
+{dear_msg} [first_name] [last_name],
+
+
+<br /><br />
+<b>{new_topic_msg}:</b><br />
+[new_topic]
+
+
+<br /><br />
+<b>{updated_topic_msg}:</b><br />
+[updated_topic]
+
+
+<br /><br /><br />
+{manage_subscription_msg} 
+<a href="[account_link]">{client_area_msg}</a>
+
+<br />
+<hr />
+[support_mailer]
+
+<br /><br />
+<div style="font-size: smaller;">{unsubscribe_msg}</div>

@@ -1,0 +1,33 @@
+<tmpl:row>
+<a name="{anchor}" id="{anchor}"></a>
+<div class="commentBlock" id="comment_{id}">
+    <div class="commentTitle">
+        <span class="commentUser">{comment_name}</span> | 
+        <span class="commentDate">{formated_date}</span>
+    </div>
+    <div class="commentText textBlock">
+        <div class="edit_in_place" id="comment_text_{id}">
+            {comment}
+        </div>
+        
+        <div class="commentLine"></div>
+        
+        <tmpl:action>
+        <div class="commentAction fright" id="comment_action_{id}">
+            <div>
+                <tmpl:update>
+                    <span style="text-decoration: underline;cursor: pointer;cursor: hand;" class="update" id="update{id}">{update_msg}</span> 
+                </tmpl:update>
+                <tmpl:delete>
+                 |    <span style="text-decoration: underline;cursor: pointer;cursor: hand;" onclick="deleteComment('{id}')">{delete_msg}</span>
+                </tmpl:delete>
+            </div>
+        </div>
+        </tmpl:action>
+
+        <div>{posted_msg}: {interval_date} &nbsp;</div>
+    </div>
+</div>
+
+<div id="comment_msg_{id}"></div>    
+</tmpl:row>

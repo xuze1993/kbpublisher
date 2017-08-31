@@ -1,0 +1,93 @@
+{error_msg}
+
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" name="" id="">
+{hidden_fields}
+
+<table border=0 cellpadding="5" cellspacing="1" width="100%" class="tdBorder1">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{detail_msg}:</b></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{date_created_msg}:</td>
+    <td><b>{date_created_interval}</b> ({date_created_formatted})</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{date_executed_msg}:</td>
+    <td>{date_sent_formatted}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{type_msg}:</td>
+    <td>{letter_type_str}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{mail_sent_msg}:</td>
+    <td>{is_sent}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{num_tries_msg}:</td>
+    <td>{num_tries}</td>
+</tr>
+
+<tmpl:failed_message>
+<tr class="trLighter">
+    <td class="tdFormCaption" colspan="2">
+        <div style="padding-bottom: 3px;">{failed_message_msg}:</div>
+        <textarea name="message" rows="4" style="width: 100%;">{failed_message}</textarea>
+</tr>
+</tmpl:failed_message>
+
+<tr>
+    <td colspan="2" bgcolor="#F4F4F4">
+        <table border=0 cellpadding="0" cellspacing="0" width="100%" class="tdBorder1">
+            <tr class="trLighter">
+                <td class="tdFormCaption" colspan="2" style="width: 100%;">
+                    <div style="padding-bottom: 3px;">
+                    {mail_object_msg}:
+                    </div>
+                    <textarea name="message" rows="12" style="width: 100%;">{mail_object}</textarea>
+                </td>
+            </tr>
+        </table>        
+    </td>
+</tr>
+</table>
+
+
+<br />
+<table border=0 cellpadding="5" cellspacing="1" width="100%" class="tdBorder1">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{email_msg}:</b></td>
+</tr>
+<tr class="trLighter">
+    <td colspan="2" style="padding: 10px;">
+        {message_email}
+    </td>
+</tr>
+</table>
+
+<br /><br />
+<div style="margin-left: 220px;">
+    <div id="bottom_button">
+        <input type="button" value="{back_msg}" onClick="location.href='{cancel_link}'" class="button">
+        <tmpl:not_sent>
+            <input type="button" value="{mark_as_failed2_msg}" 
+                onClick="location.href='{status_link}'" class="button">
+        </tmpl:not_sent>
+		
+		<!-- <span style="margin-left: 25px;">
+			<input type="button" value="&larr; {prev_msg}" onClick="location.href='{prev_link}'" class="button">
+			<input type="button" value="{next_msg}  &rarr;" onClick="location.href='{next_link}'" class="button">
+		</span> -->
+    </div>
+    
+</div>
+
+
+</form>

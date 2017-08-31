@@ -1,0 +1,162 @@
+<script type="text/javascript" src="{client_href}jscript/PoolManager.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        PoolManager.visible_display = 'block';
+    });
+    
+    function doSubscribe(mode) {
+        xajax_doSubscribe(mode);
+    }
+</script>
+
+<div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-target="#bootstrap_info" style="cursor: pointer;">
+        <span class="glyphicon glyphicon-info-sign"></span>
+        &nbsp;&nbsp;{info_msg}
+        <i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
+    </div>
+    
+    <div id="bootstrap_info" class="list-group collapse">
+        <div class="list-group-item small">
+            <tmpl:entry_block> 
+            <div class="space">
+                {entry_id_msg}: {id}
+            </div>
+            
+            <div class="space">
+                {last_updated_msg}: {date_updated_formatted}
+            </div>
+            
+            <div class="space">
+                {revision_msg}: {revision}
+            </div>
+            </tmpl:entry_block>
+    
+            <tmpl:private_block>
+            <div class="space">
+                <span>
+                    {access_msg}:
+                    
+                    <tmpl:private>
+                    {private_msg} - {private_title}
+                    
+                    <a href="#private_popup" data-toggle="modal" data-target="#private_popup">
+                        <span class="glyphicon glyphicon-question-sign" style="font-size: 1.3em;"></span>
+                    </a>
+                    
+                    <div class="modal fade" id="private_popup" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">
+                                        {access_msg}: {private_msg} - {private_title}
+                                    </h4>
+                                </div>
+                              
+                                <div class="modal-body">
+                                    {private_body}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </tmpl:private>
+                
+                    <tmpl:public>
+                    {public_msg}
+                    </tmpl:public>
+                
+                </span>
+            </div>
+            </tmpl:private_block>
+            
+            <tmpl:data_block>
+                <tmpl:show_hits>
+                    <div class="space">{views_num_msg}: {hits}</div>
+                </tmpl:show_hits>
+            
+                <tmpl:show_votes>
+                    <div class="space">{votes_num_msg}: {votes}</div>
+                </tmpl:show_votes>
+            
+                <tmpl:show_comments>
+                    <div class="space">{comment_num_msg}: {comment_num}</div>
+                </tmpl:show_comments>
+            </tmpl:data_block>
+    
+            <tmpl:author_block>
+            <div class="space">
+                {posted_msg}: {date_posted_formatted} {by_user_msg} {author}
+            </div>    
+            <div class="space">
+                {updated_msg}: {date_updated_formatted} {by_user_msg} {updater}
+            </div>
+            </tmpl:author_block>
+        </div>
+    </div>
+</div>
+
+
+<tmpl:action_block>
+<div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-target="#bootstrap_action" style="cursor: pointer;">
+        <span class="glyphicon glyphicon-flash"></span>
+        &nbsp;&nbsp;{actions_msg}
+        <i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
+    </div>
+    
+    <div id="bootstrap_action" class="list-group collapse">
+        <tmpl:print_link>
+        <a href="{print_link}" class="list-group-item small" style="padding-left: 25px;">
+            <i class="fa fa-print" aria-hidden="true"></i> &nbsp;{print_msg}
+        </a>
+        </tmpl:print_link>
+        
+        <tmpl:pdf_link>
+        <a href="{pdf_link}" class="list-group-item small" style="padding-left: 25px;">
+            <i class="fa fa-file-pdf-o" aria-hidden="true"></i> &nbsp;{category_pdf_msg}
+        </a>
+        </tmpl:pdf_link>
+        
+        <tmpl:send_link>
+        <a href="{send_link}" class="list-group-item small" style="padding-left: 25px;">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i> &nbsp;{send_link_msg}
+        </a>
+        </tmpl:send_link>
+        
+        <tmpl:comment_link>
+        <a href="{comment_link}" class="list-group-item small" style="padding-left: 25px;">
+            <i class="fa fa-comment-o" aria-hidden="true"></i> &nbsp;{add_comment_msg}
+        </a>
+        </tmpl:comment_link>
+        
+        <tmpl:subscribe>
+        <a href="#1{id}" class="list-group-item small" id="div_subscribe_yes" style="display: {subscribe_yes_display};padding-left: 25px;"
+            onclick="doSubscribe(1); return false;" rel="nofollow">
+            <i class="fa fa-envelope" aria-hidden="true"></i> &nbsp;{subscribe_msg}
+        </a>
+        <a href="#0{id}" class="list-group-item small" id="div_subscribe_no" style="display: {subscribe_no_display};padding-left: 25px;"
+            onclick="doSubscribe(0); return false;" rel="nofollow">
+            <i class="fa fa-envelope" aria-hidden="true"></i> &nbsp;{unsubscribe_msg}
+        </a>
+        </tmpl:subscribe>
+        
+        <tmpl:pool_link>
+        <a href="#/" class="list-group-item small" id="pool_add_link" style="display: {display_add_pool};padding-left: 25px;"
+            onclick="PoolManager.add({id});$.growl({title: '', message: '{added_to_pool_msg}'}); return false;" rel="nofollow">
+            <i class="fa fa-plus" aria-hidden="true"></i> &nbsp;{add_to_pool_msg}
+        </a>
+        <a href="#/" class="list-group-item small" id="pool_delete_link" style="display: {display_delete_pool};padding-left: 25px;"
+            onclick="PoolManager.remove({id});$.growl({title: '', message: '{removed_from_pool_msg}'}); return false;" rel="nofollow">
+            <i class="fa fa-minus" aria-hidden="true"></i> &nbsp;{remove_from_pool_msg}
+        </a>
+        </tmpl:pool_link>
+    </div>
+</div>
+</tmpl:action_block>
+
+<tmpl:share_link>
+{share_block}
+</tmpl:share_link>  

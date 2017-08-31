@@ -1,0 +1,267 @@
+<style>
+    .count_sign_button {
+        height: 17px;
+    }
+    
+    .count_sign_button span {
+        padding: .1em 1em !important;
+    }
+</style>
+<script type="text/javascript" src="../client/jscript/jquery/jquery_select.js"></script>
+<script type="text/javascript" src="../client/jscript/jquery/jquery.weekpicker.js"></script>
+<script type="text/javascript" src="jscript/CategoriesInputHandler.js"></script>
+<script type="text/javascript" src="../client/jscript/DatePickerManager.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var options = {
+            date_format: '{date_format}',
+            week_start: {week_start},
+            current_date: '{current_date}'
+        }
+    
+        var dp_from = new DatePickerManager('date_from', options, {date_formatted_1});
+        var dp_to = new DatePickerManager('date_to', options, {date_formatted_2});
+        
+        dp_to.setMinDate('{date_formatted_1}');
+        dp_from.bindTo(dp_to);
+        
+        <tmpl:first_step_js>
+        categories = {{categories}};
+        CategoriesInputHandler.width = 300;
+        {category_init_js}
+        </tmpl:first_step_js>
+        
+        <tmpl:entry_js>
+        $('#week_date_from').weekpicker({
+            changeMonth: true,
+            changeYear: true,
+            firstDay: {week_start},
+            startField: '#week_date_from',
+            dateFormat: '{date_format}',
+            onSelect: function() {
+                var date_obj = $('#week_date_from').datepicker('getDate');
+                $('#week_date_to').datepicker('option', 'minDate', date_obj);
+                
+                var date_obj_to = new Date(date_obj.getTime());
+                date_obj_to.setDate(date_obj.getDate() + 6);
+                
+                if ($('#week_date_to').val() == '') {
+                    $('#week_date_to').datepicker('setDate', date_obj_to);
+                }
+            }
+        });
+        
+        $('#week_date_to').weekpicker({
+            changeMonth: true,
+            changeYear: true,
+            firstDay: {week_start},
+            endField: '#week_date_to',
+            dateFormat: '{date_format}'
+        });
+        </tmpl:entry_js>
+        
+        
+        $('#filterCategoryId').change(function(){
+            var category_id = $('#filterCategoryId').val();
+            
+            var disabled = true;
+            if (category_id) {
+                disabled = false;
+            }
+            
+            $('#childrenCheckbox').attr('disabled', disabled);
+        });
+        
+        
+        $('#radio').buttonset();
+    });
+    
+    <tmpl:entry_js>
+    var myOptions = {{myOptionsJson}};
+            
+    $(document).ready(function() {
+        populateSelect(myOptions, document.getElementById('range').value);
+        ShowHideCustomDate(document.getElementById('period').value);
+    });    
+    
+    function populateSelect(vars, range_val) {
+        document.getElementById('period').options.length = 0;
+        for(i=0; i<vars[range_val].length; i++) {
+            $("#period").addOption(vars[range_val][i].val,  vars[range_val][i].text,  vars[range_val][i].s);
+        }
+        
+        ShowHideCustomDate(document.getElementById('period').value);
+    }
+    
+    function ShowHideCustomDate(val) {
+        var d = new Array('day_from', 'day_to', 'week_from', 'week_to', 
+                          'month_from', 'month_to', 'year_from', 'year_to');
+        var range = new Array();
+        range.range_year = new Array('custom_period', 'year_from', 'year_to');
+        range.range_month = new Array('custom_period', 'year_from', 'year_to', 'month_from', 'month_to');
+        range.range_week = new Array('custom_period', 'week_from', 'week_to');
+        range.range_day = new Array('custom_period', 'day_from', 'day_to');
+        
+        HideDiv('custom_period');
+        for (var i = d.length - 1; i >= 0; i--){
+            HideDiv(d[i]);            
+        }
+        
+        if(range[val]) {
+            for (var i = range[val].length - 1; i >= 0; i--){
+                ShowDiv(range[val][i]);            
+            }    
+        }
+    }
+    </tmpl:entry_js>
+    
+    function setCategories(type) {
+        $('#filter').val('');
+        $('#filterCategoryId').val('').trigger('change');
+        
+        if (type == 11) {
+            $('#category_block').hide();
+            
+        } else {
+            $('#category_block').show();
+            CategoriesInputHandler.init(categories[type]);
+        }
+    }
+</script>
+
+<form action="{action_link}" style="margin: 0px;">
+{hidden_fields}
+
+<div style="background: #E6E6E6; border: 1px solid #999;">
+<div style="background: #CCC; border-bottom: 1px solid #999; padding: 5px;">
+    <strong>{report_filter_msg}</strong>
+</div>
+
+<div style="padding:5px;">
+    
+    <div style="padding-bottom: 5px;">
+        <strong>{type_msg}:</strong>
+    </div>
+    <select name="filter[t]" style="width: 90%;" onchange="setCategories(this.value)" {type_disabled}>
+        {type_select}
+    </select>
+    
+    <tmpl:range>
+    <div style="padding: 10px 0px 5px;">
+        <strong>{range_msg}:</strong>
+    </div>
+    <select name="filter[r]" id="range" style="width: 90%;" 
+        onchange="populateSelect(myOptions, this.value)">
+        {range_select}
+    </select>
+    </tmpl:range>
+
+
+    <div style="padding: 10px 0px 5px;">
+        <strong>{period_msg}:</strong>
+    </div>
+    <select name="filter[p]" id="period" style="width: 90%;" 
+            onchange="ShowHideCustomDate(this.value)">
+        {period_select}
+    </select>
+    
+    <div id="custom_period" style="display: {custom_display};">
+        <div style="padding: 5px;">
+            <div style="padding: 5px 0px;">
+                <strong>{date_from_msg}:</strong>
+            </div>
+            
+            <span id="day_from" style="display: {daily_datepicker_display};">
+                <input type="hidden" id="date_from" name="filter[date_from]" />
+            </span>
+            
+            <tmpl:entry_fields>
+            <span id="week_from" style="display: none;">
+                <input type="text" id="week_date_from" name="filter[week_date_from]" value="{week_date_from}" style="width: 90%;" />
+            </span>
+            
+            <span id="month_from" style="display: none;">{month_from_select}</span>
+            <span id="year_from" style="display: none;">{year_from_select}</span>
+            </tmpl:entry_fields>
+            
+            
+            <div style="padding: 5px 0px;">
+                <strong>{date_to_msg}:</strong>
+            </div>
+            
+            <span id="day_to" style="display: {daily_datepicker_display};">
+                <input type="hidden" id="date_to" name="filter[date_to]" />
+            </span>
+            
+            <tmpl:entry_fields>
+            <span id="week_to" style="display: none;">
+                <input type="text" id="week_date_to" name="filter[week_date_to]" value="{week_date_to}" style="width: 90%;" />
+            </span>
+            
+            <span id="month_to" style="display: none;">{month_to_select}</span>
+            <span id="year_to" style="display: none;">{year_to_select}</span>
+            </tmpl:entry_fields>
+        </div>
+    </div>
+    
+    <tmpl:first_step_blocks>
+    <div style="padding: 10px 0px 5px;">
+        <strong>{limit_msg}:</strong>
+    </div>
+    <select name="filter[l]" id="limit" style="width: 90%;">
+        {limit_select}
+    </select>
+    </tmpl:first_step_blocks>
+    
+    <tmpl:first_step_blocks>
+    <div id="category_block" style="display: {category_block_display};">
+        <div style="padding: 10px 0px 5px;">
+            <strong>{category_msg}:</strong>
+        </div>
+        <div style="width: 90%;">
+        <input type="text" id="filter" value="{category_name}" title="{category_name}" 
+            style="width: 80%;" />
+        <input type="hidden" name="filter[c]" id="filterCategoryId" value="{category_id}" />
+        <span style="margin-left: 5px;">
+            <input type="hidden" name="filter[ch]" value="0">
+            <input type="checkbox" name="filter[ch]" id="childrenCheckbox" value="1" class="colorInput _tooltip" {ch_checked} {ch_disabled}
+                title="{search_child_help_msg}">
+        </span>
+        </div>
+    </div>
+    </tmpl:first_step_blocks>
+    
+    <div style="padding: 10px 0px 5px;">
+        <strong>{search_ids_msg}:</strong>
+    </div>
+    <input type="text" name="filter[q]" value="{q}" style="width: 90%;">
+    
+    <tmpl:first_step_blocks>
+    <div style="margin-top: 10px;">
+        <b>{hits_num_msg}:</b>
+        
+        <div id="radio" style="margin-top: 5px;">
+            <input type="radio" id="radio1" name="filter[cts]" value="1" {count_checked_1} />
+            <label for="radio1" title="{more_than_msg}" class="count_sign_button">&gt;</label>
+            
+            <input type="radio" id="radio2" name="filter[cts]" value="2" {count_checked_2} />
+            <label for="radio2" title="{less_than_msg}" class="count_sign_button">&lt;</label>
+            
+            <input type="radio" id="radio3" name="filter[cts]" value="3" {count_checked_3} />
+            <label for="radio3" title="{equals_to_msg}" class="count_sign_button">=</label>
+            
+            <input type="text" name="filter[ct]" value="{view_count}" 
+                style="width: 40px;height: 15px;margin-left: 15px;padding-left: 3px;border: 1px solid #aaaaaa;border-radius: 4px;vertical-align: bottom;" />
+        </div>
+    </div>
+    </tmpl:first_step_blocks>
+</div>
+
+
+<div style="text-align: center; padding: 10px 0px;">
+    <input type="submit" name="submit_filter" value="{ok_msg}" class="button" onclick="return checkDates('{wrong_date_range_msg}');">
+</div>
+
+</div>
+
+</form>

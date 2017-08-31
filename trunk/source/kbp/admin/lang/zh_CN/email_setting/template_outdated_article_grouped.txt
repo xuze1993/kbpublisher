@@ -1,0 +1,4 @@
+[articles.num]篇文章已半年未更新。状态已设置为“过期”。
+
+用此链接进行查看：
+[articles.link.filtered.outdated]

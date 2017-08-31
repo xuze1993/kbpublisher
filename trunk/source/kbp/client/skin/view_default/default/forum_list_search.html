@@ -1,0 +1,28 @@
+<div class="tdTitle" style="margin-bottom: 12px;">
+	<div class="pageByPage fright">{page_by_page}</div>
+	<div><b>{list_title}</b></div>
+</div>
+{msg}
+
+<table class="sTable tableCp5">
+
+<tmpl:row>
+<tr style="vertical-align: top;">
+	<td style="padding-left: 5px;">{item_img}</td>
+	<td style="padding-left: 5px; width: 100%;">
+		<div><strong><a href="{entry_link}">{title}</a></strong></div>
+		<div style="margin-top: 2px;" class="newsDate">{formatted_date}</div>
+		<div style="margin-top: 5px;" class="articleDecription">{body}</div>
+		<div style="margin-top: 5px;"><a href="{category_link}">{full_category}</a></div>
+	</td>
+</tr>
+<tr><td colspan="2" style="padding: 3px;"></td></tr>
+</tmpl:row>
+
+</table>
+<br />
+
+<tmpl:by_page_bottom>
+<div style="padding-left: 10px;">{page_by_page}</div>
+<br />
+</tmpl:by_page_bottom>

@@ -1,0 +1,66 @@
+<div style="margin: 7px;border: 4px solid #d6d6d6;">
+    <div id="forumErrorMsg{id}"></div>
+            
+    <div id="forumMessageCk{id}" class="textBlock">
+        {message}
+    </div>
+    
+    <div>
+        <div id="attachUpdateCaption{id}" style="margin: 20px 0 10px 10px;display: {attachment_caption_display};">
+            <b>{attachments_msg}:</b>
+        </div>
+        
+        <tmpl:attachment_type>
+        <div id="attachUpdateType{type}{id}" style="margin: 12px 20px;">
+            {delimiter}
+            
+            <tmpl:attachment>
+    		<div id="forumMsgUpdateAttachment{attachment_id}" style="margin: 7px 0;">
+    		    <a href="{download_link}" target="_blank">{filename}</a>
+                <span class="forumDeleteAttachment" 
+                    onclick="deleteAttachmentToMessage({id}, {attachment_id});">x</span>
+    		</div>
+    		</tmpl:attachment>
+            
+        </div>
+        </tmpl:attachment_type>
+    </div>
+    
+    <tmpl:new_attachment>
+    <div id="attachUpdateContainer{id}" class="dropzone {class}" style="border: 2px dashed #aaaaaa; margin: 20px 10px 10px 10px;">
+            <div style="font-size: 0.9em;color: #aaaaaa; margin: 15px 10px;">
+                <span id="dropzoneActiveBlock{id}" style="display: {dropzone_active_display};">
+        	        <input id="input_file{id}" type="file" name="file" style="display: none;" onchange="addFile({id}, this);" />
+                    
+                    <div id="drop_enabled_caption">
+                        {attachment_drop_file}
+                    </div>
+                    
+                    <div id="drop_disabled_caption" style="display: none;">
+                        {attachment_drop_disabled}
+                    </div>
+                </span>
+                <span id="dropzoneInactiveBlock{id}" style="display: {dropzone_inactive_display};">
+                    {attachment_max_num_reached_msg}
+                </span>
+    	    </div>
+            
+            <div id="preview_container{id}"></div>
+    </div>
+    </tmpl:new_attachment>
+    
+    <div style="background-color: #D3D3D3;padding: 10px;text-align: right;">
+        <span style="margin-right: 10px;">
+            <a href="#" onclick="PopupManager.is_public = 1;PopupManager.create('{preview_link}');">{preview_msg}</a>
+        </span>
+                        
+        <button class="inplace_save button"
+            onclick="save('{id}');">{save_msg}</button>
+        
+        <button class="inplace_cancel button" 
+            onclick="xajax_updateMessage('{id}');">{cancel_msg}</button>
+    </div>
+    
+    <div style="clear: both;"></div>
+
+</div>

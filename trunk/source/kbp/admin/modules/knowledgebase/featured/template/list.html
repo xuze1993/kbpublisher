@@ -1,0 +1,88 @@
+<script type="text/javascript">
+    function initSort(lowest_sort_order) {
+        $('#sortable_views').sortable({
+            placeholder: 'view_placeholder',
+            stop: function(event, ui) {
+                var ids = $('#sortable_views').sortable('toArray');
+                
+                var index = lowest_sort_order;
+                for (var i in ids) {
+                    $('#' + ids[i] + ' span.sort_order_num').html(index);
+                    index ++;
+                }
+                
+                LeaveScreenMsg.changes = true;
+            }
+        });
+        $('#sortable_views').disableSelection();
+        
+        LeaveScreenMsg.setDoCheck(1);
+        LeaveScreenMsg.check();
+    }
+</script>
+
+
+<div id="trigger_list">
+
+    {header}
+    
+    <table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+    <tr class="tdTitle">
+        <tmpl:bulk>
+        <td width="1">
+            <input type="checkbox" name="id_check" value="1" style="margin: 0px;" />
+        </td>    
+        </tmpl:bulk>
+        
+        <td  class="tdTitle" width="1">{id_msg}</td>
+        <td>{entry_title_msg}</td>
+        <td width="1">{hits_num_msg}</td>
+        
+        <tmpl:sort>
+        <td>{sort_order_msg}</td>
+        </tmpl:sort>
+        
+        <tmpl:sort_all>
+        <td width="1">{index_page_msg}</td>
+        <td width="1">{category_page_msg}</td>
+        </tmpl:sort_all>
+        
+        <td align="center" width="1">{action_msg}</td>
+    </tr>
+    
+    <tmpl:row>
+    <tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+        <tmpl:bulk>
+        <td width="1">
+        <input type="checkbox" name="id[]" value="{id}" id="ch_{id}" style="margin: 0px;" {bulk_ids_ch_option} />    
+        </td>
+        </tmpl:bulk>
+        
+        <td width="1" align="right"><b>{entry_id}</b></td>
+        <td>{title}</td>
+        <td align="center">{hits}</td>
+        
+        <tmpl:sort>
+        <td align="center" width="1">
+            <input type="text" name="value[sort_order][{id}]" value="{sort_order}" 
+                class="sortOrderText" onclick="this.select()" disabled>
+        </td>
+        </tmpl:sort>
+        
+        <tmpl:sort_all>
+        <td align="center">{index_img}</td>
+        <td align="center">{categories}</td>
+        </tmpl:sort_all>
+        
+        <td class="action" align="center" width="1">
+            {options_img}
+        </td>
+    </tr>
+    </tmpl:row>
+    
+    </table>
+    
+    <div style="padding-top: 2px;"></div>
+    {footer}
+
+</div>

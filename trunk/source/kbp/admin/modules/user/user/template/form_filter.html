@@ -1,0 +1,55 @@
+<form action="" style="margin: 0px;">
+{hidden_fields}
+
+<table id="filter_tbl">
+<tr>
+
+    <td>
+        <div>{role_msg}:</div>
+        <select name="filter[role]" class="colorInput" style="width: 100px;">
+            {role_select}
+        </select>
+    </td>
+    <td>
+        <input type="hidden" name="filter[ch]" value="0">
+        <input type="checkbox" name="filter[ch]" value="1" class="colorInput _tooltip" {ch_checked}
+            title="{search_child_help_msg}">
+    </td>
+    <td></td>
+
+    <td>
+        <div>{priv_msg}:</div>
+        <select name="filter[priv]" class="colorInput" style="width: 100px;">
+            {priv_select}
+        </select>
+    </td>
+
+    <td>
+        <div>{company_msg}:</div>
+        <select name="filter[comp]" class="colorInput" style="width: 100px;">
+            {company_select}
+        </select>
+    </td>
+
+    <td>
+        <div>{entry_status_msg}:</div>
+        <select name="filter[s]" class="colorInput" style="width: 100px;">
+            {status_select}
+        </select>
+    </td>
+
+    <td>&nbsp;</td>
+    <td>
+        <div>{search_msg}:</div>
+        <input type="text" name="filter[q]" value="{q}" class="colorInput _tooltip" style="width: 130px;"
+            title="{search_infield}">
+    </td>
+
+    <td>
+        <button type="submit" name="do_search" value="1" 
+            class="button2 button2_filter">&rarr;</button>
+    </td>
+</tr>
+</table>
+
+</form>

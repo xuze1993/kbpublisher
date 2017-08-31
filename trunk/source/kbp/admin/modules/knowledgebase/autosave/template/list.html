@@ -1,0 +1,27 @@
+<div class="trLighter" style="padding: 5px;">
+    <strong>{nav}</strong>
+</div>
+
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    <td class="tdTitle" width="250">{autosaved_date_msg}</td>
+    <td>{entry_title_msg}</td>
+    
+    <td align="center" width="1">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id_key}" class="{class}" style="{style}">
+    
+    <td width="250"><b>{interval_date}</b>&nbsp;&nbsp;({formatted_date})</td>
+    <td>{title}</td>
+    
+    <td class="action" width="1" align="center">
+        {options_img}
+    </td>
+</tr>
+</tmpl:row>
+
+</table>

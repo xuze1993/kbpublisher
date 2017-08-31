@@ -1,0 +1,119 @@
+<style>
+    .triggerMoreHtml {
+        cursor: move;
+        border: 1px dashed #B9B9B9;
+    }
+    
+    div.view_placeholder {
+        height: 25px;
+        border: 1px dashed #B9B9B9;
+        margin: 3px;
+    }
+</style>
+<script src="jscript/trigger.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    PopupManager.setTitle("{popup_title}");
+    
+    $('input, select').change(function() {
+        $('#save_button').attr('disabled', false).removeClass('buttonDisabled');
+    });
+    
+    sc = new getMoreHtmlTrigger();
+	sc.readroot = document.getElementById('{condition_readroot}');
+	sc.writeroot = document.getElementById('{condition_writeroot}');
+
+	sc.id_pref = '{condition_id_pref}';
+	sc.id_pref_populate = '{condition_id_pref_populate}';
+	sc.condition_name = 'cond';
+	//sc.rule_name = 'condition_rule';
+	
+	sc.counter = '{condition_counter}';
+	sc.confirm_use = false;
+	sc.confirm_msg = '';
+    
+    $('#aContentForm').sortable({
+        placeholder: 'view_placeholder',
+        stop: function(event, ui) {
+            $('#save_button').attr('disabled', false).removeClass('buttonDisabled');
+        }
+    });
+        
+    
+    $('body').bind('triggerRowAdded', {}, function(e, data) {
+        $('#save_button').attr('disabled', false).removeClass('buttonDisabled');
+        
+        var pos = data.id.lastIndexOf('_');
+        var name = data.id.substring(5, pos);
+        
+        $('#' + name + '_match_block').show();
+        $('#' + name + '_button').hide();
+        
+        $('div[id^=template_tags_]').hide();
+        $('input[id^=template_tags_hide_button_]').hide();
+        $('input[id^=template_tags_button_]').show();
+        
+        $('#' + data.id).children('span:last').attr('id', data.id2);
+    });
+    
+    $('body').bind('triggerRowRemoved', {}, function(e, data) {
+        $('#save_button').attr('disabled', false).removeClass('buttonDisabled');
+    });
+});
+
+function populateCondition(select) {
+    var loading_option = '<option>' + "{loading_msg}" + '</option>';
+    $(select).parent().next().find('select').html(loading_option);
+    
+    xajax_populateCondition(select.value, $(select).attr('data-title'), 'spinner');
+}
+
+function populatePostAction() {
+    $('._tooltip:not([title=""])').tooltipster({
+        contentAsHTML: true,
+        theme: ['tooltipster-kbp'],
+        interactive: true,
+        maxWidth: 400,
+        side: ['top', 'left']
+    });
+}
+
+function setDefaults() {
+    confirm2("{sure_default_msg}", function() {
+        xajax_setDefaults();
+    });
+}
+</script>
+
+<div id="error_block">
+</div>
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder3">
+<tr>
+    <td>
+        <div>
+            <form id="aContentForm">
+                {condition_html}
+                
+                <span id="{condition_writeroot}"></span>
+            </form>
+        </div>
+    </td>
+</tr>
+
+</table>
+        
+{condition_html_default}
+
+<br />
+
+<div class="bottom_button bb_popup">
+    <input type="button" id="save_button" value="{save_msg}" class="button buttonDisabled" disabled
+        onClick="xajax_saveLinks($('#aContentForm').serialize());">
+    
+    <input type="button" value="{close_msg}" class="button" 
+        onClick="PopupManager.close();">
+    
+    <input type="submit" value="{defaults_msg}" class="button"
+        onClick="setDefaults();"> 
+</div>

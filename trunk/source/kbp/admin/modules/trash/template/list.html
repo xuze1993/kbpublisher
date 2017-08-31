@@ -1,0 +1,34 @@
+<script type="text/javascript">
+    function emptyTrash() {
+        confirm2("{sure_empty_trash_msg}", function() {
+            document.location.href = '{empty_link}';
+        });
+    }
+</script>
+
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    <td class="tdTitle" width="1">{id_msg}</td>
+    <td>{type_msg}</td>
+    <td>{date_deleted_msg}</td>
+    <td>{user_msg}</td>
+    
+    <td align="center" width="1">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+    <td width="1">
+        <strong><a href="{preview_link}">{entry_id}</a></strong>&nbsp;
+    </td>
+    <td>{entry_type}</td>
+    <td>{formatted_date}</td>
+    <td>{user}</td>
+    
+    <td class="action" align="center" width="1">{options_img}</td>
+</tr>
+</tmpl:row>
+
+</table>

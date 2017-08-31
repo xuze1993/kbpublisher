@@ -1,0 +1,76 @@
+<link href="{client_href}skin/search.css" type="text/css" rel="stylesheet" />
+<script src="{client_href}jscript/jquery/jquery.placeholder.min.js" type="text/javascript"></script>
+<script src="{client_href}jscript/SearchMenu.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('input, textarea').placeholder();
+        SearchMenu.init();
+        
+        <tmpl:focus_animation>
+        $('#searchq').focus(function() {
+            $(this).animate({width: '180px'}, 200);
+        });
+
+        $('#searchq').blur(function() {
+            if ($('#searchq').val() == '') {
+                $(this).animate({width: '130px'}, 200);
+            }
+        });
+        </tmpl:focus_animation>
+        
+        <tmpl:search_suggest>
+        $("#searchq").autocomplete({
+            source: '{suggest_link}',
+            position: {
+                my: 'left top',
+                at: 'left bottom',
+                of: '.sb_down'
+            }
+        });
+        </tmpl:search_suggest>
+    });
+</script>
+
+<form id="ui_element" class="sb_wrapper" action="{form_search_action}" 
+	style="margin: 0px;width: 200px;"
+    onsubmit="return validateQuickSearch('{alert_empty_search}')">
+    {hidden_search}
+    <input type="hidden" name="s" value="1" />
+    
+    <div style="white-space: nowrap;"> 
+        <div class="search_container">
+            
+		    <a href="#" class="sb_down" onclick="return false;"></a>
+            <ul class="sb_dropdown" style="display: none;">
+                <tmpl:filter_row>
+        		<li class="{class}">
+        		    <input type="checkbox" id="{filter_id}" name="in" value="{filter_key}" {filter_options} 
+                        onclick="SearchMenu.highlightOption($(this).parent());" />
+                    
+                    <label for="{filter_id}" 
+                        style="display: block;text-align: left;padding-left: 30px;cursor: pointer;" 
+                        onclick="SearchMenu.highlightOption($(this).parent());">
+                        {filter_title}
+                    </label>
+                </li>
+                </tmpl:filter_row>
+        
+                <li id="advanced_link">
+                    <img src="{base_href}client/images/icons/gear.gif" alt="gear" 
+                        style="margin: 0 4px 0 5px; vertical-align: middle;" />
+                    <a href="{advanced_search_link}" 
+                        style="color: black;margin-left: 3px;">{advanced_search_msg}</a>
+                </li>
+        	</ul>
+
+            <input type="text" name="q" id="searchq" value="{q}" class="hidden_x_icon"
+                placeholder="{search_msg}..." />
+            
+            <button type="submit" name="sb" id="sb" title="{search_button_msg}" style="padding: 0px;">
+                <img src="{base_href}client/images/icons/{submit_icon}.gif" height="13" alt="s"
+                    style="vertical-align: top;" />
+            </button>
+            
+        </div>
+	</div>
+</form>

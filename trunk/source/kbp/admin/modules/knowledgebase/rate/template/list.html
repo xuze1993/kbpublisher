@@ -1,0 +1,77 @@
+<script src="jscript/TableListHandler.js" type="text/javascript"></script>
+<script src="../client/jscript/jquery/jquery.expander.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.comment_exp').expander({
+            slicePoint: 200, 
+            widow: 2,
+            expandEffect: 'show', 
+            userCollapseText: '<b>[^]</b>',
+            expandText: '<b>{more_msg}</b>'
+        });
+        
+        TableListHandler.tableClass = 'tdBorder2';      
+        TableListHandler.grouped = 2;
+        TableListHandler.init();
+    });    
+</script>
+
+{header}
+
+<table border="0" width="100%" cellpadding="4" cellspacing="1" class="tdBorder2">
+<tr class="tdTitle">
+    
+    <tmpl:bulk>
+    <td width="1">
+        <input type="checkbox" name="id_check" value="1" style="margin: 0px;" />
+    </td>    
+    </tmpl:bulk>
+    
+    <td width="220" class="tdTitle">{date_posted_msg}</td>
+    <td>{entry_msg}</td>
+    
+    <td width="1">{entry_status_msg}</td>
+    <td align="center" width="1">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}_1" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+                                        
+    <tmpl:bulk>
+    <td width="1" rowspan="2" valign="top">
+        <input type="checkbox" name="id[]" value="{id}" id="ch_{id}" 
+            style="margin: 0px;" {bulk_ids_ch_option} />    
+    </td>
+    </tmpl:bulk>                                        
+    
+    <td width="220"><b>{interval_date}</b>&nbsp;&nbsp;({formatted_date})</td>
+    <td>
+        <a href="{filter_link}" style="{style}" title="{title}">
+            {short_title}
+        </a>  [{num_comment}]
+    </td>
+    
+    <td align="center" rowspan="2">
+        <div class="status help" style="width: 15px;">
+            <div title="{status}" style="background: {color};">&nbsp;&nbsp;</div>
+        </div>
+    </td>
+    
+    <td class="action" width="1" align="center" rowspan="2">
+        {options_img}
+    </td>
+</tr>
+<tr id="row_{id}_2" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+                                    
+    <td colspan="2" style="padding: 8px;">
+        <div class="comment_exp">
+            {comment}
+        </div>
+    </td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div style="padding-top: 2px;"></div>
+{footer}

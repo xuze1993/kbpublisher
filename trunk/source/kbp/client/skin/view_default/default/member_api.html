@@ -1,0 +1,89 @@
+<link rel="stylesheet" type="text/css" href="{base_href}client/skin/jquery/tooltipster/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-kbp_title.css">
+<script type="text/javascript">
+<!--
+    $(document).ready(function() {
+        $('#private_key_link').tooltipster({
+            contentAsHTML: true,
+            theme: ['tooltipster-kbp_title'],
+            interactive: true,
+            maxWidth: 300,
+            trigger: 'click',
+            functionBefore: function(instance){
+                var content = instance.content();
+                
+                instance.content('<div style="background: #7898C2;padding: 5px;color: white;"><b>{api_private_key_msg}</b>' +
+                    '<img src="{client_href}images/icons/close.gif" id="close_button" onclick="$(\'#private_key_link\').tooltipster(\'hide\');" /></div>' + 
+                    '<div style="padding: 10px;">' + content + '</div>');
+            }
+        });
+    });
+    
+    function Validate(form) {
+        return true;
+    }
+    
+    var private_key = '{api_private_key}';
+
+    function resetApiKey(sure_msg) {
+        confirm2(sure_msg, function() {
+            xajax_generateApiKey();
+        });
+    }
+
+//-->
+</script>
+
+{member_menu}
+
+{api_note_msg}
+
+{error_msg}
+
+<form action="{action_link}" method="post" onsubmit="return Validate(this);">
+<input type="hidden" name="id" id="id" value="{id}" />
+<input type="hidden" name="extra[{api_rule_id}][value1]" id="api_access" value="{api_access}" />
+
+<table class="sTable tableCp5">
+<tr class="tdSubTitle">
+    <td class="tdSubTitle" colspan="2"><b>{title}</b></td>
+</tr>
+
+<tr class="trForm"> 
+    <td class="tdFormCaption">{api_url_msg}:</td>
+    <td>{api_url}</td>
+</tr>
+
+<tr class="trForm"> 
+    <td class="tdFormCaption">{api_public_key_msg}:</td>
+    <td>
+        <input type="text" name="extra[{api_rule_id}][value2]" id="api_public_key" value="{api_public_key}" 
+            class="longText" readonly>&nbsp;&nbsp;
+        
+        <!-- <input type="button" value="{api_reset_key_msg}" class="button"
+            onClick="resetApiKey('{api_reset_key_sure2_msg}');"> -->
+        <a href="" onClick="resetApiKey('{api_reset_key_sure2_msg}'); return false;">{api_reset_key_msg}</a>
+    </td>
+</tr>
+<tr class="trForm"> 
+    <td class="tdFormCaption">{api_private_key_msg}:</td>
+    <td>
+        <a id="private_key_link" href="#show" title=""
+            onclick="$(this).tooltipster('content', '<b>' + private_key + '</b><br /><br />{api_private_key_note_msg}'); return false;">
+            {api_private_key_show_msg}
+        </a>
+                        
+        <input type="hidden" name="extra[{api_rule_id}][value3]" id="api_private_key" value="{api_private_key}">
+    </td>
+</tr>
+
+<tr> 
+    <td></td>
+    <td>
+        <div><br /></div>
+        <input type="submit" name="submit_api" id="submit_api" value="{ok_msg}" class="button" />
+        <input type="button" value="{cancel_msg}" class="button" 
+            onclick="location.href='{cancel_link}'" />
+    </td>
+</tr>
+</table>
+</form>

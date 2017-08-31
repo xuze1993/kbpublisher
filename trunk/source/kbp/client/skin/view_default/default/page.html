@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html lang="{meta_content_lang}">
+<head>
+    <title>{meta_title}</title>
+    <meta http-equiv="content-type" content="text/html; charset={meta_charset}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords"  content="{meta_keywords}" />
+    <meta name="description"  content="{meta_description}" />
+    <meta name="robots"  content="{meta_robots}" />
+    
+    <!--[if IE]>
+    <link rel="stylesheet" type="text/css" href="{common_ie_css}" />
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="{common_css}" />
+    <link rel="stylesheet" type="text/css" href="{common_table_css}" />
+    <link rel="stylesheet" type="text/css" href="{common_view_css}" />
+    
+    <link rel="stylesheet" type="text/css" href="{base_href}client/skin/jquery/jquery.growl.css">
+    <link rel="stylesheet" type="text/css" href="{base_href}client/skin/jquery/tooltipster/tooltipster.bundle.min.css">
+    <link rel="stylesheet" type="text/css" href="{base_href}client/skin/jquery/tooltipster/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-kbp.css">
+    <link rel="stylesheet" type="text/css" href="{base_href}client/skin/jquery/tooltipster/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-kbp_error.css">
+    <link rel="stylesheet" type="text/css" href="{base_href}client/skin/jquery/tooltipster/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-light.min.css">
+    <link rel="stylesheet" type="text/css" href="{base_href}client/skin/jquery-ui/smoothness/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="{base_href}client/skin/jquery-ui/smoothness/custom.css">
+    <link rel="stylesheet" type="text/css" href="{base_href}client/skin/jquery/jquery.dropdown.css">
+    <link rel="stylesheet" type="text/css" href="{base_href}client/skin/jquery/jquery.dropdown.css">
+    <link rel="stylesheet" type="text/css" href="{base_href}client/skin/jquery/ezmodal.css">
+    {style_css_links}
+        
+    <script type="text/javascript" src="{base_href}client/jscript/common.js"></script>
+    <script type="text/javascript" src="{base_href}client/jscript/DialogBox.js"></script>
+    <script type="text/javascript" src="{base_href}client/jscript/jquery/jquery.js"></script>
+    <script type="text/javascript" src="{base_href}client/jscript/jquery/jquery-ui.js"></script>
+    <script type="text/javascript" src="{base_href}client/jscript/jquery/jquery.browser.js"></script>
+    <script type="text/javascript" src="{base_href}client/jscript/jquery/jquery.dropdown.js"></script>
+    <script type="text/javascript" src="{base_href}client/jscript/jquery/tooltipster.bundle.min.js"></script>
+    <script type="text/javascript" src="{base_href}client/jscript/jquery/jquery.growl.js"></script>
+    <script type="text/javascript" src="{base_href}client/jscript/jquery/ezmodal.min.js"></script>
+    <script type="text/javascript" src="{base_href}client/jscript/jquery/jquery.serialize-object.min.js"></script>
+    <script type="text/javascript" src="{base_href}client/jscript/jquery/jquery.isonscreen.js"></script>
+    <script type="text/javascript" src="{base_href}client/jscript/FormCollector.js"></script>
+    <script type="text/javascript" src="{base_href}client/jscript/ErrorHighlighter.js"></script>
+    <script type="text/javascript" src="{base_href}client/jscript/ErrorTooltipster.js"></script>
+    
+    <script type="text/javascript" src="{base_href}client/jscript/fontfaceobserver.js"></script>
+    <script type="text/javascript" src="{base_href}admin/jscript/PopupManager.js"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            setDebug({debug});
+            
+            // Fira Sans font
+            $('body').addClass('font_not_loaded');
+            var font = new FontFaceObserver('Fira Sans');
+            font.load().then(function () {
+                $('body').removeClass('font_not_loaded');
+            });
+            
+            
+            DialogBox.ok_msg = "{ok_msg}";
+            DialogBox.cancel_msg = "{cancel_msg}";
+            
+            showGrowl("{growl_show}", "{growl_title}", "{growl_body}");
+            
+            $('ul.dropdown-menu').each(function() { // fix to enable a decent tab navigation in dropdowns
+                $(this).find('li > a').last().blur(function() {
+                    $(document).click();
+                });
+            });
+            
+            $('._tooltip:not([title=""])').tooltipster({
+                contentAsHTML: true,
+                theme: ['tooltipster-kbp'],
+                interactive: true,
+                maxWidth: 300
+            });
+            
+            $('._tooltip_click').tooltipster({
+                contentAsHTML: true,
+                interactive: true,
+                trigger: 'click'
+            });
+            
+            $('._tooltip_custom_glossary').tooltipster({
+                contentAsHTML: true,
+                interactive: true,
+                trigger: 'custom',
+                maxWidth: 500,
+                functionReady: function(instance, helper) {
+                    $(helper.tooltip).on('mouseenter', function() {
+                        clearTimeout(tolerance);
+                    });
+                    
+                    $(helper.tooltip).on('mouseleave', function() {
+                        closeTooltip(_tooltip_el);
+                    });
+                }
+            });
+            
+            $('._tooltip_user').not('#body_raw ._tooltip_user').tooltipster({
+                contentAsHTML: true,
+                interactive: true,
+                functionBefore: function(origin, continueTooltip){
+                    var content = origin.tooltipster('content');
+                    content = content.replace(/(?:\r\n|\r|\n)/g, '<br />');
+                    origin.tooltipster('content', content);
+                    
+                    continueTooltip();
+                }
+            });
+            
+            
+			// reset text/hide loading, etc in safari 
+            window.onpageshow = function(event) {
+                if (event.persisted) {
+					$('#search_spinner').hide(); // do not forget remove from search forms!
+					
+					if($('button[data-title]').length) {
+	                    $('button[data-title]').each(function() {
+	                        $(this).text($(this).attr('data-title'));
+	                    });
+					}
+                }
+            };
+			
+        });
+        
+        function closeTooltip(el) {
+            _tooltip_el = el;
+            tolerance = setTimeout(function() {
+				$(el).tooltipster('hide');
+			}, 500);
+        }
+    </script>
+    
+    {rss_head_links}
+    {custom_template_head}
+</head>
+<body>
+    
+    {content}
+
+</body>
+</html>

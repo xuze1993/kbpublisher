@@ -1,0 +1,75 @@
+<ul style="list-style-type: none;">
+    <li><a href="#xml_exp"><span>XML</span></a></li>
+    <li><a href="#csv_exp"><span>CSV</span></a></li>
+    <li><a href="#xls_exp"><span>Excel</span></a></li>
+</ul>
+
+<div id="xml_exp">
+    <div>
+        <form method="post" action="{export_xml_link}" name="export_csv">
+            <br />
+             <input type="submit" name="submit" value="{export_msg}" class="button" />
+         </form>
+    </div>
+</div>
+
+<div id="csv_exp">
+    <div>
+        <strong>{csv_options_msg}</strong>
+        <br/><br/>
+        <form method="post" action="{export_csv_link}" name="export_csv">
+            <table>
+                <tr>
+                    <td>{fields_terminated_msg}:</td>
+                    <td>
+                        <input type="text" name="fields_terminated" class="shorttext" value=",">
+                    </td>
+                </tr>
+                <tr>
+                    <td>{optionally_enclosed_msg}:</td>
+                    <td>
+                        <input type="text" name="optionally_enclosed" class="shorttext" value='"' readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{lines_terminated_msg}:</td>
+                    <td>
+                        <input type="text" name="lines_terminated" class="shorttext" value="\n">
+                    </td>
+                </tr>
+                <tr>
+                    <td>{include_header_row}:</td>
+                    <td>
+                        <input type="checkbox" name="header_row" checked />
+                    </td>
+                </tr>
+                
+                <tmpl:total_row>
+                <tr>
+                    <td>{include_total_row}:</td>
+                    <td>
+                        <input type="checkbox" name="total_row" checked />
+                    </td>
+                </tr>
+                </tmpl:total_row>
+                
+                <tr>
+                    <td colspan="2" align="center">
+                        <br />
+                        <input type="submit" name="submit" value="{export_msg}" class="button" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    
+    </div>
+</div>
+
+<div id="xls_exp">
+    <div>
+        <form method="post" action="{export_xls_link}" name="export_xls">
+            <br />
+             <input type="submit" name="submit" value="{export_msg}" class="button" />
+         </form>
+    </div>
+</div>

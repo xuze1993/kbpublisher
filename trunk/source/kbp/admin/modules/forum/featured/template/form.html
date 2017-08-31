@@ -1,0 +1,71 @@
+<script type="text/javascript" src="../client/jscript/DatePickerManager.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    PopupManager.setTitle("{featured_msg}");
+    
+    var options = {
+        date_format: '{date_format}',
+        week_start: {week_start},
+        button: true,
+        class_name: 'longText'
+    }
+    
+    var dp = new DatePickerManager('date_to', options);
+    dp.setMinDate('{min_date}');
+    
+    <tmpl:date_set>
+    dp.setDate({date_formatted_1});
+    </tmpl:date_set>
+});
+</script>
+
+<form action="{action_link}" method="post" name="" id="aContentForm" onSubmit="LeaveScreenMsg.skipCheck();return Validate(this);">
+{hidden_fields}
+
+<table border="0" width="100%" cellpadding="5" cellspacing="1">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{entry_id_msg}:</td>
+    <td><strong>{entry_id}</strong></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{title_msg}:</td>
+    <td>{title}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{pinned_until_msg}:</td>
+    <td>
+        <span class="hasTooltip">
+	    	<div>
+                <input type="hidden" id="date_to" name="date_to" />
+                <span style="margin-left: 5px;">({date_format_formatted})</span>
+            </div>
+            
+            <tmpl:expired>
+            <div>Expired on {date_formatted}</div>
+            </tmpl:expired>
+            
+            <div style="clear: both;"></div>
+		</span>
+        <span class="tooltip">{forum_pinned_tip_msg}</span>
+    </td>
+</tr>
+
+<tr>
+    <td></td>
+    <td><div><br></div>
+        <input type="submit" name="submit" value="{save_msg}" class="button">
+        
+        <input type="button" value="{cancel_msg}" 
+            onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'" class="button">
+    </td>
+</tr>
+
+</table>
+
+</form>

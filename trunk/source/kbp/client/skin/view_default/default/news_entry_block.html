@@ -1,0 +1,41 @@
+<div class="abBgrDarker  itemImage">
+
+    <tmpl:print_link>
+    <span style="margin-right: 15px;">
+		<img src="{base_href}client/images/icons/printer.svg" alt="print" style="width: 14px;height: 14px;" />&nbsp;
+        <a class="abLink" href="{print_link}" rel="nofollow">{print_msg}</a>
+    </span>
+    </tmpl:print_link>
+    
+    <tmpl:share_link>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#share_menu').on('show', function(event, dropdownData) {
+            dropdownData.dropdown.css('top', 'auto');
+        });
+    });
+    </script>
+    <span style="margin-right: 15px;">
+    	<img src="{base_href}client/images/icons/share.svg" style="width: 14px;height: 14px;" />&nbsp;
+        <a href="#" class="abLink" rel="nofollow" data-dropdown="#share_menu">{share_link_msg}</a>
+    </span>
+    
+    <div id="share_menu" class="dropdown dropdown-tip has-icons dropdown-relative">
+        {share_block}
+    </div>
+    </tmpl:share_link>
+	
+	
+    <tmpl:admin_block_menu>
+    <div style="float: right; text-align: right;">
+    	<img src="{base_href}client/images/icons/edit.svg" style="width: 14px;height: 14px;" />&nbsp;
+        <a class="abLink" href="" rel="nofollow"
+            data-dropdown="#action_menu2">{admin_tools_msg}</a>    
+            
+        <div id="action_menu2" class="dropdown dropdown-tip dropdown-anchor-right dropdown-relative">
+            {action_menu}
+        </div>
+    </div>
+    </tmpl:admin_block_menu>
+	
+</div>

@@ -1,0 +1,35 @@
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post">
+{hidden_fields}
+
+<table border=0 width="100%" cellpadding="5" cellspacing="1">
+<tr class="tdTitle">
+    <td width="30" class="tdTitle">{id_msg}</td>
+    <td>{filename_msg}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{id}</td>
+    <td>{filename}</td>
+</tr>
+</table>
+
+<br><br>
+<div align="center">
+    <input type="button" value="{review_linked_articles_msg}" id="selected_button" class="buttonLong"
+        onClick="PopupManager.create('{review_link}','r','r',2)">
+            
+    <input type="button" value="{delete_file_references_msg}" class="buttonLong"
+        onClick="location.href='{delete_link}'">        
+
+    <input type="button" value="{cancel_msg}" class="button"
+        onClick="location.href='{cancel_link}'">
+</div>
+
+</form>
+
+<script type="text/javascript">
+ document.getElementById('selected_button').focus();
+</script>

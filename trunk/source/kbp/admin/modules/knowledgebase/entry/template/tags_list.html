@@ -1,0 +1,81 @@
+<script type="text/javascript">
+$(document).ready(function() {
+    window.top.$('#loadingMessage').remove();
+    
+    PopupManager = window.top.PopupManager;
+    $('body').bind('keydown', function(e) {
+        PopupManager.checkForEscapeKey(e);
+    });
+    
+    
+    PopupManager.setTitle("{tags_msg}");
+    
+    var current_popup = PopupManager.getCurrentPopup();
+    current_popup.dialog('option', 'beforeClose', function(event, ui) {
+        window.top.$('#tag_get_popular_button').show();
+    });
+    
+    
+    var tag_ids = [{tag_ids}];
+    var parent_window = PopupManager.getParentWindow();
+    for (var i in tag_ids) {
+        var id = tag_ids[i];
+        if (parent_window.$('#tag_' + id).length == 1) {
+            $('#tag_' + id).css('background', '#e7e7e7');
+        }
+    }
+});
+
+function assignTag(id, title) {
+    var parent_window = PopupManager.getParentWindow();
+    if (parent_window.$('#tag_' + id).length) {
+    	parent_window.TagManager._deleteById(id);
+    	$('#tag_' + id).css('background', 'white');
+    	
+    } else {
+    	parent_window.TagManager.create(id, title);
+    	$('#tag_' + id).css('background', '#e7e7e7');
+    }
+}
+</script>
+
+<div>
+    <form action="{form_search_action}">
+        {hidden_search}
+        
+        <input type="search" name="qf" value="{qf}" 
+            class="colorInput" style="width: 250px;" results>
+        <input type="submit" value="{search_msg}">
+    </form>
+</div>
+<br /><br />
+
+<tmpl:by_page>
+<div>{page_by_page}</div>
+<br />
+</tmpl:by_page>
+
+<table border="0" width="100%" cellpadding="4" cellspacing="1">
+
+<tmpl:row_tr>
+<tr valign="top">
+
+    <tmpl:row_td>
+    <td style="width: {td_width}%;padding: 5px 10px 10px 5px;">
+        <a id="tag_{id}" class="tagTitle" href="javascript:assignTag({id}, '{title}');">{title}</a>
+        <div class="tagDescription">{description}</div>
+    </td>
+    </tmpl:row_td>
+    
+    <tmpl:row_empty_td>
+    <td></td>
+    </tmpl:row_empty_td>
+
+</tr>
+</tmpl:row_tr>
+
+</table>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{done_msg}" class="button" onclick="PopupManager.close();" />
+</div>

@@ -1,0 +1,24 @@
+<a id="{anchor}"></a>
+<table class="sTable tableCp1 tableCs1">
+<tr class="tdSubTitle">
+    <td colspan="2" class="tdSubTitle"><b>{title_msg}</b></td>
+</tr>
+<tr><td colspan="2" style="padding: 3px;"></td></tr>
+
+<tmpl:row>
+<tr>
+    <td style="padding-left: 2px;">{item_img}</td>
+    <td style="width: 100%;padding-left: 4px;">
+        <a href="{entry_link}" class="articleLinkOther"{link_options}>{entry_id}{title}</a>
+    </td>
+</tr>
+</tmpl:row>
+<tmpl:category_link>
+<tr style="vertical-align: top;">
+    <td></td>
+    <td style="padding-top: 7px;"><a href="{category_link}" class="smallerText">&raquo; {category_link_msg}</a></td>
+</tr>
+</tmpl:category_link>
+
+</table>
+<br />

@@ -1,0 +1,89 @@
+<script src="jscript/bulk.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#tabs").tabs();
+        $("#tab-export").tabs();
+        
+        TableListHandler.titleClass = 'tdTitle,.trMoreDarker';
+        TableListHandler.tableClass = 'tdBorder2';
+        TableListHandler.bulkRowIdName = 'entry_id';
+        TableListHandler.init();
+    });
+</script>
+
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+<tr valign="top">
+    
+    <tmpl:filter>
+    <td width="190">
+        {filter_block_tmpl}
+    </td>
+    <td width="10">&nbsp;</td>
+    </tmpl:filter>
+    
+    <td>
+        <div style="margin-bottom: 10px;">
+            {nav}
+        </div>
+        
+        {header}
+        
+        <div class="entryTabTitle">
+            {title}
+        </div>
+        
+        <div id="tabs" class="flora">
+            <ul>
+               <li><a href="#tab-1"><span>{tab_report_msg}</span></a></li>
+               <li><a href="#tab-export"><span>{tab_export_msg}</span></a></li>
+            </ul>
+    
+            
+            <div id="tab-1"></div>
+    
+            <div id="tab-export" style="padding: 5px;">
+                {export_block}
+            </div>
+        
+            <form action="" name="bulk_form" id="bulk_form" onsubmit="return BulkOnSubmit();">
+                {hidden_fields}
+            
+                <table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder2">
+                <tr class="tdTitle">
+                    <td class="tdTitle">{user_msg}</td>
+                </tr>
+                
+                <tmpl:row>
+                    <tmpl:row_day>
+                    <tr class="trMoreDarker">
+                        <td colspan="7">
+                            <a href="{day_filter_link}">{day}</a>
+                        </td>
+                    </tr>
+                    </tmpl:row_day>
+                
+                <tr id="row_{row_id}" class="{class}">
+                    <td>
+                        <a href="#" data-dropdown="#{row_id}_ddu">{user}</a>
+                        
+                        <div id="{row_id}_ddu" class="dropdown dropdown-tip dropdown-relative">
+                            <ul class="dropdown-menu">
+                                <li><a href="{user_filter_link}">{filter_by_msg} {user_msg}</a></li>
+                                
+                                <tmpl:user_details>
+                                <li class="dropdown-divider"></li>
+                                <li><a href="{user_details_link}">{detail_msg}</a></li>
+                                </tmpl:user_details>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                </tmpl:row>
+                
+                </table>
+            
+            </form>
+        </div>
+    </td>
+</tr>
+</table>

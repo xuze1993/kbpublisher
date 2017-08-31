@@ -1,0 +1,138 @@
+<script type="text/javascript" src="jscript/common_entry_form.js"></script>
+<script type="text/javascript">
+    function deleteDraft(msg, link) {
+        confirm2(msg, function() {
+            location.href = link;
+        });
+    }
+</script>
+
+{menu_block}
+
+<tmpl:draft_view>
+<div class="trLighter" style="padding: 5px;">
+    <strong>{nav}</strong>
+</div>
+<br />
+</tmpl:draft_view>
+
+<table border="0" width="100%" cellpadding="5" cellspacing="1">
+<tr>
+    <td colspan="2" class="tdTitle">{detail_msg}</td>
+</tr>
+
+<tmpl:draft_view>
+<tr class="trMoreDarker">
+    <td>{draft_date_saved_msg}:</td>
+    <td><strong>{formatted_date}</strong></td>
+</tr>
+</tmpl:draft_view>
+
+<tmpl:entry_view>
+
+<tr class="trMoreDarker">
+    <td>{id_msg}:</td>
+    <td><strong>{id}</strong></td>
+</tr>
+<tr class="trMoreDarker">
+    <td>{date_msg}:</td>
+    <td><strong>{formatted_date}</strong>
+</tr>
+<!--
+<tr class="trMoreDarker">
+    <td>{last_viewed_msg}:</td>
+    <td><strong>{last_viewed_formatted}</strong></td>
+</tr>
+-->
+<tr class="trMoreDarker">
+    <td>{view_msg}:</td>
+    <td><strong>{hits}</strong>
+</tr>
+
+</tmpl:entry_view>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{entry_title_msg}:</td>
+    <td>{title}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">
+        {entry_body_msg}:
+    </td>
+    <td>
+        <a href="{preview_link}">{preview_msg}</a>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{meta_keywords_msg} / {tags_msg}:</td>
+    <td>{tags}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{private_msg}:</td>
+    <td>        
+        <b>{private1_msg}</b>
+        {roles}
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{schedule_msg}:</td>
+    <td>
+        <tmpl:schedule>
+        <table border="0" cellspacing="5" cellpadding="1">
+        <tr>
+            <td>{on_the_date_msg}:</td>
+            <td>{schedule_date}</td>
+        </tr>
+        <tr>
+            <td>{change_status_to_msg}:</td>
+            <td>{schedule_status}</td>
+        </tr>
+        <tr>
+            <td valign="top">{note_msg}:</td>
+            <td>{schedule_note}</td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+        </tr>            
+        </table>
+        </tmpl:schedule>
+    </td>
+</tr>
+
+<tmpl:custom_row>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{title}:</td>
+    <td>{value}</td>
+</tr>
+</tmpl:custom_row>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{entry_status_msg}:</td>
+    <td>{status}</td>
+</tr>
+
+</table>
+
+
+<div style="padding: 20px 0px 0px 170px;">
+        
+    <tmpl:draft_view>
+    
+        <div id="bottom_button">    
+            <input type="button" value="{back_msg}" class="button" 
+                onClick="location.href='{draft_cancel_link}';">
+                
+            <input type="button" value="{draft_update_msg}" class="button" 
+                onClick="location.href='{draft_update_link}';">
+                
+            <input type="button" value="{delete_msg}" class="button" 
+                onClick="deleteDraft('{sure_delete_msg}', '{draft_delete_link}');">
+        </div>
+        
+    </tmpl:draft_view>
+        
+</div>

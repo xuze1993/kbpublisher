@@ -1,0 +1,39 @@
+<div class="panel panel-default kbp-panel">
+    <tmpl:section_link>
+    <a href="{section_link}">
+    </tmpl:section_link>
+    
+    	<div class="panel-heading">
+            {list_title}
+            
+            <tmpl:section_link>
+            <span class="pull-right">
+                <i class="fa fa-chevron-right" aria-hidden="true" style="margin-left: 10px;"></i>
+            </span>
+            </tmpl:section_link>
+        </div>
+        
+    <tmpl:section_link>
+    </a>
+    </tmpl:section_link>
+    
+    {msg}
+    
+    <div class="list-group">
+        <tmpl:row>
+        <a href="{entry_link}" class="list-group-item">
+            <h4 class="list-group-item-heading">{title}</h4>
+            <p class="list-group-item-text">
+                <span class="articleStaff2">{formatted_date}</span>
+            </p>
+        </a>
+        </tmpl:row>
+    </div>
+</div>
+
+<tmpl:by_page_bottom>
+<div style="padding: 10px 0px;text-align: center;">
+    {page_by_page_bottom}
+</div>
+<br />
+</tmpl:by_page_bottom>

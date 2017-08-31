@@ -1,0 +1,275 @@
+<link rel="stylesheet" href="css/tabs.css" type="text/css">
+<script type="text/javascript" src="jscript/CheckBoxGroup.js"></script>
+<script type="text/javascript" src="tools/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+    function blockCategoryDisabled(val) {
+        $('#category').attr('disabled', val);
+        $('#add_category_button').attr('disabled', val);
+        $('#delete_category_button').attr('disabled', val);
+    }
+    
+    function setRange(id) {
+        xajax_setRange(id, {input_id});
+    }
+    
+    function setRadioBehavior() {
+        myOptions = new CheckBoxGroup();
+        myOptions.addToGroup('dv[]');
+        myOptions.setRadioButtonBehavior();
+    }
+    
+    function checkForSign(rule) {
+        if (rule.length > 0) {
+            $('#error_message_sign').show();
+            
+        } else {
+            $('#error_message_sign').hide();
+        }
+    }
+    
+    <tmpl:submit_category>
+    function subForm() {
+        selHandler.selectAll();
+        LeaveScreenMsg.skipCheck();
+    }
+    </tmpl:submit_category>
+    
+    <tmpl:submit_no_category>
+    function subForm() {
+        // selHandler.selectAll();
+        LeaveScreenMsg.skipCheck();    
+    }
+    </tmpl:submit_no_category>
+    
+    $(document).ready(function() {       
+        $('#tabs').tabs({active: 1, disabled: [6]});
+        
+        <tmpl:selected_tab>
+        var index = $('#tab-{selected_tab_id}').index() - 1;
+        $('#tabs').tabs('option', 'active', index);
+        </tmpl:selected_tab>
+        
+        <tmpl:select_handler>
+        // categories
+        selHandler.setSelectWidth('category');
+        </tmpl:select_handler>
+        
+        <tmpl:category_disabled>
+        blockCategoryDisabled(true);
+        </tmpl:category_disabled>
+        
+        <tmpl:radio_behavior>
+        setRadioBehavior();
+        </tmpl:radio_behavior>
+        
+     });
+</script>
+
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" name="role" onsubmit="subForm();" id="aContentForm">
+{hidden_fields}
+
+<div id="tabs">
+<ul>
+   <tmpl:tab_row>
+   <li><a href="#tab-{id}"><span>{title}</span></a></li>
+   </tmpl:tab_row>
+</ul>
+
+<div id="tab-0">
+<table border=0 width="100%" cellpadding="5" cellspacing="1">
+<tr class="tdTitle">
+    <td colspan="2" style="padding: 1px;"></td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{field_type_msg}:</td>
+    <td>{field_type}</td>
+</tr> 
+</table>
+</div>
+
+<tmpl:categories>
+<div id="tab-2">
+<table border=0 width="100%" cellpadding="5" cellspacing="1">
+<tr class="tdTitle">
+    <td colspan="2" style="padding: 1px;"></td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{category_msg}:</td>
+    <td>
+        {category_hint_msg}<br/><br/>
+        {category_block_tmpl}
+    </td>
+</tr>
+</table>
+</div>
+</tmpl:categories>
+
+<div id="tab-3">
+<table border=0 width="100%" cellpadding="5" cellspacing="1">
+<tr class="tdTitle">
+    <td colspan="2" style="padding: 1px;"></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{title_msg}: {required_sign}</td>
+    <td><input type="text" name="title" value="{title}" class="longText"  style="width: 500px;"></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{tooltip_msg}:</td>
+    <td>
+        <textarea cols="80" rows="3" name="tooltip" style="width: 500px;">{tooltip}</textarea>
+    </td>
+</tr>
+
+<tmpl:checkbox>
+<tr class="trLighter">
+    <td class="tdFormCaption">{caption_msg}:</td>
+    <td><input type="text" name="caption" value="{caption}" class="longText"></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{default_checked_msg}:</td>
+    <td>{default_value_select}</td>
+</tr>
+</tmpl:checkbox>
+
+<tmpl:mandatory>
+<tr class="trLighter">
+    <td class="tdFormCaption">{is_required_msg}:</td>
+    <td>
+        <input type="checkbox" name="is_required" id="is_required" value="1" {required_ch}>
+        <label for="is_required">{yes_msg}</label>
+        <tmpl:mandatory_h>
+        <input type="hidden" name="is_required" value="1">
+        </tmpl:mandatory_h>
+    </td>
+</tr>
+</tmpl:mandatory>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{status_msg}:</td>
+    <td>{status_checkbox}</td>
+</tr>
+</table>
+</div>
+
+<tmpl:range>
+<div id="tab-4">
+<table border=0 width="100%" cellpadding="5" cellspacing="1">
+<tr class="tdTitle">
+    <td colspan="2" style="padding: 1px;"></td>
+</tr>       
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{range_msg}: {required_sign}</td>
+    <td>
+        <tmpl:range_set>
+        <div class="range_id_error">
+            <a href="javascript:PopupManager.create('{range_popup_link}', 'r', 'r'); void(0);">{set_range_msg}</a>
+        </div>
+        </tmpl:range_set>
+        
+        <input type="hidden" name="range_id" id="range_id" value="{range_id_val}" />
+        <div id="range_block" style="padding: 7px;">
+            <tmpl:range_block>
+            {range_block}
+            </tmpl:range_block>
+        </div>
+    </td>
+</tr>
+</table>
+</div>
+</tmpl:range>
+
+<tmpl:validation>
+<div id="tab-5">
+<table border=0 width="100%" cellpadding="5" cellspacing="1">
+<tr class="tdTitle">
+    <td colspan="2" style="padding: 1px;"></td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{valid_regexp_msg}:</td>
+    <td>
+        <span class="hasTooltip">
+	    	<div style="margin-bottom: 5px;">{common_regexp_msg}:
+                {common_regexp_select}
+                <input type="button" style="font-size: 11px;" value="{ok_msg}" id="apply_button"
+                    onclick="xajax_setRegexp($('#common_regexp').val());" />
+            </div>
+            
+            <div>
+                <input type="text" id="valid_regexp" name="valid_regexp" value="{valid_regexp}"
+                    class="longText" style="width: 95%;" onkeyup="checkForSign(this.value);">
+            </div>
+		</span>
+        <span class="tooltip">{valid_regexp_tip_msg}</span>
+    </td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption"  valign="top">
+        {error_message_msg}: 
+        <span id="error_message_sign" style="display: {error_message_sign_display};">{required_sign}</span>
+    </td>
+    <td>
+        <textarea cols="80" rows="3" name="error_message" id="error_message" 
+            style="width: 95%;">{error_message}</textarea>
+    </td>
+</tr>
+</table>
+</div>
+</tmpl:validation>
+
+<tmpl:display_options>
+<div id="tab-6">
+<table border=0 width="100%" cellpadding="5" cellspacing="1">
+<tr class="tdTitle">
+    <td colspan="2" style="padding: 1px;"></td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{display_msg}:</td>
+    <td>
+        {display_options_select}
+    </td>
+</tr>
+
+<tmpl:display_options_template>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{html_template_msg}:</td>
+    <td>
+        {display_option_note_msg}<br/>
+        {html_template_note_msg}<br/><br/>
+        {ckeditor}
+    </td>
+</tr>
+</tmpl:display_options_template>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{searchable_msg}:</td>
+    <td>
+        <input type="checkbox" name="is_search" id="is_search" value="1" {search_ch}>
+        <label for="is_search">{yes_msg}</label>
+    </td>
+</tr>
+
+</table>
+</div>
+</tmpl:display_options>
+
+<div id="tab-7">
+</div>
+
+</div>
+
+<div style="padding: 20px 0px 0px 170px;">
+    <div id="bottom_button">
+        <input type="submit" name="submit" value="{save_msg}" class="button"
+            onClick="validateForm();return false;" />
+            
+        <input type="button" value="{cancel_msg}" 
+            onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'" class="button">
+    </div>
+</div>
+</form>

@@ -1,0 +1,108 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $('#ForumFilter').bind('change', function(){
+	        var value = $(this).val();
+	        if (value == 'all') {
+	            $('#forum_filter_select').hide();
+                $('#forumMove').attr('disabled', true);
+	            return;            
+	        }
+            
+            $('#forumMove').attr('disabled', false);
+            $('#forum_filter_select').hide();
+            
+	        xajax_getChildForums(value, 'ajaxPopulateSwitchForumChildSelect', 'spinner_browsecat2');
+	    });
+	});
+    
+    function ajaxPopulateSwitchForumChildSelect(values, count) {
+	    var select = document.getElementById('ForumID');
+	    select.options.length = 0;
+	    for (i in values) {
+	        var option = new Option(values[i], i);
+            if (i == {category_id}) {
+                option.disabled = true;
+            }
+            select.options[select.options.length] = option;
+	    }
+        
+        if (count > 0) {
+            $('#forum_filter_select').show();
+        }
+	}
+</script>
+
+<form action="{action_link}" method="post" name="detail">
+
+<div class="tdTitle">
+    <!-- <div id="comment_title"> -->
+		{manage_msg}
+    <!-- </div> -->
+</div>
+
+<tmpl:published>
+<div style="padding: 15px;" class="trForm">
+<div>
+	<div style="float: left; margin-bottom: 3px; margin-right: 10px;">
+	    {forum_move_entry_msg}:
+	</div>
+
+	<div style="float: left; margin-bottom: 3px;">
+	    <select name="ForumFilter" id="ForumFilter" class="colorInput" 
+				style="width: 200px; margin-right: 10px;">
+	            {filter_select}
+	    </select>
+	</div> 
+       
+	<div id="forum_filter_select" style="float: left; margin-right: 10px; display: none;">
+	   <select name="category" style="width: 200px;" class="colorInput" id="ForumID">
+	       {category_select}
+	   </select>
+	</div>
+    
+    <span id="spinner_browsecat2" style="display: none;">
+        <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+    </span>
+
+	<input type="submit" name="move" id="forumMove" value="{ok_msg}"
+	    style="min-width: 70px;" onClick="return confirmForm('{sure_common_msg}', 'forumMove');">
+	
+	<div style="clear: both;"></div>
+    <div style="padding-top: 5px; border-bottom: 1px solid #DDD;"></div>
+    <div style="padding-bottom: 5px;"></div>
+    
+</div>
+</tmpl:published>
+
+<div style="margin-top: 5px;">
+    <tmpl:delete_button>
+	<div style="float: left; margin-right: 10px;">
+	    <input type="submit" name="delete" id="delete_submit" value="{forum_delete_entry_msg}" class="button"
+            onClick="return confirmForm('{sure_common_msg}', 'delete_submit');">
+	</div>
+    </tmpl:delete_button>
+    
+    <tmpl:published>
+	<div style="float: left; margin-right: 10px;">
+	    <input type="submit" name="stick" id="stick_submit" value="{sticky_action}" class="button"
+            onClick="return confirmForm('{sure_common_msg}', 'stick_submit');">
+	</div>
+       
+	<div style="float: left; margin-right: 10px;">
+	    <input type="submit" name="close" id="close_submit" value="{forum_close_entry_msg}" class="button"
+            onClick="return confirmForm('{sure_common_msg}', 'close_submit');">
+	</div>
+    </tmpl:published>
+    
+    <tmpl:closed>
+    <div style="float: left; margin-right: 10px;">
+	    <input type="submit" name="reopen" id="reopen_submit" value="{forum_reopen_entry_msg}" class="button"
+            onClick="return confirmForm('{sure_common_msg}', 'reopen_submit');">
+	</div>
+    </tmpl:closed>
+	
+	<div style="clear: both;"></div>
+</div>
+</div>
+
+</form>

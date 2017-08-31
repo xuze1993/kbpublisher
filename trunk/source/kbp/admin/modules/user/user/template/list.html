@@ -1,0 +1,85 @@
+{msg}
+
+{search_form}
+
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    
+    <tmpl:bulk>
+    <td width="1">
+        <input type="checkbox" name="id_check" value="1" style="margin: 0px;" />
+    </td>
+    </tmpl:bulk>
+    
+    <td class="tdTitle" width="1">{id_msg}</td>
+    <td width="80">{signing_date_msg}</td>
+    <td width="120">{last_logged_msg}</td>
+    
+    <td width="25%">{name_msg}</td>
+    <td>{username_msg}</td>
+    <td>{role_msg}</td>
+    
+    <td>{priv_msg}</td>
+    <td width="1">{author_num_article_msg}</td>
+    <td width="1">{author_num_file_msg}</td>
+    <td width="1">{subscription_msg}</td>
+    <td width="1">{api_msg}</td>
+    
+    <td width="1">{entry_status_msg}</td>
+    <td width="1" align="center">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}" 
+                        onDblClick="RecordToDo('{update_link}')">
+
+    <tmpl:bulk>
+    <td width="1">
+        <input type="checkbox" name="id[]" value="{id}" id="ch_{id}" 
+            style="margin: 0px;" {bulk_ids_ch_option} />        
+    </td>
+    </tmpl:bulk>
+    
+    <td width="1" align="right"><b>{id}</b></td>    
+    <td width="90" nowrap><span title="{formatted_date_full}">{formatted_date}</span></td>
+    <td width="120" nowrap><span title="{formatted_date_lastauth_full}">{formatted_date_lastauth}</span></td>
+    
+    <td>{name}</td>
+    <td><a href="mailto:{email}" style="{style}" title="{email}">{username}</a></td>
+    
+    <td>
+        <span class="_tooltip" title="{full_role}">{role}</span>
+    </td>
+    
+    <td>{privilege}</td>
+    <td align="center">{author_article_num}</td>
+    <td align="center">{author_file_num}</td>
+
+    <td align="center">
+        <tmpl:if_subscription>
+        <img src="images/icons/bullet.svg" alt="" 
+            class="_tooltip" title="<b>{subscription_msg}:</b><br/>{subsc_msg}" />
+        
+        </tmpl:if_subscription>
+    </td>
+
+    <td align="center">
+        <tmpl:if_api><img src="images/icons/bullet.svg" /></tmpl:if_api>
+    </td>
+
+    <td align="center">
+        <div class="status help" style="width: 15px;">
+            <div title="{status}" style="background: {color};">&nbsp;&nbsp;</div>
+        </div>
+    </td>
+    
+    <td class="action" width="1" align="center">{options_img}</td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div style="padding-top: 2px;"></div>
+{footer}

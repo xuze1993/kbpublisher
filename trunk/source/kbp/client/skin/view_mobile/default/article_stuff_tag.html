@@ -1,0 +1,15 @@
+<div class="panel panel-default" style="margin: 0 5px;">
+    <div class="panel-heading" data-toggle="collapse" data-target="#bootstrap_tag" style="cursor: pointer;">
+        <span class="glyphicon glyphicon-tags"></span>
+        &nbsp;&nbsp;{title_msg}
+        <i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
+    </div>
+    
+    <div id="bootstrap_tag" class="list-group collapse">
+        <tmpl:row>
+        <a href="{link}" class="list-group-item small" style="padding-left: 25px;">
+            {title}
+        </a>
+        </tmpl:row>
+    </div>
+</div>

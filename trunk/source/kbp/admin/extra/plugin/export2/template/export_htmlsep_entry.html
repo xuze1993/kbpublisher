@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <title>{title}</title>
+    </head>
+    <body>
+        <tmpl:nav>
+        <div class="noPrint">
+            <a href="index.html">{contents_msg}</a>
+            
+            <tmpl:prev_link>
+             | <a href="{prev_id}.html">{previous_msg}</a>
+            </tmpl:prev_link>
+            
+            <tmpl:next_link>
+             | <a href="{next_id}.html">{next_msg}</a>
+            </tmpl:next_link>
+            
+            <hr/>
+        </div>
+        </tmpl:nav>
+        
+        <div id="articleTitle">
+            <h1>{title}</h1>
+        </div>
+        
+        <div style="padding: 10px 5px;">
+        
+            {custom_tmpl_top}
+            {body}
+            {custom_tmpl_bottom}
+        
+        </div>
+        
+        <tmpl:entry_info>
+        <br />
+        
+        <hr />
+        
+        <div>
+            {entry_id_msg}: {id}<br />
+            {last_updated_msg}: {formated_date}<br />
+            {updated_msg} {by_user_msg}: {updater}</br />
+            {revision_msg}: {revision}<br />
+            {category_title_full} -> {title}<br />
+            <a href="{entry_link}">{entry_link}</a>
+        </div>
+        </tmpl:entry_info>
+        
+        <tmpl:nav>
+        <div class="noPrint">
+            <hr/>
+            
+            <a href="index.html">{contents_msg}</a>
+            
+            <tmpl:prev_link>
+             | <a href="{prev_id}.html">{previous_msg}</a>
+            </tmpl:prev_link>
+            
+            <tmpl:next_link>
+             | <a href="{next_id}.html">{next_msg}</a>
+            </tmpl:next_link>
+        </div>
+        </tmpl:nav>
+    </body>
+</html>

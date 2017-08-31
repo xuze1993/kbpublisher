@@ -1,0 +1,76 @@
+<script language="javascript" type="text/javascript">
+function confirmNotPublishedEntry(msg, link) {
+    confirm2(msg, function() {
+        document.location.href = link;
+    });
+}
+</script>
+
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+
+	<td width="1" align="center" class="tdTitle">{id_msg}</td>
+	<td width="1"></td>
+
+	<tmpl:private>
+	<td width="1"></td>
+	</tmpl:private>
+
+	<td>{entry_title_msg}</td>
+	<td>{category_msg}</td>
+
+	<td width="1">{entry_status_msg}</td>
+	<td width="1" colspan="2" align="center">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr class="{class}" style="{style}"	onMouseOver="OverColor(this, 'trOver', 'trHighlight')"
+									onMouseOut="OverColor(this, '{class}', 'trHighlight')"
+									onClick="Highlight(this, 'trOver', 'trHighlight')">
+
+	<td width="1" align="center"><b>{id}</b></td>
+
+	<td width="1">
+		<tmpl:if_schedule>
+		<img src="images/icons/clock.svg" width="10" height="10" alt=""
+            class="_tooltip" title="{schedule_msg}" />
+		</tmpl:if_schedule>
+	</td>
+
+	<tmpl:private>
+	<td width="1" align="center">
+	    <tmpl:if_private>
+            <img src="images/icons/lock2_{image_color}.svg" width="12" height="12" alt="key"
+                class="_tooltip" title="<b>{private1_msg}</b><br/>{roles_msg}" />
+	    </tmpl:if_private>
+	</td>
+	</tmpl:private>
+
+	<td>
+        <a href="{entry_link}" target="_blank" style="{style}" title="{title}">{short_title}</a>
+	</td>
+
+	<td>
+        <span class="_tooltip" title="{full_category}">{category}</span>
+	</td>
+
+	<td align="center" width="1">
+		<div class="status help" style="width: 15px;">
+			<div title="{status}" style="background: {color};">&nbsp;&nbsp;</div>
+		</div>
+	</td>
+
+	<td align="center" width="1">{update_img}</td>
+	<td align="center" width="1">{delete_img}</td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<tmpl:rating></tmpl:rating>
+<tmpl:comment></tmpl:comment>
+<tmpl:attachment></tmpl:attachment>
+<tmpl:bulk></tmpl:bulk>
+<tmpl:sort_order></tmpl:sort_order>

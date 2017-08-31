@@ -1,0 +1,13 @@
+/* Top menu */
+
+.menuItem a:visited, .menuItemSelected a:visited {
+/*	color: MediumBlue;*/
+}
+
+.menuItemSelected a {
+	text-decoration: none;
+}
+
+.menuItemSelected {
+	font-weight: bold;
+}

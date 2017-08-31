@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="{encoding}"?>
+<report>
+    <detail>
+        <range>{range}</range>
+        <date_period>{date_period}</date_period>
+        <report_type>{report_type_formatted}</report_type>
+    </detail>
+    
+    <entries>
+        <tmpl:row_entry>
+        <entry id="{type_id}">
+            <id>{type_id}</id>
+            <title>{type_title}</title>
+            <total>{total}</total>
+        </entry>
+        </tmpl:row_entry>
+    </entries>
+    
+    <items>
+        <tmpl:row>
+        <item>
+            <date>{date}</date>
+            <values>
+                <tmpl:row_item>
+                <value entry_id="{type_id}" entry_label="{type_title}">{value}</value>
+                </tmpl:row_item>
+            </values>
+        </item>
+        </tmpl:row>
+    </items>
+</report>

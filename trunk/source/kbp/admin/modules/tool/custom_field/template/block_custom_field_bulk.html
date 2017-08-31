@@ -1,0 +1,62 @@
+<script type="text/javascript">
+
+/*
+    function bulkValidateCustomField2() {
+    
+        alert(123);
+        return false;
+    
+        var rules = {
+            1: "[0-5]",
+            2: ""
+        }     
+
+        var msg = {
+            1: "1-123",
+            2: "2-123"      
+        };
+    
+        for(var fid in rules) {
+            var f = document.getElementById('custom_'+fid);
+            var re = new RegExp(rules[fid]);
+    
+            if(!re.test(f.value)) {
+                alert(msg[fid]);
+                return false;
+            }
+        }    
+    
+    }
+*/
+
+</script>
+
+<div style="margin-bottom: 10px;">
+    
+    <select name="value[custom_field]" class="colorInput" style="width: 250px;"
+        onchange="showActionCustom(this.value); ">
+        {field_select}
+    </select>
+    
+</div>
+
+<tmpl:row_append>
+<div class="bulk_custom_append" id="bulk_custom_append_{id}" style="margin-bottom: 10px; display: none;">
+    <input type="checkbox" name="value[custom_append][{id}]" 
+        value="1" id="bulk_custom_append_ch_{id}" class="bulk_custom_append_ch"> 
+    <label for="bulk_custom_append_ch_{id}">{add_existing_msg}
+</div>    
+</tmpl:row_append>
+
+<tmpl:row>
+<div class="bulk_custom_field" id="bulk_custom_field_{id}" style="display: none;">
+
+    <div style="margin-bottom: 3px; padding: 3px; border-bottom: 2px solid grey;">
+        {title}:
+    </div>
+    <div style="padding-bottom: 7px;">
+        {input}
+    </div>
+
+</div>
+</tmpl:row>

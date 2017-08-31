@@ -1,0 +1,136 @@
+{menu_block}
+
+<table border="0" cellpadding="5" cellspacing="1" width="100%" id="user_detail_table" class="table sTable tableCp5 tableCs1">
+<tr> 
+    <td colspan="2" class="tdTitle"><b>{form_title}</b> &nbsp;</td>
+</tr>
+
+<tmpl:not_account>
+<tr class="trMoreDarker">
+    <td>{id_msg}:</td>
+    <td>{id}  
+        <tmpl:login_as_user>
+            - <a href="{login_user_link}">{login_as_user_msg}</a>
+        </tmpl:login_as_user>
+    </td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{imported_id_msg}:</td>
+    <td>{imported_user_id}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{signing_date_msg}:</td>
+    <td>{formatted_date_full} &nbsp;&nbsp;({interval_date_full})</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{last_logged_msg}:</td>
+    <td>{formatted_date_lastauth_full} &nbsp;&nbsp;{interval_date_lastauth_full}</td>
+</tr>
+
+<tr class="trMoreDarker" valign="top">
+    <td>{activities_msg}:</td>
+    <td style="line-height : 140%;">
+        <ul style="margin: 0;padding-left: 20px;">
+            {activity_block}
+        </ul>
+    </td>
+</tr>
+</tmpl:not_account>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{username_msg}:</td>
+    <td>{username}</td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{first_name_msg}:</td>
+    <td>{first_name}</td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{last_name_msg}:</td>
+    <td>{last_name}</td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{middle_name_msg}:</td>
+    <td>{middle_name}</td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{email_msg}:</td>
+    <td>{email}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{phone_msg}:</td>
+    <td>{phone}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{company_msg}:</td>
+    <td>{company}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{role_msg}:</td>
+    <td valign="top">{role}</td>
+</tr>
+
+<tmpl:priv>
+<tr class="trLighter">
+    <td class="tdFormCaption">{priv_msg}</td>
+    <td valign="top">{priv}</td>
+</tr>
+</tmpl:priv>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{api_access_msg}:</td>
+    <td>{api_access_value}</td>
+</tr>
+
+<tmpl:not_account>
+<tr class="trLighter">
+    <td class="tdFormCaption">{subscription_msg}:</td>
+    <td>{subsc_msg}</td>
+</tr>
+
+<tr class="trLighter" valign="top">
+    <td class="tdFormCaption">{user_comment_msg}:</td>
+    <td>{user_comment}</td>
+</tr>
+
+<tr class="trLighter" valign="top">
+    <td class="tdFormCaption">{admin_comment_msg}:</td>
+    <td>{admin_comment}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{entry_status_msg}:</td>
+    <td>{status}</td>
+</tr>
+</tmpl:not_account>
+
+</table>
+
+<tmpl:account>
+<br />
+<div align="center">
+    <div id="bottom_button">
+        <tmpl:account_update>
+        <input type="button" value="{update_profile_msg}" class="button btn btn-default" 
+            onclick="location.href='{update_link}';" />
+
+        <input type="button" value="{update_password_msg}" class="button btn btn-default" 
+            onclick="location.href='{update_password_link}';" />
+        </tmpl:account_update>
+        
+        <tmpl:api_update>
+        <input type="button" value="{api_update_msg}" class="button btn btn-default" 
+            onclick="location.href='{update_api_link}';" />
+        </tmpl:api_update>
+    
+    </div>
+</div>
+</tmpl:account>
+
+<br />

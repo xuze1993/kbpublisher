@@ -1,0 +1,66 @@
+<script type="text/javascript">
+<!--
+function Validate(form) {
+    return true;
+}
+//-->
+</script>
+
+{error_msg}
+
+<form action="{action_link}" method="post" onsubmit="return Validate(this);">
+    
+    <div class="form-group">
+        <label for="username">{login_username_msg}</label>
+        <input type="text" name="username" id="username" class="form-control" value="{username}" {disabled} />
+    </div>
+    
+    <div class="form-group">
+        <label for="password">{password_msg}</label>
+        <input type="password" name="password" id="password" class="form-control" value="" {disabled} />
+    </div>
+    
+    <tmpl:captcha>
+    <div class="form-group">
+        <img src="{captcha_src}" alt="{captcha_img_alt_msg}" />
+        <br />
+        <span class="formComment">{captcha_comment_msg}</span>
+    </div>
+    <div class="form-group">
+        <label for="captcha">{captcha_msg}</label>
+        <input type="text" name="captcha" id="captcha" class="form-control" value="" />
+    </div>
+    </tmpl:captcha>
+    
+    <div style="width: 50%;margin: 40px auto;">
+        <input type="submit" name="submit" id="submit" class="btn btn-default btn-block" value="{ok_msg}" />
+    </div>
+    
+    <tmpl:cancel_button></tmpl:cancel_button>
+    <tmpl:cancel_button2></tmpl:cancel_button2> 
+        
+    <div style="text-align: center;margin-right: 5px;">
+        
+        <tmpl:forgot_password>
+        <a href="{forgot_password_link}">{forgot_password_msg}</a>
+        </tmpl:forgot_password>
+        
+        <tmpl:divider><span style="margin: 0 20px;"> | </span></tmpl:divider>
+        
+        <tmpl:register_link>
+        <a href="{register_link}">
+            {register_msg}
+        </a>
+        </tmpl:register_link>
+        
+        <tmpl:sso_link>
+        <div style="width: 50%;margin: 40px auto;">
+            <input type="button" class="btn btn-default btn-block" value="{login_via}" onclick="location.href='{sso_link}'; return false;" />
+        </div>
+        </tmpl:sso_link>
+    </div>
+    
+</form>
+
+<br />
+<tmpl:remember_me></tmpl:remember_me>

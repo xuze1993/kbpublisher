@@ -1,0 +1,40 @@
+<script type="text/javascript">
+$(document).ready(function() {
+    PopupManager.setTitle("{range_msg}");
+});
+</script>
+
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    <td class="tdTitle" width="200">{title_msg}</td>
+    <td>{description_msg}</td>
+    <td align="center" width="1">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr class="{class}" style="{style}">
+
+    <td nowrap><a href="#" onclick="PopupManager.create('{load_link}')">{title}</a></td>
+    <td>{description}</td>
+
+    <td align="center" width="1">
+     	<tmpl:assign>
+	    <a href="" title="{assign_range_title_msg}"
+            onClick="window.top.setRange('{id}'); PopupManager.close(); return false;">
+            <img src="images/icons/assign.svg" width="16" height="16" alt="assign" />
+        </a>
+		</tmpl:assign>
+	</td>
+
+</tr>
+</tmpl:row>
+
+</table>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{close_msg}" class="button" onclick="PopupManager.close();" />
+</div>
+
+<tmpl:bulk></tmpl:bulk>

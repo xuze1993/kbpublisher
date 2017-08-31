@@ -1,0 +1,172 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#action_menu2').on('show', function(event, dropdownData) {
+            dropdownData.dropdown.css('top', 'auto');
+        });
+    });
+</script>
+<script type="text/javascript" src="{client_href}jscript/PoolManager.js"></script>
+<table class="sTable abBorder" style="width: 165px;">
+<tr>
+    <td>
+        <table class="sTable">
+        
+        <tmpl:entry_block>
+        <tr>
+            <td class="abBgrDarker nowrap">
+                
+                <div class="space">
+                    {entry_id_msg}: {id}
+                </div>
+                    
+                <div class="space">
+                    {last_updated_msg}: <span class="date_updated">{date_updated_formatted}</span>
+                </div>
+            
+                <div class="space">
+                    {revision_msg}: {revision}
+                </div>
+                
+                <tmpl:private>
+                <div class="space">
+                    {access_msg}:
+                    <span class="_tooltip" title="{private_body}">
+                        {private_title}
+                    </span>
+                </div>
+                </tmpl:private>
+            
+            </td>
+        </tr>
+        </tmpl:entry_block>
+        
+        <tmpl:action_block>
+        <tr>
+            <td class="abBgrDarker itemImage">
+                
+                <tmpl:print_link>
+                <div class="space">
+                    <img src="{base_href}client/images/icons/printer.svg" alt="print" style="width: 14px;height: 14px;" />&nbsp;
+                    <a class="abLink" href="{print_link}" rel="nofollow">{print_msg}</a>
+                </div>
+                </tmpl:print_link>
+                
+                <tmpl:pdf_link>
+                <div class="space">
+                    <img src="{base_href}client/images/icons/pdf.svg" alt="pdf" style="width: 14px;height: 14px;" />&nbsp;
+                    <a class="abLink" href="{pdf_link}" rel="nofollow">{article_pdf_msg}</a>
+                </div>
+                  </tmpl:pdf_link>
+                
+                <tmpl:subscribe>
+                <div class="space">
+                    <span id="spinner_subsc" style="display: none;">
+                        <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+                    </span>
+                    
+                    <img src="{base_href}client/images/icons/email.svg" alt="email" style="width: 14px;height: 14px;" />&nbsp;
+                    
+                    <div id="div_subscribe_yes" style="display: {subscribe_yes_display};">
+                        <a href="#1{id}" onclick="xajax_doSubscribe(1, 'spinner_subsc'); return false;" 
+                            class="abLink" rel="nofollow">{subscribe_msg}</a>
+                    </div>
+                    <div id="div_subscribe_no" style="display: {subscribe_no_display};">
+                        <a href="#0{id}" onclick="xajax_doSubscribe(0, 'spinner_subsc'); return false;" 
+                            class="abLink" rel="nofollow">{unsubscribe_msg}</a>
+                    </div>
+                </div>
+                </tmpl:subscribe>
+                                
+                <tmpl:send_link>
+                <div class="space">
+                    <img src="{base_href}client/images/icons/email_friend.svg" alt="email" style="width: 14px;height: 14px;" />&nbsp;
+                    <a class="abLink" href="{send_link}" rel="nofollow">{send_link_msg}</a>
+                </div>
+                </tmpl:send_link>
+                
+                <tmpl:share_link>
+                <div class="space">
+                    <img src="{base_href}client/images/icons/share.svg" alt="share" style="width: 14px;height: 14px;" />&nbsp;
+                    <a href="#" class="abLink" rel="nofollow" data-dropdown="#share_menu">{share_link_msg}</a>
+                    <div id="share_menu" class="dropdown dropdown-tip has-icons dropdown-relative">
+                        {share_block}
+                    </div>
+                </div>
+                </tmpl:share_link>
+                
+                <tmpl:pool_link>
+                <div class="space">
+                	<img src="{base_href}client/images/icons/layer.svg" alt="pool" style="width: 14px;height: 14px;" />&nbsp;
+
+                    <a id="pool_add_link" class="abLink" href="#" rel="nofollow"
+                        onclick="PoolManager.add({id});$.growl({title: '', message: '{added_to_pool_msg}'}); return false;" 
+                        style="display: {display_add_pool};">{add_to_pool_msg}</a>
+                
+                    <a id="pool_delete_link" class="abLink" href="#" rel="nofollow"
+                        onclick="PoolManager.remove({id});$.growl({title: '', message: '{removed_from_pool_msg}'}); return false;" 
+                        style="display: {display_delete_pool};">{remove_from_pool_msg}</a>
+                </div>
+                </tmpl:pool_link>
+
+                <tmpl:comment_link>
+                    <img src="{base_href}client/images/icons/comment.svg" alt="comment" style="width: 14px;height: 14px;" />&nbsp;
+                    <a class="abLink" href="{comment_link}" rel="nofollow">{add_comment_msg}</a>
+                </tmpl:comment_link>
+        
+            </td>
+        </tr>    
+        </tmpl:action_block>
+                
+        <tmpl:data_block>
+        <tr>
+            <td class="abBgrDarker nowrap">
+                <tmpl:show_hits>
+                    <div class="less_space">{views_num_msg}: {hits}</div>
+                </tmpl:show_hits>
+                <tmpl:show_votes>
+                    <div class="less_space">{votes_num_msg}: {votes}</div>
+                </tmpl:show_votes>
+                <tmpl:show_comments>
+                    <div class="less_space">{comment_num_msg}: {comment_num}</div>
+                </tmpl:show_comments>
+            </td>
+        </tr>
+        </tmpl:data_block>
+        
+        <tmpl:author_block>
+         <tr>
+            <td class="abBgrDarker nowrap">
+            
+                <div class="space">
+                    {posted_msg}: {date_posted_formatted} <br />
+                    {by_user_msg} {author}
+                </div>    
+                <div>
+                    {updated_msg}: <span class="date_updated">{date_updated_formatted}</span> <br />
+                    {by_user_msg} <span id="updater">{updater}</span>
+                </div>
+            
+            </td>
+        </tr>
+        </tmpl:author_block>
+        
+        <tmpl:admin_block_menu>
+        <tr>
+            <td class="abBgrDarker nowrap">
+                
+            	<img src="{base_href}client/images/icons/edit.svg" alt="edit" style="width: 14px;height: 14px;vertical-align: bottom;" />&nbsp;
+                <a class="abLink" href="" rel="nofollow"
+                    data-dropdown="#action_menu2">{admin_tools_msg}</a>    
+            
+                <div id="action_menu2" class="dropdown dropdown-tip dropdown-anchor-right dropdown-relative">
+                    {action_menu}
+                </div>
+            
+            </td>
+        </tr> 
+        </tmpl:admin_block_menu>
+                
+        </table>
+    </td>
+</tr>
+</table>

@@ -1,0 +1,168 @@
+<script type="text/javascript" src="jscript/CheckBoxGroup.js"></script>
+<script type="text/javascript" src="jscript/Chart.min.js"></script>
+<script type="text/javascript">        
+    $(document).ready(function() {
+        chart_options = {
+            legend: {
+                labels: {
+                    fontFamily: 'Tahoma',
+                    fontSize: 11,
+                    fontColor: '#000',
+                    padding: 20
+                }
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        };
+             
+        chart_json = {
+            line: {line_chart_json},
+            bar: {bar_chart_json},
+            pie: {pie_chart_json}
+        }
+        
+        drawChart('{chart_type}');
+        
+        // menu
+        cbxOptions = new CheckBoxGroup();
+        cbxOptions.addToGroup('chart_report');
+        cbxOptions.setRadioButtonBehavior();
+        
+        $('input[name=chart_report]').bind('click', function() {
+            drawChart();
+        });
+    });
+    
+    function drawChart(chart_type) {
+        if (!chart_type) {
+            chart_type = $(':checkbox[name=chart_report]').filter(':checked').val();
+            
+            if (window.current_chart) {
+                if ($.isArray(current_chart)) {
+                    for (var i in current_chart) {
+                        current_chart[i].destroy();
+                    }
+                } else {
+                    current_chart.destroy();
+                }
+            }
+        }
+        
+        xajax_setDefaultChartType(chart_type);
+        
+        switch (chart_type) {
+            case 'line':
+                $('#chart_pie_table').hide();
+                $('#chart_line_bar').show();
+                $('#chart_legend').show();
+                
+                var ctx = $('#chart_line_bar').get(0).getContext('2d');
+                current_chart = new Chart(ctx, {
+                    type: 'line',
+                    data: chart_json['line'],
+                    options: chart_options
+                });
+                
+                /*var legend = current_chart.generateLegend();
+                $('#chart_legend').html(legend);*/
+                break;
+                
+            case 'bar':
+                $('#chart_pie_table').hide();
+                $('#chart_line_bar').show();
+                $('#chart_legend').show();
+                
+                var ctx = $('#chart_line_bar').get(0).getContext('2d');
+                
+                current_chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: chart_json['bar'],
+                    options: chart_options
+                });
+                break;
+                
+            case 'pie':
+                $('#chart_line_bar').hide();
+                $('#chart_legend').hide();
+                $('#chart_pie_table').show();
+                
+                current_chart = [];
+                var theHelp = Chart.helpers;
+                
+                var pie_chart_options = $.extend({}, chart_options);
+                delete pie_chart_options['scales'];
+                
+                for (var i in chart_json['pie']) {
+                    var canvas_id = 'chart_' + i;
+                    var ctx = $('#' + canvas_id).get(0).getContext('2d');
+                    
+                    current_chart.push(new Chart(ctx, {
+                        type: 'pie',
+                        data: chart_json['pie'][i],
+                        options: pie_chart_options
+                        })
+                    );
+                }
+                break;
+                
+            case 'none':
+                $('#chart_line_bar').hide();
+                $('#chart_legend').hide();
+                $('#chart_pie_table').hide();
+                break;
+        }
+    }
+</script>
+  
+<div id="report_chart_menu" style="margin: 15px 15px 15px 0px; float: left;">
+    <form>
+        <b style="margin-right: 10px;">{chart_type_msg}:</b>
+        <span style="margin-right: 10px;">
+            <input type="checkbox" name="chart_report" onclick="cbxOptions.check(this);" value="line" id="chart_line" {chart_line_checked} />
+            <label for="chart_line">{chart_line_msg}</label>
+        </span>
+        
+        <span style="margin-right: 10px;">
+            <input type="checkbox" name="chart_report"  onclick="cbxOptions.check(this);" value="bar" id="chart_bar" {chart_bar_checked} />
+            <label for="chart_bar">{chart_bar_msg}</label>
+        </span>
+        
+        <span style="margin-right: 10px;">
+            <input type="checkbox" name="chart_report"  onclick="cbxOptions.check(this);" value="pie" id="chart_pie" {chart_pie_checked} />
+            <label for="chart_pie">{chart_pie_msg}</label>
+        </span>
+        
+        <span>
+            <input type="checkbox" name="chart_report"  onclick="cbxOptions.check(this);" value="none" id="chart_none" {chart_none_checked} />
+            <label for="chart_none">{none_msg}</label>
+        </span>
+    </form>
+</div>
+<div id="chart_legend" style="float: right;"></div>
+<div style="clear: both;"></div>
+        
+<canvas id="chart_line_bar" height="150" style="display: none;"></canvas>
+
+<table id="chart_pie_table" width="100%" style="display: none;">
+    <tmpl:pie_tr>
+    <tr>
+        <td width="50%" height="200" align="center">
+            <p><b>{pie1_title}</b></p>
+            <canvas id="chart_{pie1_id}" height="200"></canvas>
+        </td>
+        <td width="50%" height="200" align="center">
+            <tmpl:pie_td2>
+            <p><b>{pie2_title}</b></p>
+            <canvas id="chart_{pie2_id}" height="200"></canvas>
+            </tmpl:pie_td2>
+        </td>
+    </tr>
+    </tmpl:pie_tr>
+</table>
+
+<br /><br />

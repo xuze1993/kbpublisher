@@ -1,0 +1,157 @@
+<script type="text/javascript">
+    function initSort() {
+        $('#sortable_views').sortable({
+            placeholder: 'view_placeholder',
+            items: 'li:not(.not_sortable)',
+            stop: function(event, ui) {                
+                LeaveScreenMsg.changes = true;
+            }
+        });
+        $('#sortable_views').disableSelection();
+        
+        LeaveScreenMsg.setDoCheck(1);
+        LeaveScreenMsg.check();
+    }
+
+    function setSortValues(values) {
+        /*var ids = $('#sortable_views').sortable('toArray');
+        var data = [];
+        for (var i in ids) {
+            var entry_id = ids[i].substr(3);
+            data[values[i]] = entry_id;
+        }*/
+
+        var i = 0;
+        $('input[name="sort_id[]"]').each(function() {
+            $(this).attr('name', 'sort_id[' + values[i] + ']');
+            i ++;
+        });
+    }
+</script>
+
+<div id="trigger_list">
+    {msg}
+
+    {header}
+
+    <table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+    <tr class="tdTitle">
+
+        <tmpl:bulk>
+        <td width="1">
+            <input type="checkbox" name="id_check" value="1" style="margin: 0px;" />
+        </td>
+        </tmpl:bulk>
+
+        <td width="1">{id_msg}</td>
+        <td width="1"></td>
+        <td width="1"></td>
+
+        <td class="tdTitle" width="85">{date_posted_msg}</td>
+        <td class="tdTitle" width="85">{date_updated_msg}</td>
+        <td width="1" align="center">{entry_type_msg}</td>
+        <td>{entry_title_msg}</td>
+        <td>{category_msg}</td>
+
+        <td width="1">{hits_num_msg}</td>
+
+        <tmpl:rating>
+        <td width="1">{votes_num_msg} {rating_msg}</td>
+        </tmpl:rating>
+
+        <tmpl:comment>
+        <td width="1">{comment_num_msg}</td>
+        </tmpl:comment>
+
+        <tmpl:attachment>
+        <td width="1">{attachment_num_msg}</td>
+        </tmpl:attachment>
+
+        <tmpl:sort_order>
+        <td width="1">{sort_order_msg}</td>
+        </tmpl:sort_order>
+
+        <td width="1">{entry_status_msg}</td>
+        <td width="1" colspan="2" align="center">{action_msg}</td>
+    </tr>
+
+    <tmpl:row>
+    <tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+
+        <tmpl:bulk>
+        <td width="1">
+        <input type="checkbox" name="id[]" value="{id}" id="ch_{id}" style="margin: 0px;" {bulk_ids_ch_option} />
+        </td>
+        </tmpl:bulk>
+
+        <td width="1" align="right"><b>{id}</b></td>
+
+        <td width="1">
+            <tmpl:if_schedule>
+            <img src="images/icons/clock.svg" width="12" height="12" alt="clock"
+                class="_tooltip" title="{schedule_msg}" />
+            </tmpl:if_schedule>
+        </td>
+
+        <td width="1">
+        <tmpl:if_private>
+            <img src="images/icons/lock2_{image_color}.svg" width="12" height="12" alt="key" 
+                class="_tooltip" title="<b>{private1_msg}</b><br/>{roles_msg}" />
+        </tmpl:if_private>
+        </td>
+
+        <td><span title="{formated_date_posted_full}">{formated_date_posted}</span></td>
+        <td><span title="{formated_date_updated_full}">{formated_date_updated}</span></td>
+
+        <td width="1" align="center">
+            <span title="{entry_type}">{entry_type_short}</span>
+        </td>
+        <td>
+			<a href="{entry_link}" style="{style}" title="{title}">{short_title}</a>
+        </td>
+        <td>
+            <div style="float: right;">{num_category}</div>
+            <a href="{category_filter_link}" style="{style}"
+                class="_tooltip" title="{full_category} &rarr;">{category}</a>
+        </td>
+
+        <td align="center">{hits}</td>
+
+        <tmpl:rating>
+        <td width="70" align="center">{votes}{rating_img}</td>
+        </tmpl:rating>
+
+        <tmpl:comment>
+        <td align="center">{comment_num}</td>
+        </tmpl:comment>
+
+        <tmpl:attachment>
+        <td align="center">{attachment_num}</td>
+        </tmpl:attachment>
+
+        <tmpl:sort_order>
+        <td align="center" width="1">
+            <input type="text" name="value[sort_order][{id}_{category_id}]" value="{sort_order}"
+                class="sortOrderText" onclick="this.select()" disabled>
+        </td>
+        </tmpl:sort_order>
+
+        <td align="center">
+            <div class="status help" style="width: 15px;">
+                <div title="{status}" style="background: {color};">&nbsp;&nbsp;</div>
+            </div>
+        </td>
+
+        <td width="1" align="center" class="{history_css}">{history_img}</td>
+
+        <td class="action" width="1" align="center">
+            {options_img}
+        </td>
+    </tr>
+    </tmpl:row>
+
+    </table>
+
+    <div style="padding-top: 2px;"></div>
+    {footer}
+</div>

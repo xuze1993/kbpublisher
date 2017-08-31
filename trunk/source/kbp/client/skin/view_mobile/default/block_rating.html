@@ -1,0 +1,96 @@
+<script type="text/javascript">    
+    function doRate(value) {
+        xajax_doRate(value);
+        $('#bootstrap_rating > a, #bootstrap_rating > div:not("#rateResponce")').hide();
+    }
+    
+    function doRateFeedback(feedback, rating) {
+        xajax_doRateFeedback(feedback, rating);
+    }
+</script>
+
+<tmpl:show_rating_option>
+<div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-target="#bootstrap_rating" style="cursor: pointer;">
+        <i class="fa fa-star-half-o" aria-hidden="true"></i>
+        &nbsp;&nbsp;{rating_msg}
+        <i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
+    </div>
+      
+    <div id="bootstrap_rating" class="list-group collapse">
+        <div class="panel-body">
+            {title}
+        </div>
+    
+        <tmpl:rating_row>
+        <a href="#/" class="list-group-item small" onclick="doRate({rate_value});" style="padding-left: 25px;">
+            {rate_item}
+        </a>
+        </tmpl:rating_row>
+        
+        <tmpl:rating_row2>
+        <a href="#/" class="list-group-item small" onclick="doRate({rate_value});" style="padding-left: 25px;">
+            <img src="{client_href}images/rating/rate_star/mobile_rate_{rate_value}.png" />
+        </a>
+        </tmpl:rating_row2>
+        
+        <div class="panel-body" id="rateResponce">
+            {thanks_rate2_msg}
+        </div>
+        
+        <tmpl:show_rating_comment>
+        <div class="panel-body" id="rateFeedbackForm">
+            <div id="comment_rate_neg">{comment_rate2_msg}</div>
+            <div id="comment_rate_pos">{comment_rate3_msg}</div>
+            <form action="{form_action}" method="post" style="margin: 10px 0;">
+                <input type="hidden" name="rate_rating" value="" id="rate_rating" />
+                <textarea name="rate_feedback" class="form-control"></textarea>
+                <br />
+                <div style="width: 50%;margin: 0 auto;">
+                    <input type="button" value="{send_msg}" class="btn btn-default btn-sm" style="width: 49%;"
+                        onclick="doRateFeedback(this.form.rate_feedback.value, this.form.rate_rating.value);" />
+                    <input type="button" value="{cancel_msg}" class="btn btn-default btn-sm" style="width: 49%;"
+                        onclick="HideDiv('rateFeedbackForm');" />
+                </div>
+            </form>
+        </div>
+        </tmpl:show_rating_comment>
+    </div>
+</div>
+
+<!-- repport issue -->
+<tmpl:show_rating_comment>
+<div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-target="#bootstrap_issue" style="cursor: pointer;">
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+        &nbsp;&nbsp;{report_issue_msg}
+        <i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
+    </div>
+      
+    <div id="bootstrap_issue" class="list-group collapse">
+        <div class="panel-body">
+            <div>{comment_report_msg}</div>
+            <form action="{form_action}" method="post" style="margin: 10px 0;">
+                <input type="hidden" name="rate_rating" value="0" id="rate_rating" />
+                <textarea name="rate_feedback" class="form-control"></textarea>
+                <br />
+                <div style="width: 50%;margin: 0 auto;">
+                    <input type="button" value="{send_msg}" class="btn btn-default btn-sm" style="width: 49%;"
+                        onclick="doRateFeedback(this.form.rate_feedback.value, this.form.rate_rating.value);" />
+                    <input type="button" value="{cancel_msg}" class="btn btn-default btn-sm" style="width: 49%;"
+                        onclick="$('#bootstrap_issue').collapse('hide');" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>   
+</tmpl:show_rating_comment>
+
+</tmpl:show_rating_option>
+
+    
+<tmpl:show_rating>
+<div style="margin: 0px;">
+    {thanks_rate2_msg}
+</div>
+</tmpl:show_rating>

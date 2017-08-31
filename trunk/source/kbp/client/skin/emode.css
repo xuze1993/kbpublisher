@@ -1,0 +1,34 @@
+.tdArticleTitle:hover {
+    background-color: #ffffcc;
+}
+    
+.validationErrorEmode {
+    color: #dd3333 !important;
+}
+
+#body:not(.active):hover {
+    background-color: #ffffcc;
+}
+
+#custom_top:hover, #custom_bottom:hover, #custom_block:hover {
+    background-color: #ffffcc !important;
+    cursor: pointer;
+}
+
+.title_in_place input {
+    margin-right: 10px;
+    border: 0px;
+    font-size: inherit;
+    font-family : inherit;
+    width: 100%;
+}
+
+.title_in_place input:focus {
+    outline: 0;
+    background-color: #ffffcc;
+}
+
+.emode_disabled_row {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}

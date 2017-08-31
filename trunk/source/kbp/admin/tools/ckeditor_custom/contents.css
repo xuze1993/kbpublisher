@@ -1,0 +1,115 @@
+/*@import url("custom_content.css");*/
+
+/* Replace defaults */
+body
+{
+	/* Font */
+/*	font-family: Arial, Verdana, sans-serif;*/
+/*	font-size: 122px;*/
+
+	/* Text color */
+/*	color: #222;*/
+
+	/* Remove the background color to make it transparent */
+/*	background-color: #fff;*/
+}
+
+
+
+/*  CONTENT STYLES (could be applied in FCK editor)  */
+/* should be updated here and in /client/skin/common.css */
+
+/* Custom styles */
+
+H2.lineTitle,H3.lineTitle {
+	line-height: 150%; 
+	border-bottom: 1px solid #D4D4D4; 
+	font-weight: normal;
+}
+
+H2.lineTitle { font-size: 1.3em; }
+H3.lineTitle { font-size: 1.2em; }
+
+ul.extraMargin li,ol.extraMargin li {
+	margin-bottom: 12px;
+}
+
+
+/* Templates Styles */
+DIV.box {
+	padding: 5px 10px;
+    overflow:hidden;
+	zoom: 1;
+}
+
+DIV.yellowBox {
+	background-color : #FFFFE1;
+	border : 1px solid #959595;
+}
+
+DIV.greyBox {
+	background-color : #eaeaea;
+	border : 1px solid #959595;
+}
+
+
+/* FCK buiilt Styles */
+
+h3 {
+	color: #333399;
+}
+
+.FCKTitle {
+	font-weight: bold;
+	font-size: 18px;
+	color: #cc3300;
+}
+
+.FCKCode {
+	border: #8b4513 1px solid;
+	padding-right: 5px;
+	padding-left: 5px;
+	color: #000066;
+	font-family: 'Courier New' , Monospace;
+	background-color: #ff9933;
+}
+
+
+/* widgets */
+
+.template_widget.align-right {
+    float: right;
+}
+.template_widget.align-left {
+    float: left;
+}
+.template_widget.align-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* forum */
+div.forumQuoteAuthor {
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+blockquote
+{
+	font-style: normal;
+}
+
+
+/* tooltip */
+span._tooltip_user {
+    border-bottom: 1px dotted #000;
+    background-color: #F0F0F0;
+    cursor: help;
+    color: #CC3333;
+}
+
+/* errors */
+.validationError {
+    background: #ffcccc !important;
+}

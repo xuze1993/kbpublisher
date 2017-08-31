@@ -1,0 +1,263 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        selHandler.setMaxAllowSelected(1);
+
+        selHandler.setSelectWidth('category');
+        selRoleHandler.setSelectWidth('role');
+
+        $('#user').bind('change', function() {
+            var val = $('#user').val();
+            if (val == 2) {
+                $('#role_block').show();
+            } else {
+                $('#role_block').hide();
+            }
+        })
+    });
+
+    function subForm() {
+        LeaveScreenMsg.skipCheck();
+        selHandler.selectAll();
+        selRoleHandler.selectAll();
+    }
+
+    var selfChecked = {pdf: false, html: false, htmlsep: false};
+    function showTypeOption(type) {
+        if (!selfChecked[type]) {
+            var curStatus = $('#do_' + type).prop('checked');
+            var status = (curStatus) ? false : true;
+            $('#do_' + type).prop('checked', status);
+        }
+
+        $('#' + type + '_export').toggle();
+        selfChecked[type] = false;
+    }
+
+    function deleteImage(name) {
+        $('#' + name).html('');
+        $('#' + name + '_hidden').val('');
+        $('#' + name + '_delete').css('display', 'none');
+    }
+</script>
+
+{msg}
+
+{error_msg}
+{error2_msg}
+
+<form action="{action_link}" method="post" enctype="multipart/form-data"
+    name="export" id="aContentForm" onsubmit="subForm();">
+{hidden_fields}
+
+<tmpl:generated_files_block>
+<table border=0 cellpadding="5" cellspacing="1" width="100%">
+<tr>
+    <td colspan="2" class="tdTitle">{generated_files_msg}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop" width="150">{last_generated_msg}:</td>
+    <td>
+        {detail_link}
+    </td>
+</tr>
+</table>
+</tmpl:generated_files_block>
+
+<br/>
+
+<table border=0 cellpadding="5" cellspacing="1" width="100%">
+<tr>
+    <td colspan="3" class="tdTitle">{export_option_msg}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption" width="150">{title_msg}: {required_sign}</td>
+    <td colspan="2">
+        <input type="text" name="title" value="{title}" class="longText" style="width: 350px;">
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{description_msg}:</td>
+    <td colspan="2">
+        <textarea name="description" style="width: 100%">{description}</textarea>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{generate_for_cat_msg}: {required_sign}</td>
+    <td colspan="2">
+        {category_block_tmpl}
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{generate_for_user_msg}: {required_sign}</td>
+    <td>
+        <span class="hasTooltip">{user_select}</span>
+        <span class="tooltip">{export_generate_for_tip_msg}</span>
+        <br/>
+        <div>
+            <div style="display: {role_display};" id="role_block">
+                <div style="padding: 10px 0px 5px 0px;">{generate_for_role_msg}:</div>
+                {role_block_tmpl}
+            </div>
+        </div>
+    </td>
+</tr>
+
+</table>
+
+<br />
+
+<table border=0 cellpadding="5" cellspacing="1" width="100%">
+<tr>
+    <td colspan="3" class="tdTitle">{document_option_msg}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{title_msg}:</td>
+    <td>
+        <span class="hasTooltip">
+	    	<input type="text" name="htmldoc[title]" value="{document_title}" class="longText" style="width: 350px;" />
+            <span style="margin-left: 10px;">
+                <input type="checkbox" name="htmldoc[header]" {header_checked} /> {header_add_msg}
+            </span>
+		</span>
+        <span class="tooltip">{export_title_tip_msg}</span>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{titleimage_msg}:</td>
+    <td>
+        <span class="hasTooltip">
+	    	<div style="padding-bottom: 3px;float: left;">
+	    	    <input type="button" value="+" class="button2 button2_add"
+                    onclick="PopupManager.create('{stuff_popup_link}', 'titleimage', 'r');">
+
+                </a>
+                <input type="hidden" name="htmldoc[titleimage]" value="{document_titleimage_id}" id="titleimage_hidden" />
+                <span id="titleimage">{document_titleimage_title} {document_titleimage_name}</span>
+                <span align="right" id="titleimage_delete" style="display: {titleimage_delete_display};">
+                    | <a href="" onClick="deleteImage('titleimage'); LeaveScreenMsg.changes = true; return false;">{delete_msg}</a>
+                </span>
+            </div>
+		</span>
+        <span class="tooltip">{export_titleimage_tip_msg}</span>
+    </td>
+</tr>
+
+<input type="hidden" name="archive" value="2" />
+
+<tr class="trMoreDarker type_error">
+    <td valign="top" colspan="3" onclick="showTypeOption('pdf');">
+        <input type="checkbox" onclick="selfChecked.pdf = true;"
+            name="do[pdf]" id="do_pdf" style="margin-right: 7px;" {pdf_checked} />
+        {pdf_export_msg}
+    </td>
+</tr>
+
+<tr>
+    <td colspan="3" style="padding: 0px;">
+
+        <div style="display: {pdf_display};" id="pdf_export">
+            <table border=0 cellpadding="5" cellspacing="1" width="100%">
+                <tr class="trLighter">
+                    <td class="tdFormCaption">{orientation_msg}</td>
+                    <td>{orientation_select}</td>
+                </tr>
+
+                <tr class="trLighter">
+                    <td class="tdFormCaption tdCaptionTop">{duplex_msg}</td>
+                    <td>
+                        <span class="hasTooltip">
+	    	                <div style="padding-bottom: 3px;float: left;">
+                                <input type="checkbox" name="htmldoc[pdf][duplex]" value="2" {duplex_checked} />
+                            </div>
+                        </span>
+                        <span class="tooltip">{export_duplex_tip_msg}</span>
+                    </td>
+                </tr>
+
+                <tr class="trLighter">
+                    <td class="tdFormCaption tdCaptionTop">{logoimage_msg}</td>
+                    <td>
+                        <span class="hasTooltip">
+                            <div style="padding-bottom: 3px;float: left">
+                                <a href="javascript:PopupManager.create('{stuff_popup_link}', 'logoimage', 'r');" title="{add_new_msg}">
+                                    <img src="images/icons/add_new.svg" alt="{add_new_msg}">
+                                </a>
+                                <input type="hidden" name="htmldoc[pdf][logoimage]" value="{document_logoimage_id}" id="logoimage_hidden" />
+                                <span id="logoimage">{document_logoimage_title} {document_logoimage_name}</span>
+                                <span align="right" id="logoimage_delete" style="display: {logoimage_delete_display};">
+                                    | <a href="" onClick="deleteImage('logoimage'); LeaveScreenMsg.changes = true; return false;">{delete_msg}</a>
+                                </span>
+                            </div>
+		                </span>
+                    </td>
+                </tr>
+
+                <tr class="trLighter">
+                    <td class="tdFormCaption">{password_msg}</td>
+                    <td>
+                        <input type="text" name="htmldoc[pdf][password]"
+                            class="longText" style="width: 350px;" value="{password}">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </td>
+</tr>
+
+
+<tr class="trMoreDarker type_error">
+    <td valign="top" colspan="3" onclick="showTypeOption('html');">
+        <input type="checkbox" onclick="selfChecked.html = true;"
+            style="margin-right: 7px;" name="do[html]" id="do_html" {html_checked} />
+        {html_export_msg}
+    </td>
+</tr>
+
+<tr>
+    <td colspan="3" style="padding: 0px;">
+        <div style="display: {html_display};" id="html_export">
+        </div>
+    </td>
+</tr>
+
+
+<tr class="trMoreDarker type_error">
+    <td valign="top" colspan="3" onclick="showTypeOption('htmlsep');">
+        <input type="checkbox" onclick="selfChecked.htmlsep = true;"
+            style="margin-right: 7px;" name="do[htmlsep]" id="do_htmlsep" {htmlsep_checked} />
+        {htmlsep_export_msg}
+    </td>
+</tr>
+
+<tr>
+    <td colspan="3" style="padding: 0px;">
+        <div style="display: none;" id="htmlsep_export">
+        </div>
+    </td>
+</tr>
+
+<tr>
+    <td></td>
+    <td colspan="2"><div><br></div>
+        <div id="bottom_button">
+            <input type="submit" name="submit_save" id="doSubmit" value="{save_msg}" class="button"
+                onClick="validateForm('submit_save');return false;" />
+
+            <input type="submit" name="submit_generate" id="doGenerate" value="{save_generate_msg}" class="button"
+                onClick="validateForm('submit_generate');return false;" />
+
+            <input type="button" value="{cancel_msg}"
+                onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'" class="button">
+        </div>
+    </td>
+</tr>
+
+</table>
+</form>

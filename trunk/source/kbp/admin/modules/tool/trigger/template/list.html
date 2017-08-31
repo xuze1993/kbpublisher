@@ -1,0 +1,74 @@
+{xajax_js}
+
+<script type="text/javascript" src="jscript/livesearch/quicksilver.js"></script>
+<script type="text/javascript" src="jscript/livesearch/livesearch.js"></script>
+<script type="text/javascript" src="jscript/livesearch/trigger.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#filter').liveUpdate('trigger_list').focus();
+        
+        TableListHandler.trPrefix = 'template_';
+        var selector = '#trigger_list div[id^=template_]';
+        $(selector).each(function(e) {
+            $(this).bind('contextmenu', function(e) {
+                TableListHandler.showContextMenu(e, $(this));
+            });
+        });
+    });
+
+    function initSort() {
+        $('#sortable_views').sortable({
+            placeholder: 'view_placeholder',
+            stop: function(event, ui) {                
+                LeaveScreenMsg.changes = true;
+            }
+        });
+        $('#sortable_views').disableSelection();
+        
+        LeaveScreenMsg.setDoCheck(1);
+        LeaveScreenMsg.check();
+    }
+    
+    function resetToDefault() {
+        confirm2("{sure_default2_msg}", function() {
+            document.location.href = '{default_link}';
+        });
+    }
+</script>
+
+{header}
+<br/>
+
+<div id="trigger_list">
+    
+    <tmpl:email_automation>
+    {mailbox_buttons}
+    </tmpl:email_automation>
+    
+    <tmpl:group>
+    <div style="padding-bottom: 8px;">
+        <b>{group_title}</b>
+    </div>
+
+			
+	<div class="tdTitle" style="padding:1px;"></div>
+
+	<div>
+        <tmpl:row>
+        <div id="template_{id}" class="{class}" 
+            style="border: 1px solid #D3DDEB; border-top: 0; height: 28px;"
+            onDblClick="RecordToDo('{update_link}')">
+        	<div class="searchable" style="float: left;padding-left: 5px;line-height: 26px;">
+        	    <a href="{update_link}" class="listItem" style="{style}">{title}</a>
+        	</div>
+            <div style="float: right;margin-right: 15px;margin-top: 5px;">{options_img}</div>
+            <div style="clear: both"></div>
+        </div>
+        </tmpl:row>
+    </div>
+
+    <br /><br />
+    
+    </tmpl:group>
+
+</div>

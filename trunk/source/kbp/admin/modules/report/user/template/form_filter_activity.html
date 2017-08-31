@@ -1,0 +1,153 @@
+<script type="text/javascript" src="../client/jscript/jquery/jquery_select.js"></script>
+<script type="text/javascript" src="../client/jscript/jquery/jquery.weekpicker.js"></script>
+<script type="text/javascript" src="../client/jscript/DatePickerManager.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var options = {
+            date_format: '{date_format}',
+            week_start: {week_start},
+            current_date: '{current_date}',
+            class_name: 'colorInput'
+        }
+    
+        var dp_from = new DatePickerManager('date_from', options, {date_formatted_1});
+        var dp_to = new DatePickerManager('date_to', options, {date_formatted_2});
+        
+        dp_to.setMinDate('{date_formatted_1}');
+        dp_from.bindTo(dp_to);
+        
+        $('#filterCategoryId').change(function(){
+            var category_id = $('#filterCategoryId').val();
+            
+            var disabled = true;
+            if (category_id) {
+                disabled = false;
+            }
+            
+            $('#childrenCheckbox').attr('disabled', disabled);
+        });
+        
+        var events = 'kbpArticleSelected kbpFileSelected kbpNewsSelected kbpUserSelected kbpArticleDraftSelected kbpFileDraftSelected';
+        $('body').bind(events, {}, function(e, params) {
+            $('#entry_id').val(params.id);
+            PopupManager.close();
+        });
+    });
+    
+    
+    var myOptions = {{myOptionsJson}};
+    var popup_links = {{popup_links}};
+            
+    $(document).ready(function() {
+        checkOptions();
+        populateSelect(myOptions, $('select[name="filter[e]"]').val());
+        //ShowHideCustomDate(document.getElementById('period').value);
+    });    
+    
+    function populateSelect(vars, range_val) {
+        document.getElementById('action_type').options.length = 0;
+        for(i=0; i<vars[range_val].length; i++) {
+            $("#action_type").addOption(vars[range_val][i].val,  vars[range_val][i].text,  vars[range_val][i].s);
+        }
+        
+        if (range_val != 'all') {
+            popup_link = popup_links[range_val];
+            $('#entry_id_link').show();
+            
+        } else {
+            $('#entry_id_link').hide();
+        }
+    }
+    
+    function checkOptions() {
+        if ($('#entry_type').val() == 'all' || $('#action_type').val() == 'all') {
+            $('#invert').attr('disabled', true);
+            $('#invert').prop('checked', false);
+            
+        } else {
+            $('#invert').attr('disabled', false);
+        }
+        
+        if ($('#entry_type').val() == 'all') {
+            $('#entry_id').attr('disabled', true);
+            
+        } else {
+            $('#entry_id').attr('disabled', false);
+        }
+    }
+</script>
+
+<form action="" style="margin: 0px;">
+{hidden_fields}
+<input type="hidden" name="action" value="activity" />
+<input type="hidden" name="id" value="{id}" />
+
+<table>
+<tr valign="bottom">
+
+    <td>
+        <div style="padding-bottom: 3px;">{entry_msg}:</div>
+        <select id="entry_type" name="filter[e]" class="colorInput" style="width: 100px;" 
+			onchange="checkOptions();populateSelect(myOptions, this.value);">
+            {entry_select}
+        </select>    
+    </td>
+    <td>
+        <div style="padding-bottom: 3px;">{action_msg}:</div>
+        <select id="action_type" name="filter[t]" class="colorInput" style="width: 100px;" 
+			onchange="checkOptions();">
+            {action_select}
+        </select>    
+    </td>
+    <td>
+        <div style="padding-bottom: 3px;">{period_msg}:</div>
+        <select id="period" name="filter[p]" class="colorInput" style="width: 100px;" 
+			onchange="ShowHideCustomDate(this.value);">
+            {period_select}
+        </select>
+    </td>
+    <td>
+        <div id="entry_id_block">
+            <div style="padding: 10px 0px 5px;">
+                {entry_id_msg}:
+            </div>
+            <div style="float: left;">
+                <input type="text" id="entry_id" name="filter[q]" value="{q}" 
+					class="colorInput" style="width: 130px;">
+            </div>
+            <div style="float: left; margin-left: 2px;">
+                <input id="entry_id_link" type="button" value="+" class="button2 button2_add"
+                    onclick="PopupManager.create(popup_link, 'entry', 'r', 'text');">
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </td>
+    <td>
+        <div style="padding-bottom: 3px;">{user_ip_msg}:</div>
+        <input type="text" name="filter[ip]" value="{ip}" class="colorInput" style="width: 130px;" />
+    </td>
+    
+    <td valign="bottom">
+        <button type="submit" name="do_search" value="1" 
+            class="button2 button2_filter">&rarr;</button>
+    </td>
+</tr>
+</table>
+
+        
+<div id="custom_period" style="display: {custom_display};">
+    <div style="padding: 5px;">
+        <span style="padding-right: 3px;">{date_from_msg}:</span>
+        <span id="day_from">
+            <input type="hidden" id="date_from" name="filter[date_from]" />
+        </span>
+        
+        <span style="padding-right: 3px;">{date_to_msg}:</span>
+        <span id="day_to">
+            <input type="hidden" id="date_to" name="filter[date_to]" />
+        </span>
+        <!-- &nbsp;&nbsp;[mm/dd/yyyy] -->
+    </div>
+</div>
+
+</form>

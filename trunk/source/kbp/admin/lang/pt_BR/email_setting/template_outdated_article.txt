@@ -1,0 +1,3 @@
+O artigo "[article.title]" não foi revisado há seis meses. Você poderia revisá-lo?
+
+[article.link]

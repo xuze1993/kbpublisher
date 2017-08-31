@@ -1,0 +1,292 @@
+<link rel="stylesheet" href="css/client.css" type="text/css">
+<script type="text/javascript" src="jscript/common_entry_form.js"></script>
+<script type="text/javascript">
+    function createDialog(id) {
+        var options = {
+            modal: true,
+            width: 700,
+            open: function() {
+                $('.ui-dialog').css('box-shadow', '#555 2px 2px 2px');
+            },
+            position: {
+                my: 'center top',
+                at: 'center top+30%',
+                of: window
+            },
+            appendTo: '#aContentForm'
+        }
+
+        $('#' + id).dialog(options);
+    }
+
+    function cancelHandler(cancel_link) {
+        xajax_cancelHandler(cancel_link);
+        LeaveScreenMsg.skipCheck();
+    }
+
+
+    function publishConfirm(do_confirm, msg) {
+        if(do_confirm) {
+            confirm2(msg, function() {
+                createDialog('approval_dialog');
+            });
+
+        } else {
+            createDialog('approval_dialog');
+        }
+
+        return true;
+    }
+
+
+    /*function checkAssignees() {
+        var users_left = $('div.popUpDiv').length - 1;
+        if (users_left < 2) {
+            $('div.popUpDiv').not('#readroot').find('div.delete_assignee').hide();
+        }
+    }*/
+
+
+    function saveAssignee() {
+        var ids = [];
+        $('input[name="assignee[]"]').each(function() {
+            if ($(this).val()) {
+                ids.push($(this).val());
+            }
+        });
+
+        LeaveScreenMsg.skipCheck();
+        xajax_saveAssignee(ids);
+    }
+
+
+    function deleteAssignee(el) {
+        removeHtml(el);
+        //checkAssignees();
+        $('#assignee_buttons').show();
+        return false;
+    }
+
+
+    function resetAssignees() {
+        $('#assignee_block div.popUpDiv').remove();
+
+        for (var i in assignees) {
+            s.get(assignees[i]['id'], assignees[i]['title']);
+        }
+
+        $('#assignee_buttons').hide();
+        //checkAssignees();
+    }
+
+
+    function showNotificationBlock(val) {
+        $('div[id^=notification_block]').hide();
+        $('#notification_block_' + val).show();
+    }
+
+    $(document).ready(function() {
+        s = new getMoreHtml();
+        s.readroot = document.getElementById('readroot');
+        s.writeroot = document.getElementById('writeroot');
+
+        assignees = [{assignees}];
+
+        <tmpl:auto_dialog>
+        $('#{button_name}_button').click();
+        </tmpl:auto_dialog>
+    });
+
+    $('body').bind('kbpUserSelected', {}, function(e, data) {
+        /*if (data.flag == 0) {
+            var users_left = $('div.popUpDiv').length - 1;
+            if (users_left == 0) { // getting it back
+                s.get(data.id, data.title);
+
+                var popup_frame = PopupManager.getCurrentPopupFrame();
+                var el = popup_frame.find('#action_' + data.id);
+                el.find('img').attr('src', 'images/icons/check_green.gif');
+                el.attr('data-attach', 0);
+            }
+        }*/
+
+        $('div.delete_assignee').show();
+        $('#assignee_buttons').show();
+        //checkAssignees();
+    });
+</script>
+
+{menu_block}
+
+<table border="0" width="100%" cellpadding="5" cellspacing="1">
+
+<tr class="tdTitle">
+    <td style="padding: 1px;" colspan="2"></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption" width="150">{author_msg}:</td>
+    <td><strong>{author}</strong></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{submitter_msg}:</td>
+    <td><strong>{submitter}</strong></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{date_submitted_msg}:</td>
+    <td><strong>{date_submitted}</strong></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{step_stat_msg}:</td>
+    <td><strong>{step}</strong></td>
+</tr>
+</table>
+
+<form action="{action_link}" method="post" name="aContentForm" id="aContentForm" onsubmit="subForm();">
+{hidden_fields}
+
+    <div style="padding: 20px 0px 0px 170px;">
+
+        <input type="button" id="approve_button" value="{approve_msg}"
+            onClick="return publishConfirm({do_confirm}, '{sure_draft_rewrite_msg}');"
+            class="button button_green" />
+            <!-- onClick="createDialog('approval_dialog');" class="button button_green" /> -->
+
+        <div id="approval_dialog" title="{approve_msg}" style="display: none;">
+            <div style="margin-top: 10px;">
+                {approval_desc_msg}
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <textarea rows="5"
+                    name="step_comment" style="width: 100%;"></textarea>
+            </div>
+
+            <div style="margin-top: 20px;">
+                {approval_notification_block}
+            </div>
+
+            <div style="text-align: center; margin-top: 25px;">
+                <input type="submit" name="submit_approve"
+                    value="{approve_msg}" class="button" />
+
+                <input type="button" value="{cancel_msg}" class="button"
+                    onclick="$('#approval_dialog').dialog('close');">
+            </div>
+        </div>
+
+        <input type="button" id="reject_button" value="{reject_msg}"
+            onClick="createDialog('rejection_dialog');" class="button button_red" />
+
+        <div id="rejection_dialog" title="{reject_msg}" style="display: none;">
+            <div style="margin-top: 10px;">
+                {rejection_desc_msg}
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <textarea rows="5" name="step_rejection_comment" style="width: 100%;"></textarea>
+            </div>
+
+            <tmpl:step_selection>
+            <div style="margin-top: 20px;">
+                {reject_draft_to_msg}:
+                <select name="step_num" onchange="showNotificationBlock(this.value);">
+                    {step_select}
+                </select>
+            </div>
+            </tmpl:step_selection>
+
+            <div id="notification_block_start" style="margin-top: 20px;">
+                {rejection_notification_block_start}
+            </div>
+
+            <div id="notification_block_prev_step" style="margin-top: 20px;display: none;">
+                {rejection_notification_block_prev_step}
+            </div>
+
+            <div style="text-align: center; margin-top: 25px;">
+                <input type="submit" name="submit_reject"
+                    value="{reject_msg}" class="button" />
+
+                <input type="button" value="{cancel_msg}" class="button"
+                    onclick="$('#rejection_dialog').dialog('close');">
+            </div>
+        </div>
+
+        <input type="button" value="{cancel_msg}" class="button"
+                onClick="cancelHandler('{cancel_link}');">
+
+    </div>
+</form>
+
+<br /><br />
+
+<div class="tdTitle">
+    <span class="hasTooltip">
+    	<b>{assignee_msg}</b>
+	</span>
+
+    <span style="float: right;">
+        <a href="javascript:PopupManager.create('{user_popup_link}', 'assignee', 'r');"
+            style="color: white;">
+            <!-- <img src="images/icons/add_new.svg" alt="{add_new_msg}"> -->
+            {add_new_msg}
+        </a>
+    </span>
+
+    <div style="clear: both"></div>
+</div>
+
+<div id="assignee_block">
+
+    <form id="form_assignee">
+
+		<tmpl:assignee_row>
+		<div class="popUpDiv">
+			<div style="float: left; padding: 3px;">
+                <input type="hidden" name="assignee[]" value="{user_id}">
+                <span>{name}</span>
+            </div>
+			<div class="delete_assignee" style="float: right; display: {delete_assignee_display};">
+			    <a href="" onClick="return deleteAssignee(this);">
+			        <img src="images/icons/delete.svg" height="10" alt="{delete_msg}" title="{delete_msg}">
+                </a>
+			</div>
+            <div style="clear: both"></div>
+		</div>
+        </tmpl:assignee_row>
+
+    </form>
+
+    <span id="writeroot"></span>
+</div>
+
+<br />
+<div id="assignee_buttons" style="display: none;">
+    <input type="button" value="{save_msg}" class="button" style="margin-left: 172px;"
+        onclick="saveAssignee();" />
+
+    <input type="button" value="{cancel_msg}" class="button"
+        onclick="resetAssignees();" />
+</div>
+
+
+<br/>
+
+{approval_history_block}
+
+<div id="readroot" class="popUpDiv" style="display: none;">
+    <div style="float: left; padding: 3px;">
+        <input type="hidden" name="assignee[]" value="" id="">
+        <span>1</span>
+    </div>
+
+    <div class="delete_assignee" style="float: right;">
+        <a href="" onClick="return deleteAssignee(this);">
+            <img src="images/icons/delete.svg" height="10" alt="{delete_msg}" title="{delete_msg}">
+        </a>
+    </div>
+
+    <div style="clear: both"></div>
+</div>

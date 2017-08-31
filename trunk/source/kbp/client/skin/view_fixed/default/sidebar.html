@@ -1,0 +1,54 @@
+<tmpl:menu_title>
+<link rel="stylesheet" href="{base_href}/client/skin/ajax_tree.css" type="text/css" />
+<script type="text/javascript" src="{base_href}client/jscript/CategoryMenu.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        loading_img = $('<div id="loading_icon"><img src="{base_href}/client/images/ajax/circle.gif" />{loading_msg}</div>');
+    });
+
+    function setMenuCategoryCookie(category_id) {
+        if(category_id) {
+            createCookie('kb_category_id_', category_id, 0);
+        }
+    }
+</script>
+<div class="tree_title menuItem3" style="margin-bottom: 10px;">
+    <a href="{menu_title_link}">{menu_title}</a>
+    
+    <tmpl:top_category_menu>
+    <span data-dropdown="#top_category_menu" style="float: right;padding-left: 12px;">
+        <a href="#">
+            <img src="{base_href}client/images/icons/dropdown_arrow2.gif" 
+                style="border-width: 0; padding: 3px;" />
+        </a>
+    </span>
+    </tmpl:top_category_menu>
+    
+    {top_category_menu_block}
+</div>
+</tmpl:menu_title>
+
+<tmpl:row>
+<div id="menu_item_{id}" style="padding-left: {padding}px;" class="tree_item {block_class}">
+    
+    <div style="float: left;">        
+        {icon_str}
+    </div>
+    
+    <tmpl:link>
+    <div style="float: left; width: 85%;">
+        <a href="{link}" class="node {item_class}" title="{title}" style="{style}" 
+            onclick="setMenuCategoryCookie('{category_id_cookie}')">{short_title}
+        </a>
+    </div>
+    </tmpl:link>
+
+    <tmpl:message>
+    <div class="tree_message" title="{title}">
+        {short_title}
+    </div>
+    </tmpl:message>
+    
+    <div style="clear: both;"></div>
+</div>
+</tmpl:row>

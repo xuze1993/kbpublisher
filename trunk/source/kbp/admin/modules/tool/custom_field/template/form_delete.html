@@ -1,0 +1,20 @@
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post">
+{hidden_fields}
+
+<br />
+<div align="center">
+    <input type="submit" name="submit" id="yes_button" value="{delete_field_msg}" class="button">
+    <input type="button" value="{cancel_msg}" onClick="location.href='{cancel_link}'" class="button">
+    <span style="margin-left: 30px;">
+    <input type="button" value="{view_field_entry_msg}" onClick="location.href='{entry_link}'" class="button">
+    </span>
+</div>
+
+</form>
+
+<script type="text/javascript">
+ document.getElementById('yes_button').focus();
+</script>

@@ -1,0 +1,221 @@
+<script src="jscript/trigger.js" type="text/javascript"></script>
+<script type="text/javascript">
+    
+    function toggleSelect(select) {
+        var skip_keys = ['changed', 'not_changed'];
+        if ($.inArray(select.value, skip_keys) == -1) {
+            $(select).next('select').show();
+            $(select).next('select').prop('disabled', false);
+            
+        } else {
+            $(select).next('select').hide();
+            $(select).next('select').prop('disabled', true);
+        }
+    }
+    
+    
+    function checkForPopup(select) {
+        if (select.value == 'more') {
+            PopupManager.create('{user_popup_link}', 'r', $(select).attr('id'), 3);
+        }
+    }
+    
+    
+    function rebuildStepNumbers() {
+        var counter = 0;
+        $('div[id^=more_action_] span.step_number:even').each(function () {
+            counter ++;
+            $(this).html(counter + '.');
+        });
+    }
+    
+
+	function init() {
+        $('body').bind('triggerRowRemoved', {}, function(e, data) {
+            var pos = data.id.lastIndexOf('_');
+            var name = data.id.substring(5, pos);
+            
+            var triggers_count = $('div[id^=more_' + name + '_]').length;
+            if (triggers_count == 0) {
+                $('#' + name + '_match_block').hide();
+                $('#' + name + '_button').show();
+            }
+            
+            rebuildStepNumbers();
+        });
+        
+        $('body').bind('triggerRowAdded', {}, function(e, data) {
+            
+            // no longer needed
+            $('#' + data.name + '_match_block').show();
+            $('#' + data.name + '_button').hide();
+            
+            // actions
+            var input_name = 'action[' + data.counter + '][title]';
+            $('#' + data.id + ' span.extra_html').find('input').attr('name', input_name);
+            
+            rebuildStepNumbers();
+            
+                        
+            $('#' + data.id).find('span.rule').attr('id', data.id2);
+            $('#' + data.id).find('span.rule').children().each(function () {
+                $(this).attr('id', data.name + '_option_' + data.counter + '_0');
+                $(this).attr('name', data.name + '[' + data.counter + '][rule][]');
+            });
+        });
+        
+        
+		sc = new getMoreHtmlTrigger();
+		sc.readroot = document.getElementById('{condition_readroot}');
+		sc.writeroot = document.getElementById('{condition_writeroot}');
+
+		sc.id_pref = '{condition_id_pref}';
+		sc.id_pref_populate = '{condition_id_pref_populate}';
+		sc.condition_name = 'cond';
+		//sc.rule_name = 'condition_rule';
+		
+		sc.counter = '{condition_counter}';
+		sc.confirm_use = false;
+		sc.confirm_msg = '';	
+
+
+		sa = new getMoreHtmlTrigger();
+		sa.readroot = document.getElementById('{action_readroot}');
+		sa.writeroot = document.getElementById('{action_writeroot}');
+
+		sa.id_pref = '{action_id_pref}';
+		sa.id_pref_populate = '{action_id_pref_populate}';
+		sa.condition_name = 'action';
+		//sa.rule_name = 'action_rule';
+		
+		sa.counter = '{action_counter}';
+		sa.confirm_use = false;
+		sa.confirm_msg = '';
+	}
+    
+    
+    function populateCondition(select) {
+        var loading_option = '<option>' + "{loading_msg}" + '</option>';
+        $(select).parent().next().find('select').html(loading_option);
+        
+        xajax_populateCondition(select.value, $(select).attr('data-title'), 'spinner');
+    }
+    
+    
+    function populateAction(select) {
+        xajax_populateAction(select.value, $(select).attr('data-title'), 'spinner');
+    }
+    
+    
+    function showPopulatedTemplate(data) {
+        $('#dialog').html(data);
+        $('#dialog').dialog({
+            modal: true,
+            width: 500,
+            height: 250,
+            position: {
+                my: 'center top',
+                at: 'center top+33%',
+                of: window
+            }
+        });
+    }
+
+	window.onload = init;
+
+</script>
+
+{xajax_js}
+
+
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" name="trigger_form" id="aContentForm" onSubmit="LeaveScreenMsg.skipCheck();return Validate(this);">
+{hidden_fields}
+
+<table border=0 width="100%" cellpadding="5" cellspacing="1">
+<tr>
+	<td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tr class="trLighter">
+	<td class="tdFormCaption">{title_msg}: {required_sign}</td>
+	<td>
+        <input type="text" name="title" value="{title}" 
+            class="longText" style="width: 99%;" />
+	</td>
+</tr>
+
+<tmpl:condition>
+<tr class="trLighter">
+	<td class="tdFormCaption tdCaptionTop">{conditions_msg}: {required_sign}</td>
+	<td>
+        <div id="condition_match_block" style="display: block;">
+            <b>{if_match_msg}</b>
+            &nbsp;{match_select}&nbsp;&nbsp;
+            <b>{if_match_more_msg}:</b>
+        </div>	
+		
+        <input type="button" id="condition_button" style="display: none;" value=" + " 
+            onClick="sc.get();" />
+        <br />
+		
+		<div style="padding-left: 15px;">
+			{condition_html}
+	
+			<span id="{condition_writeroot}"></span>
+			
+		</div>
+			
+	</td>
+</tr>
+</tmpl:condition>
+
+<tr class="trLighter">
+	<td class="tdFormCaption tdCaptionTop">{steps_msg}: {required_sign}</td>
+	<td>
+		<div id="action_match_block" style="display: block;">
+            <strong>{workflow_step_msg}:</strong>
+        </div>	
+		
+        <input type="button" id="action_button" style="display: none;" value=" + " 
+            onClick="sa.get();" />
+        <br />
+		
+		<div style="padding-left: 15px;">
+			{action_html}
+	
+			<span id="{action_writeroot}"></span>
+		</div>
+		
+	</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{status_msg}:</td>
+    <td>{status_checkbox}</td>
+</tr>
+
+<tr>
+	<td></td>
+	<td><div><br></div>
+		<div id="bottom_button">
+    		<input type="submit" name="submit" value="{save_msg}" class="button"
+                onClick="validateForm();return false;" />
+            
+    		<input type="button" value="{cancel_msg}" 
+    		    onClick="location.href='{cancel_link}'" class="button" />
+		</div>
+	</td>
+</tr>
+</table>
+
+</form>
+
+<div id="dialog" title="{email_msg}" style="display: none;"></div>
+
+<!-- Readroot -->
+{condition_html_default}
+
+{action_html_default}

@@ -1,0 +1,46 @@
+<div class="articleContainer">
+
+    <div class="tdArticleTitle" id="top" style="overflow: hidden;">
+        <tmpl:admin_block_menu>
+        <div style="float: right;font-size: 0.9em;margin-top: 5px;width: 50px;text-align: right;">
+			<a href="#tools" title="{admin_tools_msg}">
+	            <img src="{base_href}client/images/icons/edit.svg" width="14" height="14" alt="edit"
+					data-dropdown="#action_menu" />
+			</a>
+            <div id="action_menu" class="dropdown dropdown-tip dropdown-anchor-right dropdown-relative">
+                {action_menu}
+            </div>
+        </div>
+        </tmpl:admin_block_menu>
+
+        <div style="overflow: hidden;">
+            <h1 class="articleTitle">{title}</h1>
+        </div>
+
+        <div style="clear: both"></div>
+    </div>
+
+    <div style="padding: 10px 5px;">
+        <div style="padding: 5px 0px 5px 25px; float: right;">
+            {article_block}
+        </div>
+
+        <div class="textBlock" style="padding-bottom: 10px;" id="kbp_article_body">
+
+            {custom_tmpl_top}
+
+            {body}
+
+            {custom_tmpl_bottom}
+
+        </div>
+
+    </div>
+
+	<div>
+		{rating_block}
+	</div>
+
+    <div style="clear: both;"></div>
+
+</div>

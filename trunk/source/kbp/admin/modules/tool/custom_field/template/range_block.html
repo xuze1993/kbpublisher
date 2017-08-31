@@ -1,0 +1,22 @@
+<table border=0 width="100%" cellpadding="3" cellspacing="1">
+    
+<tr class="trMoreDarker">
+    <td>
+        <div style="padding: 2px;"><b>{range_title}</b></div>
+    </td>
+    <td align="right" width="20%">{default_value_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr class="trDarker">
+    <td>
+        <div style="padding-bottom: 3px;">{title}</div>
+    </td>
+    
+    <td align="right">
+        <input type="checkbox" name="dv[]" onclick="if (window.myOptions) {myOptions.check(this);}" value="{id}" id="dv_{id}" {checked} />
+    </td>
+</tr>
+</tmpl:row>
+
+</table>

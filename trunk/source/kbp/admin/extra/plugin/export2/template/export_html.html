@@ -1,0 +1,44 @@
+<tmpl:category_row>
+<div style="margin-bottom: 50px;">
+    <tmpl:category_info>
+    <div class="page_break" style="margin-bottom: 50px;">
+        <a name="{anchor}"></a>
+        <h{hnum}>{title}</h{hnum}>
+        {description}
+    </div>
+    </tmpl:category_info>
+    
+    <tmpl:entry_row>
+    <div class="page_break" style="margin-bottom: 50px;">
+        
+        <div id="articleTitle">
+            <h{hnum}>{title}</h{hnum}>
+        </div>
+        
+        <p id="{anchor}"></p>
+        
+        <div style="padding: 10px 5px;">
+            {custom_tmpl_top}
+            {body}
+            {custom_tmpl_bottom}
+        </div>
+        
+        <tmpl:entry_info>
+        <br />
+        
+        <hr />
+        
+        <div>
+            {entry_id_msg}: {id}<br />
+            {last_updated_msg}: {formated_date}<br />
+            {updated_msg} {by_user_msg}: {updater}</br />
+            {revision_msg}: {revision}<br />
+            {category_title_full} -> {title}<br />
+            <a href="{entry_link}">{entry_link}</a>
+        </div>
+        </tmpl:entry_info>
+        
+    </div>
+    </tmpl:entry_row>
+</div>
+</tmpl:category_row>

@@ -1,0 +1,71 @@
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post">
+{hidden_fields}
+
+<div class="trDarker" style="padding: 6px 6px; margin-bottom: 10px;">
+    {user_msg}:  <b>{first_name} {last_name}</b>, {username_msg}: <b>{username}</b>
+</div>
+
+<table border=0 width="100%" cellpadding="5" cellspacing="1">
+<tr>
+    <td class="tdTitle" style="padding: 1px;"></td>
+</tr>
+
+<tmpl:row>
+<tr class="trDarker">
+    <td>
+        <div style="float: left;">
+            {section_str}
+        </div>
+        
+        <tmpl:user_popup>
+        <div style="float: left;margin-left: 20px;">
+            <a href="javascript:PopupManager.create('{user_popup_link}', 'r', 'r');" 
+                title="{change_supervisor_msg}">
+                <strong>{change_supervisor_msg}</strong>
+            </a>
+        </div>
+        <div style="float: left;margin-left: 10px;">
+            <span id="writeroot"></span>
+        </div>
+        </tmpl:user_popup>
+    </td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<br/>
+<div style="text-align: center;">
+    
+    <tmpl:delete_button>
+    <input type="submit" name="submit" id="submit" value="{delete_msg}" class="button"
+        onClick="return confirmForm('{sure_common_msg}', 'submit');">
+    
+    <input type="button" value="{cancel_msg}" class="button"
+        onClick="location.href='{cancel_link}'">
+    </tmpl:delete_button>
+    
+    <tmpl:back_button>
+    <input type="button" value="{back_msg}" class="button"
+        onClick="location.href='{cancel_link}'">
+    </tmpl:back_button>
+    
+</div>
+
+</form>
+
+<div id="readroot" style="display: none;">
+    <div style="float: left;">
+        <input type="hidden" name="supervisor_id" value="" id="">
+        <!-- <b>{new_supervisor_msg}:</b> -->
+        - 
+        <span>1</span>
+    </div>
+    
+    <!--<div style="float: right;margin: 0 10px;">
+        | <a href="" onClick="removeHtml(this); return false;">{delete_msg}</a>
+    </div>-->
+</div>

@@ -1,0 +1,34 @@
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder2">
+<tr class="tdTitle">
+    <td class="tdTitle" colspan="3">
+        <div style="float: left;">
+            {header_title}
+        </div>
+        <div style="float: right;font-weight: normal;font-size: 7pt;">
+            <tmpl:detail_link>
+            <a href="{detail_link}" style="color: #ffffff;">{all_msg}</a> |
+            </tmpl:detail_link> 
+            <a href="{xml_link}" style="color: #ffffff;">XML</a> | 
+            <a href="{csv_link}" style="color: #ffffff;">CSV</a>
+        </div>
+        <div style="clear: both"></div>    
+    </td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td width="30" align="right">{id_msg}</td>
+    <td width="80%">{title_msg}</td>
+    <td align="right" style="padding-right: 5px;">#</td>
+</tr>
+
+<tmpl:row>
+<tr class="trLighter">
+    <td width="30" align="right">{id}</td>
+    <td width="80%">{title}</td>
+    <td align="right" style="padding-right: 5px;">{num}</td>
+</tr>
+</tmpl:row>
+
+</table>

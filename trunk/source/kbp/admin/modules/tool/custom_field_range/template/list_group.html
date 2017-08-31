@@ -1,0 +1,27 @@
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    <td class="tdTitle" width="200">{title_msg}</td>
+    <td>{description_msg}</td>
+    <td width="1">{fields_msg}</td>    
+    <td align="center" width="1">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+    <td nowrap><a href="{load_link}">{title}</a></td>
+    <td>{description}</td>
+    <td align="center" 
+        <tmpl:field_num_tip>
+        class="_tooltip" title="{fields_num_tip}"
+        </tmpl:field_num_tip>    
+        >
+        
+        {fields_num}
+    </td>
+    <td class="action" align="center" width="1">{options_img}</td>
+</tr>
+</tmpl:row>
+
+</table>

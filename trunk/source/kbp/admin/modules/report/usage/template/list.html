@@ -1,0 +1,74 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#tabs').tabs();
+        $('#tab-export').tabs();
+    });
+</script>
+
+{header}
+
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+<tr valign="top">
+    <td width="190" class="nonPrintable">
+        {filter_block_tmpl}
+    </td>
+    <td style="padding: 5px;">&nbsp;</td>
+    <td>
+        {report_chart_block}
+        
+        <tmpl:chart_not_available>
+        <div class="infoBoxBody">{chart_not_msg}</div><br />
+        </tmpl:chart_not_available> 
+
+        <div id="tabs" class="flora">
+        <ul>
+           <li><a href="#tab-1"><span>{tab_report_msg}</span></a></li>
+           <li><a href="#tab-export"><span>{tab_export_msg}</span></a></li>
+           <!-- <li><a href="#tab-save"><span>{tab_save_msg}</span></a></li> -->
+        </ul>
+        
+        <div id="tab-1"></div>
+
+        <div id="tab-export" style="padding: 5px;">
+            {tab_block_tmpl}
+        </div>        
+        
+        <table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+        <tr class="tdTitle">
+            <td class="tdTitle" width="200">{date_msg}</td>
+
+            <tmpl:td_title>
+            <td  align="right" width="{td_width}">{type_title}</td>
+            </tmpl:td_title>
+        </tr>
+
+        <tmpl:row>
+        <tr id="row_{date}" class="{class}">
+
+            <td style="{style}">{formatted_date}</td>
+
+            <tmpl:td_row>
+            <td align="right">{value}</td>
+            </tmpl:td_row>
+
+        </tr>
+        </tmpl:row>
+
+        <tr class="trMoreDarker">
+            <td><strong>{total_msg}:</strong></td>
+
+            <tmpl:td_total>
+            <td align="right"><strong>{total_value}</strong></td>
+            </tmpl:td_total>
+        </tr>
+        
+        </table>        
+        
+        
+    </td>
+</tr>
+</table>
+
+
+<div style="padding-top: 2px;"></div>
+{footer}

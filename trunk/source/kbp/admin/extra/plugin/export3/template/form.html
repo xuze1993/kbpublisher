@@ -1,0 +1,310 @@
+<link rel="stylesheet" href="css/import.css" type="text/css">
+<script type="text/javascript" src="jscript/yahoo/build/utilities/utilities.js"></script>
+<script type="text/javascript" src="jscript/DragAndDrop.js"></script>
+<script type="text/javascript">
+    var num_drop_rows = {num_drop_rows};
+    
+    $(document).ready(function() {
+        selHandler.setMaxAllowSelected(1);
+        
+        selHandler.setSelectWidth('category');
+        selRoleHandler.setSelectWidth('role');
+        
+        $('#user').bind('change', function() {
+            var val = $('#user').val();
+            if (val == 2) {
+                $('#role_block').show();                
+            } else {
+                $('#role_block').hide();
+            }
+        });
+        
+        FormCollector.setExtraFieldCallback(function(values) {
+            values['generated'] = [];
+            
+            $('#ul2 input').each(function() {
+                values['generated'].push($(this).val());
+            });
+        });
+    });
+    
+    function generateValidateCallback() {
+        /*$('#dialog').dialog({
+            modal: true,
+            height: 100,
+            closeOnEscape: false,
+            open: function(e, ui) {
+                $('.ui-dialog-titlebar-close', ui.dialog).hide();
+            },
+            position: {
+                my: 'center top',
+                at: 'center top+33%',
+                of: window
+            }
+        });*/
+        
+        $('#doGenerate').attr('onclick', '');
+        $('#doGenerate').click();
+    }
+    
+    function subForm() {
+        LeaveScreenMsg.skipCheck();    
+        selHandler.selectAll();
+        selRoleHandler.selectAll();        
+    }
+    
+    var selfChecked = {excel: false, csv: false};
+    function showTypeOption(type) {
+        if (!selfChecked[type]) {
+            var curStatus = $('#do_' + type).prop('checked');
+            var status = (curStatus) ? false : true;
+            $('#do_' + type).prop('checked', status);
+        }
+        
+        $('#' + type + '_export').toggle();
+        selfChecked[type] = false;
+    }
+    
+    function deleteImage(name) {
+        $('#' + name).html('');
+        $('#' + name + '_hidden').val('');
+        $('#' + name + '_delete').css('display', 'none');
+    }
+</script> 
+
+{msg}
+
+{error_msg}
+{error2_msg}
+
+<form action="{action_link}" method="post" enctype="multipart/form-data" 
+    name="export" id="aContentForm" onsubmit="subForm();">
+{hidden_fields}
+
+<tmpl:generated_files_block>
+<table border="0" cellpadding="5" cellspacing="1" width="100%">
+<tr> 
+    <td colspan="2" class="tdTitle">{generated_files_msg}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop" width="150">{last_generated_msg}:</td>
+    <td>
+        {detail_link}
+    </td>
+</tr>
+</table>
+</tmpl:generated_files_block>
+
+<br/>
+
+<table border="0" cellpadding="5" cellspacing="1" width="100%">
+<tr> 
+    <td colspan="3" class="tdTitle">{export_option_msg}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption" width="150">{title_msg}: {required_sign}</td>
+    <td colspan="2">
+        <input type="text" name="title" value="{title}" class="longText" style="width: 350px;">
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{description_msg}:</td>
+    <td colspan="2">
+        <textarea name="description" style="width: 100%">{description}</textarea>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{generate_for_cat_msg}: {required_sign}</td>
+    <td colspan="2">
+        {category_block_tmpl}
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{generate_for_user_msg}: {required_sign}</td>
+    <td>
+        <span class="hasTooltip">{user_select}</span>
+        <span class="tooltip">{export_generate_for_tip_msg}</span>
+        <br/>
+        <div>
+            <div style="display: {role_display};" id="role_block">
+                <div style="padding: 10px 0px 5px 0px;">{generate_for_role_msg}:</div>
+                {role_block_tmpl}
+            </div>
+        </div>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{columns_msg}: {required_sign}</td>
+    <td>
+
+        <table cellpadding="0" cellspacing="0">
+        <tr valign="top">
+            <td>
+                <div style="padding-bottom: 3px;">
+                    <b>{not_included_columns_msg}:</b>
+                </div>
+                
+                <ul id="ul1" class="draglist">
+                    <tmpl:fields1>
+                    <li class="list1" id="li1_{num}">
+                        <input type="hidden" name="f[]" value="{field_value}">{field_title}
+                    </li>
+                    </tmpl:fields1>
+                </ul>
+            </td>
+            <td style="padding: 10px;">&nbsp;</td>
+            <td>
+                <div style="padding-bottom: 3px;">
+                    <b>{included_columns_msg}</b> ({in_order_msg}):
+                </div>
+                
+                <ul id="ul2" class="draglist">
+                    <tmpl:fields2>
+                    <li class="list2" id="li2_{num}">
+                        <input type="hidden" name="f[]" value="{field_value}">{field_title}
+                    </li>
+                    </tmpl:fields2>
+                </ul>
+            </td>
+        </tr>
+        </table>
+
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{include_images_msg}:</td>
+    <td>
+        <span class="hasTooltip">
+            <input type="checkbox" name="params[include_images]" {include_images_checked} />
+		</span>
+        <span class="tooltip">{export3_images_tip_msg}</span>
+    </td>       
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{published_only_msg}:</td>
+    <td>
+        <input type="checkbox" id="published_only" name="params[published_only]" {published_only_checked} />
+    </td>       
+</tr>
+
+</table>
+
+<br />
+
+<table border="0" cellpadding="5" cellspacing="1" width="100%">
+<tr> 
+    <td colspan="2" class="tdTitle">
+        {document_option_msg}
+    </td>
+</tr>
+
+<tr class="trMoreDarker type_error">
+    <td valign="top" colspan="2" onclick="showTypeOption('excel');">
+        <input type="checkbox" onclick="selfChecked.excel = true;" 
+            style="margin-right: 7px;" name="do[excel]" id="do_excel" {excel_checked} />
+        {excel_export_msg}
+    </td>
+</tr>
+
+<tr>
+    <td colspan="2" style="padding: 0px;">
+        
+        <div style="display: {excel_display};" id="excel_export">
+        </div>
+    </td>
+</tr>
+
+
+<tr class="trMoreDarker type_error">
+    <td valign="top" colspan="2" onclick="showTypeOption('csv');">
+        <input type="checkbox" onclick="selfChecked.csv = true;" 
+            style="margin-right: 7px;" name="do[csv]" id="do_csv" {csv_checked} />
+        {csv_export_msg}
+    </td>
+</tr>
+
+<tr>
+    <td colspan="2" style="padding: 0px;">
+        
+        <div style="display: {csv_display};" id="csv_export">
+            <table border="0" cellpadding="5" cellspacing="1" width="100%">
+                <tr class="trLighter">
+                    <td class="tdFormCaption">{fields_terminated_msg}:</td>
+                    <td>
+                        <input type="text" name="params[csv][fields_terminated]" class="shorttext" value="{fields_terminated}">
+                    </td>
+                 </tr>
+                 <tr class="trLighter">
+                     <td class="tdFormCaption">{optionally_enclosed_msg}:</td>
+                     <td>
+                         <input type="text" name="params[csv][optionally_enclosed]" class="shorttext" value='"' readonly>
+                     </td>
+                 </tr>
+                 <tr class="trLighter">
+                     <td class="tdFormCaption">{lines_terminated_msg}:</td>
+                     <td>
+                         <input type="text" name="params[csv][lines_terminated]" class="shorttext" value="{lines_terminated}">
+                     </td>
+                 </tr>
+                 <tr class="trLighter">
+                     <td class="tdFormCaption">{include_header_row}:</td>
+                     <td>
+                         <input type="checkbox" name="params[csv][header_row]" {header_row_checked} />
+                     </td>
+                 </tr>
+            </table>
+        </div>
+    </td>
+</tr>
+
+<tr class="trMoreDarker type_error">
+    <td valign="top" colspan="2" onclick="showTypeOption('xml');">
+        <input type="checkbox" onclick="selfChecked.xml = true;" 
+            style="margin-right: 7px;" name="do[xml]" id="do_xml" {xml_checked} />
+        {xml_export_msg}
+    </td>
+</tr>
+
+<tr>
+    <td colspan="2" style="padding: 0px;">
+        
+        <div style="display: {xml_display};" id="xml_export">
+        </div>
+    </td>
+</tr>
+
+<tr> 
+    <td style="width: 150px;"></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            <div id="bottom_button">
+                <input type="submit" name="submit_save" id="doSubmit" value="{save_msg}" class="button"
+                    onClick="validateForm('submit_save');return false;" />
+                    
+                <input type="submit" name="submit_generate" id="doGenerate" value="{save_generate_msg}" class="button"
+                    onClick="validateForm('submit_generate', 'validate', 'generateValidateCallback');return false;" />
+        
+                <input type="button" value="{cancel_msg}" 
+                    onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'" class="button">
+            </div>
+        </div>
+    </td>
+</tr>
+
+</table>
+</form>
+
+<div id="dialog" title="{loading_msg}" style="display: none;text-align: center;">
+    <p>
+        <img src="images/ajax/indicator_medium.gif" align="absmiddle" alt="{loading_msg}" style="margin-right: 7px;"/>
+        {loading_msg}
+    </p>
+</div>

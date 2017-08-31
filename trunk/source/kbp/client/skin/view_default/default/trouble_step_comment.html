@@ -1,0 +1,19 @@
+<tmpl:comment_title>
+<div class="tdTitle" style="margin-bottom: 5px;">
+    <div id="comment_title">
+        {comment_title_msg}
+    </div>
+</div>
+</tmpl:comment_title>
+
+<div id="comment_block">
+{comment_list}
+</div>
+
+<tmpl:by_page_bottom>
+<br />
+<div id="comments_button" align="center" style="cursor: hand;cursor: pointer;text-decoration: underline;">
+    <span onclick="xajax_getNextComments('{bp}', {step_id});">{get_next_comment_msg}</span>
+</div>
+<br /><br />
+</tmpl:by_page_bottom>

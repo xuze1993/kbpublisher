@@ -1,0 +1,29 @@
+<script type="text/javascript">
+$(document).ready(function() {
+    PopupManager.setTitle("{directory_msg}");
+});
+</script>
+
+<b>{directory_msg}</b>: {directory}
+<hr />
+<br/>
+
+{error_msg}
+
+{hint_msg}
+
+<tmpl:dir_row>
+<div style="margin: 4px;">
+    <img src="images/icons/folder.gif" style="margin-right: 10px;" />{dirname}<br/>
+</div>     
+</tmpl:dir_row>
+
+<tmpl:file_row>
+<div style="margin: 4px 0px 4px 7px;">
+    <img src="images/icons/article.gif" style="margin-right: 10px;" />{filename}<br/>
+</div>
+</tmpl:file_row>
+
+<tmpl:no_files>
+{dir_empty_msg}
+</tmpl:no_files>

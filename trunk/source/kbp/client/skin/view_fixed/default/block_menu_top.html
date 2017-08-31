@@ -1,0 +1,22 @@
+<div data-dropdown="#nav_menu">
+    <a href="#">
+        <img src="{base_href}client/images/icons/expandable_list.svg" width="16" height="16" />
+    </a>
+</div>
+
+<div id="nav_menu" class="dropdown dropdown-tip">
+    <ul class="dropdown-menu">
+        <tmpl:row>
+        <li>
+            <a href="{item_link}"{options} 
+                class="smallerText" style="padding: 3px 50px 3px 15px;">
+                {item_menu}
+            </a>
+        </li>
+        <li class="dropdown-divider"></li>
+        </tmpl:row>
+    </ul>
+</div>
+
+<tmpl:form>
+</tmpl:form>

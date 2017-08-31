@@ -1,0 +1,114 @@
+<tmpl:dynamic_entries_scroll_loader>
+<script type="text/javascript" src="{client_href}jscript/jquery/waypoints.min.js"></script>
+<script type="text/javascript" src="{client_href}jscript/DynamicEntriesScrollLoader.js"></script>
+<script type="text/javascript">    
+    $(document).ready(function() {
+        DynamicEntriesScrollLoader.init({dynamic_limit}, {dynamic_offset}, '{context}');
+    });
+</script>
+</tmpl:dynamic_entries_scroll_loader>
+
+<div class="tdTitle" style="margin-bottom: 2px;">
+    
+    <tmpl:list_option_button>
+    <div class="fright menuItemOption">
+        <a href="#show" onclick="$('#list_option_block').toggle(); return false;">
+            {list_option_msg}
+        </a>
+    </div>
+    </tmpl:list_option_button>
+    
+    <div class="fleft">{list_title}</div>
+    <div style="clear: both;"></div>
+</div>
+
+
+<!-- <div class="tdArticleTitle" id="top" style="background-color: white;">
+    <div style="float: left;">
+        <h1 class="articleTitle">{list_title}</h1>
+    </div>
+    <div class="fright smallerText menuItemOption"
+        style="padding: 10px 8px 0 8px;border: none; background: transparent;font-size: 1.2em;">
+            <a href="#show" onclick="$('#list_option_block').toggle(); return false;" 
+                style="font-weight: normal;">
+                {list_option_msg}
+            </a>
+        </div>
+    <div style="clear: both;"></div>
+</div> -->
+
+{block_list_option_tmpl}
+<!-- <div>&nbsp;</div> -->
+
+{msg}
+
+<div class="forumHeader">
+    <div style="float: left;">
+        <tmpl:topic_num>
+            {topic_num} {topic_num_msg}
+        </tmpl:topic_num>
+    </div>
+    <div style="float: right;">
+        <tmpl:topic_add_block_bottom>
+        <span class="forumHeaderButton">
+            <a href="{topic_add_link}">{start_topic_msg}</a>
+        </span>
+        </tmpl:topic_add_block_bottom>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+    
+<tmpl:by_page_top>
+<div class="bpForumBlock">
+    {page_by_page}
+</div>
+</tmpl:by_page_top>
+
+<br />
+
+<table class="sTabletableCp2 tableCs1 articleList">
+
+<tmpl:row>
+<tr>
+    <td class="articleIcon" style="vertical-align: top;">{item_img}</td>
+    <td style="width: 100%; padding-left: 5px;">
+        <a href="{entry_link}" class="articleLink">{title}</a>
+        
+        
+        <span style="margin-left: 10px;">
+            {pages}
+        </span>
+        
+        <div style="margin-top:2px;">
+            <span class="articleStaff2" title="{freshness_msg}">
+                {interval_date} {by_user_msg} {last_poster}
+            </span>
+            <span class="articleStaff2">{views_num_msg}: {hits}</span>
+            <span class="articleStaff">{forum_message_num_msg}: {posts}</span>
+        </div>
+        
+    </td>
+</tr>
+<tr><td colspan="2" style="padding: 3px;"></td></tr>
+</tmpl:row>
+
+</table>
+
+<span id="spinner" style="display: none;">
+    <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+</span>
+            
+<div class="articleListBottomLine"></div>
+
+<br />
+
+<tmpl:by_page_bottom>
+<div class="bpForumBlock">
+    {page_by_page}
+</div>
+</tmpl:by_page_bottom>
+
+<div style="padding-left: 25px;">
+    {more_link}
+</div>
+<br />

@@ -1,0 +1,37 @@
+<h2>{title}</h2>
+<h4>{body}</h4>
+
+<div class="serviceBlock">
+    {category_title_full} -> {title}<br />
+    <a href="{entry_link}">{entry_link}</a><br /><br />
+</div>
+
+<br /><hr />
+<div class="serviceBlock">
+    
+    <tmpl:row_title>
+    <div style="padding-left: {padding}px; padding-bottom: {padding_category}px;">
+    
+        <div class="mapTreeCategoryBlock">
+            <span>
+                <img height="14" width="11" alt="folder" src="http://test/client/images/icons/article.gif">
+            </span>
+            <span style="margin-left: 5px;">
+                {step_num}. <b><a href="#{step_num}">{title}</a></b>
+            </span>
+        </div>
+            
+    </div>
+    </tmpl:row_title>
+    
+</div>
+<hr /><br />
+
+<tmpl:row_body>
+<div>
+    <a name="{step_num}"></a>
+    <b>{step_num}. {title}</b>
+</div>    
+<div style="margin-left: 20px;">{body}</div>
+<hr />
+</tmpl:row_body>

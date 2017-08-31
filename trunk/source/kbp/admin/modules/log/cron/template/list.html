@@ -1,0 +1,23 @@
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">    
+    <td>{date_executed_msg}</td>
+    <td width="60">{is_error_msg}</td>
+    <td width="1">{output_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr class="{class}" style="{style}" onDblClick="RecordToDo('{detail_link}')">
+    
+    <td><span title="{date_range}">{date_executed}</span></td>    
+    <td width="60" align="center">{is_error}</td>    
+    <td align="center">
+        <a href="{detail_link}" class="_tooltip" title="{output2}">
+            <img src="images/icons/info.svg" alt="view" />
+        </a>        
+    </td>
+</tr>
+</tmpl:row>
+
+</table>

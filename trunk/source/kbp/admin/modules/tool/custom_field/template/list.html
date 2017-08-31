@@ -1,0 +1,114 @@
+{xajax_js}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        TableListHandler.darkerClass = 'trLighter';
+        TableListHandler.init();
+    });
+    
+    function initSort() {
+        for (var i = 0; i <= 4; i ++) {
+            $('#custom_sortable' + i).sortable({
+                placeholder: 'view_placeholder',
+                connectWith: $('.custom_sortable'),
+                stop: function(event, ui) {
+                    $(ui.item).parent().removeClass('custom_sortable_empty');
+                    var parent_id = $(ui.item).parent().attr('id');
+                    var display_id = parent_id.substring(15);
+                    
+                    $(ui.item).find('input').attr('name', 'sort_id[' + display_id + '][]');
+                    
+                    $('ul.custom_sortable').each(function() {
+                        if ($(this).children().length == 0) {
+                            $(this).addClass('custom_sortable_empty');
+                        }
+                    })
+                    
+                    LeaveScreenMsg.changes = true;
+                },
+                over: function(event, ui) {
+                    var ul = ui.placeholder.parent();
+                    if (ul.find('input').length == 0) {
+                        ul.removeClass('custom_sortable_empty');
+                    }
+                }
+            });
+            $('#custom_sortable' + i).disableSelection();
+        }
+        
+        LeaveScreenMsg.setDoCheck(1);
+        LeaveScreenMsg.check();
+    }
+</script>
+
+<div id="field_list">
+    {header}
+	<br/>
+    
+    <tmpl:group>
+    <div style="padding-bottom: 5px;">
+        <b>{group_title}</b>
+    </div>
+
+    <table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+        
+    <tr class="tdTitle">
+        <td class="tdTitle" width="400">{title_msg}</td>
+        <td>{field_type_msg}</td>
+        <td width="1">{id_msg}</td>
+        <td width="1" align="center">{is_required_msg}</td>
+        
+        <tmpl:category>
+        <td width="1" align="center">{category_msg}</td>
+        </tmpl:category>
+        
+        <tmpl:searchable>
+        <td width="1" align="center">{searchable_msg}</td>
+        </tmpl:searchable>
+        
+        <td width="1">{entries_msg}</td>
+        <td align="center" width="1">{action_msg}</td>
+    </tr>
+    
+    <tmpl:display_group>
+        
+        <tmpl:display_title>
+        <tr class="tdTitle trMoreDarker" style="color: black; font-weight: normal;">
+            <td colspan="8">{display_group_title}</td>
+        </tr>
+        </tmpl:display_title>
+    
+        <tmpl:row>
+        <tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+        
+            <td><span style="margin-left:10px;">{title}</span></td>
+            <td>{field_type}</td>
+            <td>{id}</td>
+            <td align="center">{is_required}</td>
+        
+            <tmpl:category>
+            <td align="center">{has_categories}</td>
+            </tmpl:category>
+            
+            <tmpl:searchable>
+            <td align="center">{searchable}</td>
+            </tmpl:searchable>
+        
+            <td align="center">
+                <a href="{entry_link}" title="{view_msg}">
+                    <img src="images/icons/info.svg" alt="{view_msg}" />
+                </a>
+            </td>
+            <td class="action" align="center" width="1">{options_img}</td>
+        </tr>
+        </tmpl:row>
+    
+    </tmpl:display_group>
+        
+    </table>
+
+    <br /><br />
+    
+    </tmpl:group>
+
+</div>

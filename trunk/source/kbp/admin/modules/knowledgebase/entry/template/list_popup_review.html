@@ -1,0 +1,77 @@
+<script type="text/javascript">
+$(document).ready(function() {    
+    PopupManager.setTitle("{review_msg}");
+});
+
+function confirmNotPublishedEntry(msg, link) {
+    confirm2(msg, function() {
+        document.location.href = link;
+    });
+}
+</script>
+
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+
+    <td width="1" class="tdTitle">{id_msg}</td>
+    <td width="1"></td>
+    <td width="1"></td>
+
+    <td>{entry_title_msg}</td>
+    <td>{category_msg}</td>
+
+    <td width="1">{entry_status_msg}</td>
+    <td width="1" align="center">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr class="{class}" style="{style}">
+
+    <td width="1" align="right"><b>{id}</b></td>
+
+    <td width="1">
+        <tmpl:if_schedule>
+        <img src="images/icons/clock.svg" width="10" height="10" alt=""
+            class="_tooltip" title="{schedule_msg}" />
+        </tmpl:if_schedule>
+    </td>
+
+    <td width="1" align="center">
+        <tmpl:if_private>
+        <img src="images/icons/lock2_{image_color}.svg" width="12" height="12" alt="key" 
+            class="_tooltip" title="<b>{private1_msg}</b><br/>{roles_msg}" />
+        </tmpl:if_private>
+    </td>
+
+    <td>
+        <a href="{entry_link}" target="_blank" style="{style}" title="{title}">{short_title}</a>
+    </td>
+
+    <td>
+        <span class="_tooltip" title="{full_category}">{category}</span>
+    </td>
+
+    <td align="center" width="1">
+        <div class="status help" style="width: 15px;">
+            <div title="{status}" style="background: {color};">&nbsp;&nbsp;</div>
+        </div>
+    </td>
+
+    <td align="center" width="1">{options_img}</td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{close_msg}" class="button" onclick="PopupManager.close();" />
+</div>
+
+<tmpl:rating></tmpl:rating>
+<tmpl:comment></tmpl:comment>
+<tmpl:attachment></tmpl:attachment>
+<tmpl:bulk></tmpl:bulk>
+<tmpl:sort_order></tmpl:sort_order>
+<tmpl:attach></tmpl:attach>

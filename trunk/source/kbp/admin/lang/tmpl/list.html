@@ -1,0 +1,154 @@
+<html dir="{dir}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+    <table width="100%">
+        <tr>
+            <td align="{align1}"><h2>Compared language: {lang_name}</h2></td>
+        
+            <tmpl:public_only>
+                <td><h2>Public Area only</h2></td>
+            </tmpl:public_only>
+        
+            <td align="{align2}">
+                <a href="test_language.php">Home</a> &nbsp;|&nbsp;
+            
+                <tmpl:public_only_link>
+                    <a href="test_language.php?mode=public">Public Area only</a> &nbsp;|&nbsp; 
+                </tmpl:public_only_link>
+        
+                <a href="test_language.php?mode=allfields">Review all fields</a> &nbsp;|&nbsp;
+                <a href="test_language.php?mode=config">Update config file</a> &nbsp;|&nbsp;
+                <a href="test_language.php?mode=sphinx">Update Sphinx config file</a>
+            </td>
+        </tr>
+        
+        <tmpl:search>
+            <tr><td>
+                <form name="search" action="{search_action_link}">
+                    <input type="text" name="q" />
+                    <input type="submit" value="Search">
+                </form>
+            </td></tr>
+        </tmpl:search>
+
+    </table>
+        
+    <hr size="1" noshade><br>
+    
+    <table cellpadding="3" cellspacing="1" width="100%">
+        <tr>
+            <td colspan="4"><b>Missed files</b></td>
+        </tr>
+        
+        <tr bgcolor="#c6c6c6">
+            <td>File</td>
+            <td colspan="4">View/Edit</td>
+        </tr>
+        
+        <tmpl:no_missed_files>
+        <tr bgcolor="#f1f1f1">
+            <td colspan="5">No missed files</td>
+        </tr>
+        </tmpl:no_missed_files>
+        
+        <tmpl:missed_files_row>
+        <tr bgcolor="#f1f1f1">
+            <td>{file}</td>
+            <td colspan="4">{update_link}</td>
+        </tr>
+        </tmpl:missed_files_row>
+        
+        
+        <tr>
+            <td colspan="4"><br></td>
+        </tr>    
+        
+        <tr>
+            <td colspan="4"><b>Missed fields</b></td>
+        </tr>        
+        
+        <tr bgcolor="#c6c6c6">
+            <td>Files with missed fields</td>
+            <td colspan="4">View/Edit</td>
+        </tr>
+        
+        <tmpl:no_missed_fields>
+        <tr bgcolor="#f1f1f1">
+            <td colspan="4">No missed fields</td>
+        </tr>
+        </tmpl:no_missed_fields>
+        
+        <tmpl:missed_field_row>
+        <tr bgcolor="#f1f1f1">
+            <td>{file}</td>
+            <td colspan="4">{update_link}</td>
+        </tr>
+        </tmpl:missed_field_row>
+        
+        
+        <tr>
+            <td colspan="4"><br></td>
+        </tr>
+        
+        <tr>
+            <td colspan="4"><b>Empty fields</b></td>
+        </tr>        
+            
+        <tr bgcolor="#c6c6c6">
+            <td>File</td>
+            <td>Field</td>
+            <td>Value</td>
+            <td colspan="2">View/Edit</td>
+        </tr>
+        
+        <tmpl:no_empty_fields>
+        <tr bgcolor="#f1f1f1">
+            <td colspan="4">No empty fields</td>
+        </tr>
+        </tmpl:no_empty_fields>
+        
+        <tmpl:empty_field_row>
+        <tr bgcolor="#f1f1f1">
+            <td>{file}</td>
+            <td><bdi>{field}</bdi></td>
+            <td><bdi>{sub_field}</bdi></td>
+            <td>{update_link}</td>
+        </tr>
+        </tmpl:empty_field_row>
+        
+        
+        <tr>
+            <td colspan="4"><br></td>
+        </tr>
+        
+        <tr>
+            <td colspan="4"><b>Equal fields</b></td>
+        </tr>        
+            
+        <tr bgcolor="#c6c6c6">
+            <td>File</td>
+            <td>Field</td>
+            <td>Value</td>
+            <td colspan="2">View/Edit</td>
+        </tr>
+        
+        <tmpl:no_equal_fields>
+        <tr bgcolor="#f1f1f1">
+            <td colspan="4">No equal fields</td>
+        </tr>
+        </tmpl:no_equal_fields>
+        
+        <tmpl:equal_field_row>
+        <tr bgcolor="#f1f1f1">
+            <td>{file}</td>
+            <td><bdi>{field}</bdi></td>
+            <td><bdi>{sub_field}</bdi></td>
+            <td>{update_link}</td>
+        </tr>
+        </tmpl:equal_field_row>
+        
+    </table>
+</body>
+</html>    

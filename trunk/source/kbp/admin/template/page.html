@@ -1,0 +1,260 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset={meta_charset}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="none">
+    <title>{title}</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style_print.css" media="print">
+    <link rel="stylesheet" type="text/css" href="../client/skin/jquery-ui/smoothness/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="../client/skin/jquery/jquery.dropdown.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery/dropdown_custom.css">
+    <link rel="stylesheet" type="text/css" href="../client/skin/jquery/tooltipster/tooltipster.bundle.min.css">
+    <link rel="stylesheet" type="text/css" href="../client/skin/jquery/tooltipster/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-kbp.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery/smoothness/custom.css">
+    <link rel="stylesheet" type="text/css" href="../client/skin/jquery/jquery.growl.css">
+    <link rel="stylesheet" type="text/css" href="../client/skin/jquery/ezmodal.css">
+    <!--[if IE]>
+    <link rel="stylesheet" type="text/css" href="css/style_ie.css">
+    <![endif]-->
+    
+    <script src="jscript/common.js" type="text/javascript"></script>
+    <script src="jscript/popup.js" type="text/javascript"></script>
+    <script src="jscript/form_validate.js" type="text/javascript"></script>
+    <script src="jscript/PopupManager.js" type="text/javascript"></script>
+    <script src="jscript/LeaveScreenMsg.js" type="text/javascript"></script>
+    <script src="jscript/TableListHandler.js" type="text/javascript"></script>
+    <script src="jscript/Spotlight.js" type="text/javascript"></script>
+    <script src="../client/jscript/FormCollector.js" type="text/javascript"></script>
+    <script src="../client/jscript/ErrorHighlighter.js" type="text/javascript"></script>
+    <script src="../client/jscript/DialogBox.js" type="text/javascript"></script>
+    
+    <script src="../client/jscript/jquery/jquery.js" type="text/javascript"></script>
+    <script src="../client/jscript/jquery/jquery-ui.js" type="text/javascript"></script>
+    <script src="../client/jscript/jquery/jquery.browser.js" type="text/javascript"></script>
+    <script src="../client/jscript/jquery/jquery.dropdown.js" type="text/javascript"></script>
+    <script src="../client/jscript/jquery/jquery.growl.js" type="text/javascript"></script>
+    <script src="../client/jscript/jquery/waypoints.min.js" type="text/javascript"></script>
+    <script src="../client/jscript/jquery/tooltipster.bundle.min.js" type="text/javascript"></script>      
+    <script src="../client/jscript/jquery/jquery.placeholder.min.js" type="text/javascript"></script>
+    <script src="../client/jscript/jquery/ezmodal.min.js" type="text/javascript"></script>
+    <script src="../client/jscript/jquery/jquery.isonscreen.js" type="text/javascript"></script>    
+    <script src="../client/jscript/jquery/ui/i18n/jquery.ui.datepicker-{datepicker_lang}.js" type="text/javascript"></script>
+    <script src="../client/jscript/jquery/jquery.serialize-object.min.js" type="text/javascript"></script>
+    
+    <script type="text/javascript" src="jscript/page_init.js"></script>
+    <script type="text/javascript">
+		
+        $(document).ready(function() {
+            setDebug({debug});
+            LeaveScreenMsg.setMsg("{sure_leave_msg}");
+            
+            DialogBox.ok_msg = "{ok_msg}";
+            DialogBox.cancel_msg = "{cancel_msg}";
+            
+            showGrowl("{growl_show}", "{growl_title}", "{growl_body}");
+            
+            var top_obj = document;
+            $("td.menuActive", top_obj).removeClass().addClass("menuNormal");
+            $("td#td_topmenu_{module_key}", top_obj).addClass("menuActive");
+            
+            <tmpl:search_block>
+            Spotlight.url = '{suggest_link}';
+            Spotlight.section_title_msg = "{show_all_msg}";
+            Spotlight.init();
+            </tmpl:search_block>
+            
+            if ($('#bottom_button').length) {
+                $('<div id="bottom_break"></div>').insertAfter('#bottom_button');
+            }
+            
+            if (!$('#bottom_break').isOnScreen()) {
+                setButtons('up');
+            }
+             
+            $('#bottom_break').waypoint(
+                setButtons,
+                {offset: 'bottom-in-view'}
+            );
+            
+            $('input, textarea').placeholder();
+            
+            var parent_window = PopupManager.getParentWindow();
+            if (parent_window != window) { // loaded in popup
+                var src = parent_window.$('iframe.popup').attr('src');
+                parent_window.location.href = src;
+            }
+        });
+        
+    </script>
+    
+</head>
+<body class="bodyBgr">
+
+<div class="mainArea">
+<div class="nonPrintable">
+
+<div style="background: #446d99;">
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+    <td  width="100%" style="padding: 8px 8px;">
+        <a href="{index_link}" style="color:#ffffff; font-size: 18px;" class="noformat">
+            {header_title} <!-- ({admin_area_msg}) -->
+        </a>
+    </td>
+
+    <td nowrap style="color:#ffffff;">
+        
+        <!-- <a href="#" style="color:#ffffff;" title="{logged_msg}" data-dropdown="#user_menu"><b>{username}</b></a> -->
+        <a href="#" style="color:#ffffff; text-decoration: none;" title="{account_msg}" 
+			data-dropdown="#user_menu"><img src="images/icons/tm_user.svg" width="18" height="18" style="vertical-align: middle;" alt="user"><span style="margin-left: 6px; margin-right: 15px; ">{username}</span></a>
+		
+        <div id="user_menu" class="dropdown dropdown-tip dropdown-anchor-right">
+            <ul class="dropdown-menu">
+                
+		        <li>
+		            <div style="color: black; border-bottom: 1px solid #ccc; padding: 6px 8px 10px 8px; margin-bottom: 1px;">
+						<img src="images/icons/user.svg" alt="user" 
+							style="width: 14px; height: 14px; vertical-align: middle;" />&nbsp;&nbsp;
+		                <strong>{username}</strong>
+		            </div>
+		        </li>
+				
+                <li><a href="{account_link}">{account_msg}</a></li>
+                <li class="dropdown-divider"></li>
+                
+                <tmpl:logout>
+                <li><a href="logout.php?full=1">{logout_msg}</a></li>
+                <li class="dropdown-divider"></li>
+                </tmpl:logout>
+                
+            </ul>
+        </div>
+        
+    </td>
+    <td nowrap align="center" style="color:#ffffff; padding-right: 15px;">&nbsp;&nbsp;&nbsp;
+        <!-- | &nbsp;<a href="{client_view_link}" style="color:#ffffff;"><b>{public_area_msg}</b></a> &nbsp; -->
+        <a href="{client_view_link}" title="{public_area_msg}">
+			<img src="images/icons/tm_public.svg" width="18" height="18" alt="public"></a>
+    </td>
+</tr>
+</table>
+</div>
+
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr style="background: #D4D0C8;">
+    <td style="padding: 0px 0px;" width="85%">
+        {top_menu}
+    </td>
+    
+    <td align="right" width="200">
+		
+        <table width="100%" cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td>&nbsp;</td>
+                
+                <tmpl:shortcut_menu>
+                <td width="30" align="center">
+                    <span data-dropdown="#shortcuts">
+                        <a href="#" class="menu" title="{add_menu}">
+                            <img src="images/icons/m_add.svg" alt="Add"></a>
+                    </span>
+                    
+                    <div id="shortcuts" class="dropdown dropdown-tip dropdown-anchor-right">
+                        <ul class="dropdown-menu">
+                            {shortcut_menu_items}
+                        </ul>
+                    </div>
+                </td>
+                </tmpl:shortcut_menu>
+                
+                <tmpl:search_block2>
+                <td width="30" align="center">
+                    <span>
+                        <a href="#" onclick="$('#search_block').slideToggle(400, function() {$('#search_field').focus();$('#search_field').autocomplete('search');});" title="{search_menu}">
+                            <img id="search_toggle" src="images/icons/m_search.svg" alt="Search" align="">
+                        </a>
+                    </span>
+                </td>
+                </tmpl:search_block2>
+                
+                <tmpl:trash_menu>
+                <td width="30" align="center">
+                    <span>
+                        <a href="{trash_link}" title="{trash_menu}">
+                            <img src="images/icons/m_trash.svg" alt="Trash"></a>
+                    </span> 
+                </td>
+                </tmpl:trash_menu>
+                
+                <td width="7"></td>
+            </tr>
+        </table>
+		
+    </td>
+</tr>
+</table>
+
+<div style="border-top: #999 1px solid;"></div>
+
+<div id="spinner" style="display: none;" class="loading_spinner">
+    <img src="images/ajax/indicator_verybig.gif" />Loading...
+</div>
+
+<div id="loadingMessagePage" class="loading_spinner" style="display: none;">
+    <img src="images/ajax/indicator_verybig.gif" />
+    <span>Saving</span>...
+</div>
+
+<tmpl:search_block3>
+<div id="search_block">
+    <span id="search_spinner" style="display: none;">
+        <img src="images/ajax/indicator.gif" style="vertical-align: middle;" />
+    </span>&nbsp;
+    <input type="search" id="search_field" placeholder="{search_menu}" />
+</div>
+</tmpl:search_block3>
+
+<div style="padding: 7px;">&nbsp;</div>
+</div> <!-- nonPrintable  -->
+
+<div style="padding: 10px 10px 50px 5px; width: {app_width}; margin: 0 auto;">
+
+<!-- main table -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="maincell" height="80%">
+<tr class="nonPrintable">
+    <td valign="top">
+        {common_msg}
+        {menu}
+    </td>
+</tr>
+
+<tr>
+    <!-- main cell -->
+    <td valign="top" class="mainCell" height="100%">
+        <div class="nonPrintable">{submenu}</div>
+        <div style="padding: 2px;"></div>
+        {module_msg}
+        {info_msg}
+        {action_msg}
+        {content}
+    </td>
+</tr>
+
+<tr class="nonPrintable">
+    <td>
+        <div class="copyright" style="padding: 5px;">
+            <a href="{product_www}">{product_name} {product_version}</a>
+        </div>
+    </td>
+</tr>
+</table>
+
+</div>
+</div>
+
+{xajax_js}
+
+</body>
+</html>

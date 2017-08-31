@@ -1,0 +1,55 @@
+<script>
+    function doSubscribe(mode, id, sid) {
+        $.mobile.loading('show');
+        xajax_doSubscribe(mode, id, sid);
+    }
+    
+    function ajaxPostAction(id) {
+        $.mobile.loading('hide');
+        $('#file_' + id).removeClass($.mobile.activeBtnClass);
+    }
+</script>
+
+<div class="panel panel-default kbp-panel">
+	<div class="panel-heading">
+        {list_title}
+    </div>
+    
+    {msg}
+    
+    <div id="fileList" class="list-group">
+        <tmpl:row>
+        <a href="{entry_link}" class="list-group-item" id="file_{id}">
+            <h4 class="list-group-item-heading">{filename}</h4>
+            <div class="articleStaff2"><strong>{title}</strong></div>
+            <p class="list-group-item-text">
+                <span class="articleStaff2">{updated_date}</span>
+                <span class="articleStaff2">{filesize}</span>
+                
+                <tmpl:show_hits>
+                <span class="articleStaff">{downloads_num_msg}: {downloads}</span>
+                </tmpl:show_hits>
+                
+                <tmpl:subscribe>
+                <!--    <div id="div_subscribe_yes_{sid}" style="display: {subscribe_yes_display};">
+                        <a href="#1{id}" onclick="doSubscribe(1, {id}, '_{sid}'); return false;"
+                            class="abbLink" rel="nofollow">{subscribe_msg}</a>
+                    </div>
+                    <div id="div_subscribe_no_{sid}" style="display: {subscribe_no_display};">
+                        <a href="#0{id}" onclick="doSubscribe(0, {id}, '_{sid}'); return false;"
+                            class="abbLink" rel="nofollow">{unsubscribe_msg}</a>
+                    </div>
+                </div>-->        
+                </tmpl:subscribe>
+            </p>
+        </a>
+        </tmpl:row>
+    </div>
+</div>
+
+<tmpl:by_page_bottom>
+<div style="padding: 10px 0px;text-align: center;">
+    {page_by_page_bottom}
+</div>
+<br />
+</tmpl:by_page_bottom>

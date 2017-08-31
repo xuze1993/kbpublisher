@@ -1,0 +1,188 @@
+<link rel="stylesheet" type="text/css" href="../client/skin/jquery/colpick.css">
+<script type="text/javascript" src="../client/jscript/jquery/colpick.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        
+        PopupManager.setTitle("{page_title}");
+        
+        var options = {
+            layout: 'rgbhex',
+            onSubmit: function(hsb, hex, rgb, el) {
+                $(el).val('#' + hex);
+                $(el).parent().next().css('background-color', '#' + hex);
+        		$(el).colpickHide();
+	        },
+            onBeforeShow: function() {
+                $(this).colpickSetColor(this.value);
+            }
+        }
+        
+        $('input[type=text]:not(input.not_color)').colpick(options);
+        
+        
+        // and stick it to the box
+        options['onSubmit'] = function(hsb, hex, rgb, el) {
+            var input = $(el).prev().find('input');
+            input.val('#' + hex);
+            $(el).css('background-color', '#' + hex);
+    		$(el).colpickHide();
+        }
+        
+        options['onBeforeShow'] = function() {
+            var value = $(this).prev().find('input').val();
+            $(this).colpickSetColor(value);
+        }
+        
+        $('div.color_picker').colpick(options);
+        
+        <tmpl:left_menu_slider>
+        $('#left_menu_slider').slider({
+            range: 'min',
+            value: {left_menu_width},
+            min: 230,
+            max: 500,
+            slide: function(event, ui) {
+                $('#left_menu').val(ui.value);
+            }
+        });
+        </tmpl:left_menu_slider>
+        
+        <tmpl:close_window>
+        window.top.$('#{parent_setting_name}').val('html');
+        //PopupManager.close();
+        </tmpl:close_window>        
+    });
+
+    function addTmplExample() {
+        $('#head_code').val($('#head_code_example').html());
+        $('#header').val($('#header_example').html());
+        $('#footer').val($('#footer_example').html());
+    }
+    
+    function resetTmpl() {
+        $('#head_code').val('');
+        $('#header').val('');
+        $('#footer').val('');
+    }
+    
+    function checkColor(el) {
+        if (el.value == '') {
+           $(el).parent().next().css('background', '#F8F8F3'); 
+        }
+    }
+    
+</script>
+
+{error_msg}
+
+{hint} 
+
+<form action="{action_link}" method="post" id="aContentForm2" onsubmit="LeaveScreenMsg.skipCheck();">
+{hidden_fields}
+<!-- page_to_load -->
+<input type="hidden" name="values[{fid}]" value="{fid_value}">
+
+<div class="trMoreDarker" style="padding: 6px 4px;">
+    <span style="float: right;">
+        <a href="#example" onclick="addTmplExample()"; return false;>
+            {add_example_msg}
+        </a>
+    </span>
+    <strong>{title}:</strong>
+</div>
+
+<div class="trDarker" style="padding: 5px 3px;">
+    {head_code_msg}:
+</div>
+<div class="trLighter" style="padding: 5px">
+    <textarea id="head_code" name="values[{fid2}][2]" 
+        style="width: 99%; height: 80px;">{head_code}</textarea>
+</div>
+
+<tmpl:header>
+<br />
+<div class="trDarker" style="padding: 5px 3px;">
+    {header_msg}:
+</div>
+<div class="trLighter" style="padding: 5px">
+    <textarea id="header" name="values[{fid2}][0]" 
+        style="width: 99%; height: 80px;">{header}</textarea>
+</div>
+</tmpl:header>
+
+<tmpl:header_hidden>
+<input type="hidden" name="values[{fid2}][0]" value="" />
+</tmpl:header_hidden>
+
+<tmpl:footer>
+<br />
+<div class="trDarker" style="padding: 5px 3px;">
+    {footer_msg}:
+</div>
+<div class="trLighter" style="padding: 5px">
+    <textarea id="footer" name="values[{fid2}][1]" 
+        style="width: 99%; height: 80px;">{footer}</textarea>
+</div>
+</tmpl:footer>
+
+<tmpl:footer_hidden>
+<input type="hidden" name="values[{fid2}][1]" value="" />
+</tmpl:footer_hidden>
+
+<br />
+<div class="trMoreDarker" style="padding: 5px 3px;">
+    <strong>{style_msg}:</strong>
+</div>
+
+<!-- <div class="trDarker" style="padding: 5px 2px;"> -->
+<div class="trLighter" style="padding: 5px 2px;margin-bottom: 30px;">    
+    <table border="0" cellpadding="0" cellspacing="1" width="100%" class="tdBorder1">
+        
+    <tmpl:row>
+    <tr valign="top">
+        <td width="220" align="left" valign="top" 
+            style="width: 220px; min-width: 220px; white-space: normal;">
+            {title_msg}: {required_sign}
+        </td>
+        <td width="200" style="width: 200px; min-width: 200px;">
+            <div style="float: left;">
+                {form_input}
+            </div>
+            
+            <tmpl:color_box>
+            <div style="float: left;background-color: {color};" class="color_picker"></div>
+            </tmpl:color_box>
+        </td>
+        <td style="padding-left: 5px;">{description_msg}</td>
+    </tr>
+    </tmpl:row>
+        
+    </table>
+</div>        
+
+<br />
+<div class="bottom_button bb_popup">
+    <input type="submit" name="submit" value="{save_msg}" class="button">
+    <input type="button" name="cancel" value="{close_msg}" class="button" 
+        onClick="PopupManager.close();">
+</div>
+
+</form>
+
+<div id="header_example" style="display: none;">
+<!-- add logo -->
+<div style="background: grey;">
+        <a href="http://domain.com/">
+        <img src="http://domain.com/my_company_logo.jpg">
+    </a>
+</div>
+</div>
+
+<div id="footer_example" style="display: none;"><div align="center">
+    your html here
+</div>
+</div>
+
+<div id="head_code_example" style="display: none;"><link rel="stylesheet" type="text/css" href="http://domain.com/style.css">
+</div>

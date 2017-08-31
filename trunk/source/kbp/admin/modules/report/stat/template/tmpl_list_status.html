@@ -1,0 +1,26 @@
+<table border="0" width="100%" cellpadding="4" cellspacing="1" class="tdBorder2">
+<tr class="tdTitle">
+    <td class="tdTitle" colspan="2">
+        <div style="float: left;">
+            {header_title}
+        </div>   
+        <div style="float: right;font-weight: normal;font-size: 7pt;">
+            <a href="{xml_link}" style="color: #ffffff;">XML</a> | 
+            <a href="{csv_link}" style="color: #ffffff;">CSV</a>
+        </div>
+        <div style="clear: both"></div>
+    </td>
+</tr>
+
+<tmpl:row>
+<tr class="trLighter">
+    <td width="90%">{title}</td>
+    <td align="right" style="padding-right: 5px;">{num}</td>
+</tr>
+</tmpl:row>
+
+<tr class="trDarker">
+    <td align="right"><b>{total_msg}:</b></td>
+    <td align="right" style="padding-right: 5px;"><b>{total_num}</b></td>
+</tr>
+</table>

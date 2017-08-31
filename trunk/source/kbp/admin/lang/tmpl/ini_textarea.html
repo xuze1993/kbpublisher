@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html dir={$dir}>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Translate</title>
+        <script>
+            function checkForm() {
+                for (var i = 0; i < document.forms[0].length; i++) {
+                    if (document.forms[0].elements[i].value == "") {
+                        alert('Fill all the fields!');
+                        return false;
+                    }
+                }
+                return true;
+            }
+        </script>
+        <style>
+            .trDarker {
+                background-color: #dddddd;
+            }
+            .trLighter {
+                background-color: #f1f1f1;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <tmpl:form>
+        <form name="ini" method="post" action="test_language.php{$params}">
+        </tmpl:form>
+        
+            <table width="100%">
+                
+                <tmpl:hiddenfile>
+                    <tr align="center"><td colspan="2" ><h1>{$file}</h1></td>
+                    <input type="hidden" name="ini_filename" value="{$file}" />
+                </tmpl:hiddenfile>
+                
+                <tmpl:section>
+                    <tr bgcolor="#c6c6c6">
+                        <td colspan="2"  style="padding-left: 10px;"><b>{$section}</b></td>
+                    </tr>
+                    
+                    <tmpl:field>
+                        <tr valign="top" bgcolor="#f1f1f1" {$style} class="{$class}">
+                            <td style="padding-left: 15px;"><bdi>{$original}</bdi></td>
+                            <td width="50%">
+                                <a name="{$anchor}"></a>
+                                <textarea name="{$parent_section}" style="width: 97%; height: 200px;">{$compared}</textarea>
+                            </td>
+                        </tr>
+                    </tmpl:field>
+                </tmpl:section>
+
+                <tr>
+                    <td colspan="2" align="center"><br/>
+                        <input type="submit" value="OK" />
+                        <button onclick="location.href='test_language.php';return false;" value="back">Back</button>
+                    </td>
+                </tr>
+            </table>
+            
+        </form>
+
+    </body>
+</html>

@@ -1,0 +1,32 @@
+<div class="trMoreDarker" style="padding: 6px 5px;">
+    <b>{template_tags}:</b>
+</div>
+
+<div style="border: 1px solid #B9B9B9;">
+    <tmpl:row>
+    <div style="margin: 10px 5px;">
+        <b>{title}</b>
+        <div style="margin: 3px 0px 0px 5px;">{desc}</div>
+    </div>
+    </tmpl:row>
+    
+    <tmpl:loop_hint>
+    <div style="margin: 20px 5px;padding-top: 20px;border-top: 1px solid #B9B9B9;">
+        {loop_hint_msg}:
+        <br /><br />
+        <b>&lt;row&gt;</b><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;[article.id] - [article.title]<br />
+        <b>&lt;/row&gt;</b><br /><br /><br />
+        
+        {entry_placeholders_msg}:<br />
+        
+        <tmpl:row2>
+        <div style="margin: 10px 5px;">
+            <b>{title}</b>
+            <br />
+            {desc}
+        </div>
+        </tmpl:row2>
+    </div>
+    </tmpl:loop_hint>
+</div>

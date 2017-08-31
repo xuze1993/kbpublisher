@@ -1,0 +1,9 @@
+.dropdown .dropdown-menu,
+.dropdown .dropdown-panel {
+	max-width: 360px;
+}
+
+.dropdown .dropdown-menu LI > A:hover,
+.dropdown .dropdown-menu LABEL:hover {
+	background-color: #E0E8F1;
+}

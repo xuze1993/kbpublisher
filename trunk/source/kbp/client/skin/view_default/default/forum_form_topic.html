@@ -1,0 +1,268 @@
+<tmpl:new_attachment>
+<link type="text/css" rel="stylesheet" href="{base_href}client/skin/dropzone.css" />
+<script type="text/javascript" src="{admin_href}jscript/dropzone.js"></script>
+</tmpl:new_attachment>
+
+<script type="text/javascript" src="{base_href}client/jscript/common_forum.js"></script>
+<script type="text/javascript" src="{admin_href}jscript/TagManager.js"></script>
+<script type="text/javascript" src="{admin_href}jscript/PopupManager.js"></script>
+<script type="text/javascript">
+<!--
+
+function Validate(form) {
+	return true;
+}
+
+function deleteAttachmentToMessage(attachment_id) {
+    confirm2('{sure_common_msg}', function() {
+       $('#forumMsgAttachment' + attachment_id).remove();
+
+        d.options.maxFiles ++;
+        $('#dropzoneInactiveBlock').hide();
+        $('#dropzoneActiveBlock').show();
+        $('#attachContainer').removeClass('dz-max-files-reached');
+
+        checkForDelimiter();
+    });
+}
+
+function checkForDelimiter() {
+    var selector = 'div[id^=forumMsgAttachment]';
+    var has_image_attachments = $('#attachTypeImage').find(selector).length;
+    var has_non_image_attachments = $('#attachTypeNonImage').find(selector).length;
+
+    if (has_image_attachments && has_non_image_attachments) {
+        $('#attachTypeDelim').show();
+
+    } else {
+        $('#attachTypeDelim').hide();
+    }
+}
+
+function toggleStickyOptions(checked) {
+    if (checked) {
+        $('#sticky_options').show();
+
+    } else {
+        $('#sticky_options').hide();
+    }
+}
+
+$(document).ready(function() {
+    $('#sticky_date').datepicker({changeMonth: true, changeYear: true});
+
+    var options = {
+        dateFormat: '{date_format}',
+        showOn: 'button',
+        firstDay: {week_start}
+    };
+    $('#sticky_date').datepicker(options);
+
+    <tmpl:date_set>
+    var date = new Date({date_formatted_1});
+    $('#sticky_date').datepicker('setDate', date);
+    </tmpl:date_set>
+
+    <tmpl:new_attachment>
+    Dropzone.autoDiscover = false;
+
+    d = new Dropzone("#attachContainer", {
+        url: '{file_upload_url}',
+        addRemoveLinks: true,
+        previewsContainer: '#preview_container',
+        thumbnailWidth: 80,
+        thumbnailHeight: 80,
+        dictRemoveFile: '{delete_msg}',
+        parallelUploads: 5,
+        maxFiles: {max_files_num},
+        maxFilesize: {max_file_size},
+        acceptedFiles: {allowed_extensions},
+        //forceFallback: true,
+        fallback: function() {
+            $('#drop_enabled_caption').hide();
+            $('#drop_disabled_caption').show();
+        },
+        //createImageThumbnails: false
+    });
+
+    d.on('success', function(file, response) {
+        data = jQuery.parseJSON(response);
+        var hidden_input = '<input type="hidden" name="attachment_id[]" value="' + data['attachment_id'] + '" />'
+        $(hidden_input).appendTo('#attachContainer');
+
+        file.attachment_id = data['attachment_id'];
+    });
+
+    d.on('removedfile', function(file) {
+        $('input[name="attachment_id[]"][value="' + file.attachment_id + '"]').remove();
+
+        $('#dropzoneInactiveBlock').hide();
+        $('#dropzoneActiveBlock').show();
+    });
+
+    d.on('error', function(file, errorMessage) {
+        alert(errorMessage);
+        this.removeFile(file);
+    });
+
+    d.on('maxfilesreached', function(file) {
+        $('#dropzoneActiveBlock').hide();
+        $('#dropzoneInactiveBlock').show();
+    });
+
+    $('#input_file').change(function(){
+        var file = this.files[0];
+        d.addFile(file);
+
+        $('#input_file').replaceWith($('#input_file').clone(true));
+    });
+    </tmpl:new_attachment>
+});
+//-->
+</script>
+
+{user_msg}
+
+<div class="tdSubTitle">
+	<b>{form_title}</b>
+</div>
+
+<div id="forum_form">
+
+<form action="{action_link}" id="aContentForm" class="dropzone" enctype="multipart/form-data" method="post" onsubmit="return Validate(this);">
+{hidden_fields}
+
+<table class="sTable tableCp5">
+
+<tr class="trForm" style="vertical-align: top;">
+	<td style="vertical-align: top;" class="tdFormCaption">
+		{required_sign}  {title_msg}:
+	</td>
+	<td style="vertical-align: top;">
+		<input type="text" class="longText" name="title" value="{title}" style="width: 500px;" />
+	</td>
+</tr>
+
+<tr class="trForm" style="vertical-align: top;">
+	<td style="vertical-align: top;" class="tdFormCaption">
+		{required_sign} {message_msg}:
+	</td>
+	<td style="vertical-align: top;">
+        <div style="padding: 0px 5px 15px 0px;">
+            {ckeditor}
+        </div>
+	</td>
+</tr>
+
+<tmpl:attachment_block>
+<tr class="trForm reply_form">
+    <td style="vertical-align: top;" class="tdFormCaption">{attachments_msg}:</td>
+    <td>
+
+        <div>
+            <tmpl:attachment_type>
+            <div id="attachType{type}" style="margin: 12px 20px;">
+                {delimiter}
+
+                <tmpl:attachment>
+        		<div id="forumMsgAttachment{attachment_id}">
+        		    <a href="{download_link}" target="_blank">{filename}</a>
+                    <input type="hidden" name="attachment_id[]" value="{attachment_id}" />
+                    <span class="forumDeleteAttachment"
+                        onclick="deleteAttachmentToMessage({attachment_id});">x</span>
+        		</div>
+        		</tmpl:attachment>
+
+            </div>
+            </tmpl:attachment_type>
+        </div>
+
+        <tmpl:new_attachment>
+        <div id="attachContainer" class="{class}" style="border: 2px dashed #aaaaaa; margin: 0 10px 10px 10px;">
+		    <div style="font-size: 0.9em;color: #aaaaaa;margin: 15px 10px;">
+                <span id="dropzoneActiveBlock" style="display: {dropzone_active_display};">
+                    <input id="input_file" type="file" name="file" style="display: none;" />
+
+                    <div id="drop_enabled_caption">
+                        {attachment_drop_file}
+                    </div>
+
+                    <div id="drop_disabled_caption" style="display: none;">
+                        {attachment_drop_disabled}
+                    </div>
+                </span>
+                <span id="dropzoneInactiveBlock" style="display: {dropzone_inactive_display};">
+                    {attachment_max_num_reached_msg}
+                </span>
+		    </div>
+
+            <div id="preview_container"></div>
+		</div>
+        </tmpl:new_attachment>
+    </td>
+</tr>
+</tmpl:attachment_block>
+
+<tr class="trForm">
+    <td class="tdFormCaption">
+        <label for="subscribe">{stick_this_topic_msg}:</label>
+    </td>
+    <td>
+        <input type="checkbox" name="sticky" id="sticky" value="1" {ch_sticky}
+            onclick="toggleStickyOptions(this.checked);" />
+        <span id="sticky_options" style="display: {sticky_options_display};">
+            {until_msg}
+            <input type="text" id="sticky_date" name="sticky_to" style="width: 150px;" />
+            <span style="margin-left: 10px;">
+                {stick_topic_desc_msg}
+            </span>
+        </span>
+    </td>
+</tr>
+
+<tmpl:tag>
+<tr class="trForm">
+    <td class="tdFormCaption" style="vertical-align: top;" style="padding-top: 10px;">
+        {tags_msg}:
+    </td>
+    <td>
+        <!-- <div style="padding: 0px 5px 20px 0px;"> -->
+            {tag_block}
+        <!-- </div> -->
+    </td>
+</tr>
+</tmpl:tag>
+
+<tmpl:subscribe>
+<tr class="trForm">
+    <td class="tdFormCaption">
+        <label for="subscribe">{subscribe_comment_msg}:</label>
+    </td>
+    <td>
+        <input type="checkbox" name="subscribe" id="subscribe" value="1" {ch_subscribe} />
+        <label for="subscribe">{subscribe_comment_desc_msg}</label>
+    </td>
+</tr>
+</tmpl:subscribe>
+
+<tr>
+	<td></td>
+	<td><div><br /></div>
+		<input type="submit" name="submit" id="submit" value="{post_msg}" class="button" />
+
+		<tmpl:cancel_btn>
+		<input type="button" value="{cancel_msg}" onclick="location.href='{cancel_link}'" class="button" />
+		</tmpl:cancel_btn>
+
+        <span style="margin-left: 25px;">
+            <input type="button" value="{preview_msg}" class="button"
+                onClick="PopupManager.is_public = 1;PopupManager.create('{preview_link}');">
+        </span>
+	</td>
+</tr>
+</table>
+</form>
+
+</div>
+
+<br />

@@ -1,0 +1,41 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#tabs').tabs();
+    });
+</script>
+
+{header}
+
+<div id="tabs" style="margin-bottom: 10px;display: none;">
+    {export_block}    
+</div>
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    <td class="tdTitle" width="230">{date_msg}</td>
+    <td>{user_id_msg}</td>
+    <td>{username_msg}</td>
+    <td>{user_ip_msg}</td>
+    <td>{type_msg}</td>
+    <td width="60">{is_error_msg}</td>
+    <td width="1">{detail_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr class="{class}" style="{style}" onDblClick="RecordToDo('{detail_link}')">
+                                    
+    <td width="230"><b>{date_login_interval}</b> ({date_login_formatted})</td>
+    <td><a href="{user_id_link}" style="{style}">{user_id}</a></td>
+    <td><a href="{userlink}">{username}</a></td>
+    <td><a href="{ip_link}" style="{style}">{user_ip_formatted}</a></td>
+    <td>{login_type}</td>
+    <td width="60" align="center">{is_error}</td>
+    <td align="center">
+        <a href="{detail_link}" class="_tooltip" title="{output2}">
+            <img src="images/icons/info.svg" alt="view" />
+        </a>        
+    </td>
+</tr>
+</tmpl:row>
+
+</table>

@@ -1,0 +1,109 @@
+<script type="text/javascript">
+<!--
+$(document).ready(function() {
+    PopupManager.setTitle("{popup_title}");
+    
+    var parent_window = PopupManager.getParentWindow();
+    
+    <tmpl:upload_and_attach>
+    parent_window.$('body').trigger('kbpFileSelected', [{id: '{attach_id}', name: '{attach_escaped_filename}', size: {attach_size}}]);
+    PopupManager.close();
+    </tmpl:upload_and_attach>
+    
+    parent_window.$('body').trigger('kbpFilePopupOpened');
+});
+
+
+function attachEntry(id, name, size, link) {
+    var parent_window = PopupManager.getParentWindow();
+    parent_window.$('body').trigger('kbpFileSelected', [{id: id, name: name, size: size}]);
+    
+    <tmpl:replace>
+    parent_window.$('#{replace_id} a.dz-remove')[0].click();
+    PopupManager.close();
+    </tmpl:replace>
+    
+    disableLink(link);
+    
+    $('#insert_img_' + id).hide();
+    $('#inserted_img_' + id).show();
+}
+//-->
+</script>
+
+{header}
+
+<div id="afterActionMessage" style="display: none;">
+    {after_action_message_block}
+</div>
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+
+    <td width="1">{id_msg}</td>
+    <td width="1"></td>
+    <td width="1"></td>
+
+    <td class="tdTitle">{filename_msg}</td>
+    <td>{category_msg}</td>
+    <td width="1">{filesize_msg}</td>
+    
+    <td width="1">{entry_status_msg}</td>
+    
+    <td align="center" width="1">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr class="{class}" style="{style}">
+    
+    <td width="1" align="right"><b>{id}</b></td>
+    <td width="1">
+        <tmpl:if_schedule>
+        <img src="images/icons/clock.svg" width="10" height="10" alt=""
+            class="_tooltip" title="{schedule_msg}" />
+        </tmpl:if_schedule>
+    </td>    
+
+    <td width="1">
+    <tmpl:if_private>
+        <img src="images/icons/lock2_{image_color}.svg" width="12" height="12" alt="key" 
+            class="_tooltip" title="<b>{private1_msg}</b><br/>{roles_msg}" />
+    </tmpl:if_private>        
+    </td>
+    
+    <td>{filename}</td>
+    <td>
+        <span class="_tooltip" title="{full_category}">{category}</span>
+    </td>
+    <td align="right" width="1">{filesize}</td>
+    
+    <td align="center">
+        <div class="status help" style="width: 15px;">
+            <div title="{status}" style="background: {color};">&nbsp;&nbsp;</div>
+        </div>
+    </td>
+    
+    <td align="center" width="1" style="padding: 4px 8px;">
+        <a href="#" id="attach_link_{id}" title="{link_title}"
+            onClick="attachEntry('{id}', '{escaped_filename}', {size}, this); return false;">
+            <img src="images/icons/attach.svg" width="14" height="14" id="insert_img_{id}" alt="{img_alt}" 
+				style="padding: 0px 4px;" />
+            <img src="images/icons/check.svg" width="14" height="14" id="inserted_img_{id}" style="display: none; padding: 0px 4px;" />
+        </a>
+    </td>
+    
+</tr>
+</tmpl:row>
+
+</table>
+
+<tmpl:close_button>
+<div class="bottom_button bb_popup">
+    <input type="button" value="{done_msg}" class="button" onclick="PopupManager.close();" />
+</div>
+</tmpl:close_button>
+
+<tmpl:filetext></tmpl:filetext>
+<tmpl:bulk></tmpl:bulk>
+<tmpl:sort_order></tmpl:sort_order>
+<tmpl:attach></tmpl:attach>

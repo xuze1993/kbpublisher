@@ -1,0 +1,343 @@
+<script type="text/javascript" src="{base_href}client/jscript/jquery/jquery.jeditable.mini.js"></script>
+<script type="text/javascript" src="{base_href}client/jscript/jquery/jquery.color-2.1.2.min.js"></script>
+<script type="text/javascript" src="{base_href}client/jscript/common_emode.js"></script>
+<script type="text/javascript" src="{base_href}admin/tools/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="{base_href}admin/jscript/LeaveScreenMsg.js"></script>
+<script type="text/javascript" src="{base_href}admin/jscript/Autosave.js"></script>
+<script type="text/javascript" src="{base_href}admin/jscript/TagManager.js"></script>
+<script type="text/javascript" src="{base_href}admin/jscript/PopupManager.js"></script>
+<link rel="stylesheet" href="{base_href}client/skin/emode.css">
+<link rel="stylesheet" href="{base_href}admin/tools/ckeditor_custom/plugins/codesnippet/lib/highlight/styles/default.css">
+<script>
+$(document).ready(function() {
+
+    var old_title = $('input[name="title"]').val();
+
+    $('.articleTitle').editable(function(value, settings) {
+        $('h1.articleTitle').removeClass('validationErrorEmode');
+        return value;
+    }, {
+        placeholder: "{title_here_msg}",
+        onblur: 'submit',
+        cssclass: 'title_in_place',
+        height: 'none'
+    });
+
+    $('.articleTitle').on('keyup', 'input', function(e) {
+        var value = $(this).val();
+        if (old_title != value) { // something's changed
+            if (value) {
+                showSaveButton();
+            }
+
+            $('#aContentForm input[name=title]').val(value);
+        }
+    });
+
+
+    /*var fields_to_check = ['tag', 'related', 'attachment'];
+    LeaveScreenMsg.setFieldsToCheck(fields_to_check);*/
+
+    LeaveScreenMsg.form_id = 'aContentForm';
+    LeaveScreenMsg.setMsg("{sure_leave_msg}");
+    LeaveScreenMsg.check();
+
+    LeaveScreenMsg.fck_default = $('#input[name="body"]').val();
+
+
+    CKEDITOR.disableAutoInline = true;
+
+    initial_body = $('#body').html();
+    body_raw = $('#body_raw').html();
+    changes = false;
+    dropped = false;
+    is_empty = !($('input[name=body]').val());
+
+
+    var custom_events = [
+        'kbpEditModeAttachmentAdded',
+        'kbpEditModeRelatedEntryAdded',
+        'kbpEditModeCategoriesTransferred',
+        'kbpEditModeDefaultCategoryChanged',
+        'kbpEditModeCustomFieldsTransferred',
+        'kbpEditModeAdvancedFieldsTransferred',
+        'kbpTagDeleted',
+        'kbpTagAdded',
+        'kbpEditModeEntryPropertyDeleted'
+    ];
+
+    $('body').bind(custom_events.join(' '), {}, function(e, params) {
+        showSaveButton(1);
+    });
+
+
+    <tmpl:auto_save>
+    autosave = new Autosave('emode');
+    autosave.setIdKey('{autosave_key}');
+    setInterval(function() {autosave.save.call(autosave, 'emode')}, {autosave_period});
+    </tmpl:auto_save>
+
+    <tmpl:button_text>
+    $('body').bind('kbpEditModeAdvancedFieldsTransferred', {}, function(e, params) {
+        for (var i in params.values) {
+            var name = params.values[i]['name'];
+
+            if (name == 'active') {
+                _status = parseInt(params.values[i]['value'], 10);
+            }
+        }
+
+        var published = true;
+        if ($.inArray(_status, params.published_status_ids) == -1) {
+            published = false;
+        }
+
+        var button_text = (published) ? "{publish_msg}" : "{save_msg}";
+        $('#save_button').val(button_text);
+    });
+    </tmpl:button_text>
+});
+
+function submitFormAjax() {
+    var values = FormCollector.collect('emode');
+
+    /*var body = CKEDITOR.instances['body'].getData();
+    body_raw = body;*/
+    LeaveScreenMsg.fck_default = null;
+
+    $('#save_button').text("{saving_msg}...");
+    $('#save_button').addClass('processing');
+
+    xajax_validateEntry(values);
+}
+
+function submitToPopup(link) {
+    PopupManager.create(link, 'r', 'r', 1);
+
+    var action = $('#aContentForm').attr('action');
+    $('#aContentForm').attr('action', link);
+
+    var onsubmit = $('#aContentForm').attr('onsubmit');
+    $('#aContentForm').attr('onsubmit', '');
+
+    $('#aContentForm').attr('target', PopupManager.prefix + '1');
+    $('#aContentForm').submit();
+
+    $('#aContentForm').attr('target', '_self');
+    $('#aContentForm').attr('action', action);
+    $('#aContentForm').attr('onsubmit', onsubmit);
+}
+
+function showSaveButton(forced) {
+    LeaveScreenMsg.changes = true;
+
+    if (!is_empty || forced) {
+        $('#save_button').attr('disabled', false).removeClass('buttonDisabled');
+    }
+}
+
+function edit() {
+    $('#body').attr('contenteditable', true);
+    $('#body').attr('onclick', '');
+
+    if (!LeaveScreenMsg.changes) {
+        if (!dropped) {
+            $('#body').html(body_raw);
+        }
+
+        dropped = false;
+    }
+
+    if (is_empty) {
+        $('#body').html('');
+    }
+
+    editor = CKEDITOR.inline('body', {
+        customConfig: '{config_path}',
+        startupFocus: true,
+        on: {
+            blur: function(evt) {
+                if (LeaveScreenMsg.changes && evt.editor.getData()) {
+                    // ...
+
+                } else {
+                    if (!dropped) { // reverting all back
+                        if (evt.editor.getData()) {
+                            $('#body').html(initial_body);
+
+                        } else {
+                            var empty_hint = '<div style="color: #777777;">{article_here_msg}</div>';
+                            $('#body').html(empty_hint);
+                        }
+
+                        $('#body').attr('contenteditable', false);
+                        $('#body').attr('onclick', 'edit();');
+
+                        hljs.initHighlighting.called = false;
+                        hljs.initHighlighting();
+
+                        //$('#aContentForm input[name="body"]').remove();
+
+                        CKEDITOR.instances['body'].destroy();
+                    }
+
+                    dropped = false;
+                }
+
+                $('#body').removeClass('active');
+                LeaveScreenMsg.fck_default = null;
+            },
+            focus: function(evt) {
+                if (!LeaveScreenMsg.fck_default) {
+                    LeaveScreenMsg.setEditor(evt.editor);
+                    LeaveScreenMsg.setFckDefaultValue();
+                }
+
+                $('#body').addClass('active');
+            },
+            change: function(evt) {
+                if (evt.editor.getData() != LeaveScreenMsg.fck_default) {
+
+                    if (evt.editor.getData()) {
+                        LeaveScreenMsg.changes = true;
+                        $('#revision_comment').show();
+
+                        showSaveButton();
+
+                        is_empty = false;
+                    }
+
+                }
+
+                $('#aContentForm input[name="body"]').remove();
+                var hidden = $('<input type="hidden" name="body" />').val(evt.editor.getData());
+                $('#aContentForm').append(hidden);
+
+                if (!evt.editor.getData()) {
+                    is_empty = true;
+                }
+            },
+            fileUploadRequest: function(evt) {
+            },
+            fileUploadResponse: function(evt) {
+                $('#save_button').attr('disabled', false).removeClass('buttonDisabled');
+                LeaveScreenMsg.changes = true;
+            },
+            drop: function(evt) {
+                dropped = true;
+            }
+        }
+    });
+
+    oEditor = editor;
+}
+
+function cancelHandler(cancel_link) {
+    xajax_cancelHandler(cancel_link);
+    LeaveScreenMsg.skipCheck();
+}
+</script>
+
+<div class="articleContainer">
+
+    <div class="tdArticleTitle" id="top" style="overflow: hidden;">
+        <tmpl:admin_block_menu>
+        <div style="float: right;font-size: 0.9em;margin-top: 5px;width: 50px;text-align: right;">
+			<a href="#tools" title="{admin_tools_msg}">
+	            <img src="{base_href}client/images/icons/edit.svg" width="14" height="14" alt="edit"
+					data-dropdown="#action_menu" />
+			</a>
+            <div id="action_menu" class="dropdown dropdown-tip dropdown-anchor-right dropdown-relative">
+                {action_menu}
+            </div>
+        </div>
+        </tmpl:admin_block_menu>
+
+        <div style="float: right;">
+            <span id="spinner_title" style="display: none;">
+                <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+            </span>
+        </div>
+
+        <div style="overflow: hidden;">
+            <h1 class="articleTitle">{title}</h1>
+        </div>
+
+        <div style="clear: both"></div>
+    </div>
+
+    <tmpl:update>
+    <div class="abBgr" style="background: transparent; padding: 10px 5px; border-bottom: 1px dotted;display: block;">
+        <div style="padding-bottom: 3px;">{entry_id_msg}: {id}</div>
+        <div>{last_updated_msg}: {date_updated_formatted}</div>
+    </div>
+    </tmpl:update>
+
+    <div class="textBlock" style="padding: 10px 5px;" id="kbp_article_body">
+        <div id="custom_top" class="customField">
+            {custom_tmpl_top}
+        </div>
+
+        <div id="body_raw" style="display: none;">
+            {body_raw}
+        </div>
+
+        <div style="position: relative;">
+            <div id="ck_toolbar_top" style="position: absolute;top: -100px;z-index: 100000000;"></div>
+        </div>
+
+        <div id="body" onclick="edit();">
+            {body}
+        </div>
+
+        <div id="ck_toolbar_bottom"></div>
+
+        <div id="custom_bottom" class="customField">
+            {custom_tmpl_bottom}
+        </div>
+    </div>
+
+    <div style="clear: both;"></div>
+
+	<div>
+		{rating_block}
+	</div>
+
+    <div class="abbBlock">
+        {article_block}
+    </div>
+</div>
+
+<form action="{action_link}" method="post" name="aContentForm" id="aContentForm"
+    onsubmit="LeaveScreenMsg.skipCheck();">
+    {hidden_fields}
+
+    <input type="hidden" id="id_key" name="id_key" value="{autosave_key}" />
+    <input type="hidden" name="category[]" value="{category_id}" />
+
+    <div id="save_block" style="position: fixed;padding: 3px;bottom: 0;left: 0;right: 0;background: rgba(0,0,0,0.6);color: white;overflow: hidden;">
+        <div id="autosave_infoblock" style="display: none; float: left; padding: 7px;"></div>
+        <div style="float: right; text-align: right;">
+
+            <!--<input type="submit" id="submit_button" name="submit_button" value="{save_msg}" class="button">-->
+
+            <input type="button" id="save_button" name="save_button" value="{save_button_text}"
+                class="{save_button_class}" onClick="submitFormAjax();" {save_button_attr}>
+
+            <input type="button" value="{cancel_msg}" class="button"
+                onClick="cancelHandler('{cancel_link}');">
+        </div>
+
+        <tmpl:update>
+        <div id="revision_comment" style="overflow: hidden;display: none;">
+            <!-- <b>{revision_comment_msg}:</b> --> <!--{revision_comment_desk_msg}-->
+            <textarea rows="1" id="history_comment" name="history_comment"
+                style="width: 97%; height:19px; margin-top: 2px; background: #FFFFDB"
+                placeholder="{revision_comment_desk_msg}"></textarea>
+        </div>
+        </tmpl:update>
+    </div>
+
+    {entry_blocks}
+
+</form>

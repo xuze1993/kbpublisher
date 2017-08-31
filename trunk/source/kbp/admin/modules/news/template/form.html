@@ -1,0 +1,203 @@
+<script type="text/javascript" src="tools/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="tools/ckeditor_custom/CKDropUploader.js"></script>
+<script type="text/javascript" src="jscript/CategoriesSelectHandler.js"></script>
+<script type="text/javascript" src="jscript/Autosave.js"></script>
+<script type="text/javascript" src="jscript/TagManager.js"></script>
+<script type="text/javascript" src="../client/jscript/DatePickerManager.js"></script>
+<script type="text/javascript">
+
+    function init() {
+        var fields_to_check = ['tag'];
+        LeaveScreenMsg.setFieldsToCheck(fields_to_check);
+    }
+    
+    CKEDITOR.on('instanceReady', function(evt) {
+        //CKDropUploader.init(1);
+        //CKDropUploader.setUploadUrl('{ck_drop_upload_url}');
+        
+        ShowDiv('div_entry_submit', true);
+        LeaveScreenMsg.setEditor(evt.editor);
+        oEditor = evt.editor;
+        LeaveScreenMsg.setFckDefaultValue();
+        
+        evt.editor.on('dialogShow', function(dialogShowEvent) {
+            if(CKEDITOR.env.ie) {
+                $(dialogShowEvent.data._.element.$).find('a[href*="void(0)"]').removeAttr('href');
+            }
+        });
+        
+        $.waypoints('refresh');
+        evt.editor.on('resize', function() {
+            $.waypoints('refresh');
+        });
+        
+        if (!$('#bottom_button').isOnScreen()) {
+            setButtons('up');
+        }
+    });
+    
+    
+    $(document).ready(function() {
+        var options = {
+            date_format: '{date_format}',
+            week_start: {week_start},
+            button: true
+        }
+    
+        var dp = new DatePickerManager('date_posted', options, {date_formatted_1});
+        
+        <tmpl:auto_save>
+        autosave = new Autosave('news');
+        autosave.setIdKey('{autosave_key}');
+        setInterval(function() {autosave.save.call(autosave)}, {autosave_period});
+        </tmpl:auto_save>
+        
+        FormCollector.setExtraFieldCallback(function(values) {
+            values['udate_posted'] = $('#udate_posted').val();
+        });
+        
+        button_text_enabled = {button_text_enabled};
+        $('input[name="active"]').change(function() {
+            updateButtonText();
+        });
+    });
+    
+    
+    function subForm() {
+        LeaveScreenMsg.skipCheck();    
+        selRoleHandler.selectAll();
+        selRoleWriteHandler.selectAll();
+    }
+    
+    
+    function updateButtonText() {
+        if (button_text_enabled) {
+            var published = $('input:checked[name="active"]').length;
+            var button_text = (published) ? "{publish_msg}" : "{save_msg}";
+            $('input[name="submit"]').val(button_text);
+        }
+    }
+
+    window.onload = init;
+        
+</script>
+
+{menu_block}
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" name="" id="aContentForm" onsubmit="subForm();">
+{hidden_fields}
+
+<input type="hidden" id="id_key" name="id_key" value="{autosave_key}" />
+
+<table border=0 width="100%" cellpadding="5" cellspacing="1">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+
+<tmpl:entry_id>
+<tr class="trMoreDarker">
+    <td>{id_msg}:</td>
+    <td>
+        <strong>{id}</strong>
+        <tmpl:entry_link>
+            | <a href="{entry_link}">{entry_public_link_msg}</a>
+        </tmpl:entry_link>
+        | <a href="{detail_link}">{detail_msg}</a>
+    </td>
+</tr>
+</tmpl:entry_id>
+
+<tmpl:posted>
+<tr class="trMoreDarker">
+    <td>{date_msg}:</td>
+    <td><strong>{formatted_date}</strong>&nbsp; {formatted_user}</td>
+</tr>
+</tmpl:posted>
+
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{date_msg}:  {required_sign}</td>
+    <td>
+        <input type="hidden" id="date_posted" name="date_posted" />
+        <span style="margin-left: 5px;">({date_format_formatted})</span>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{title_msg}: {required_sign}</td>
+    <td><input type="text" name="title" value="{title}" id="title" style="width: 100%;"></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{body_msg}: {required_sign}</td>
+    <td>{ckeditor}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{tags_msg}:</td>
+    <td>
+        {block_tag_tmpl}
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{private_msg}:</td>
+    <td>
+        {block_private_tmpl}
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{schedule_msg}:</td>
+    <td>
+        {block_schedule_tmpl}
+    </td>
+</tr>
+
+{custom_field_block_bottom}
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{status_msg}:</td>
+    <td>{status_checkbox}</td>
+</tr>
+
+<tr> 
+    <td></td>
+    <td>
+        <div><br></div>
+        
+        <div id="bottom_button">
+            <div id="div_entry_submit">
+                
+                <div id="autosave_infoblock" class="bbInfo"></div>
+                
+                <div>
+                    <input type="submit" name="submit" value="{button_text}" class="button"
+                        onClick="validateForm();return false;" />
+            
+                    <input type="button" value="{cancel_msg}" class="button"
+                        onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'">
+                    
+                    <span style="margin-left: 25px;">
+                        <input type="button" value="{preview_msg}" class="button"
+                            onClick="PopupManager.create('{preview_link}', 'r', 'r');" />
+                    </span>
+                    
+                    <tmpl:continue_update>
+                    <div style="margin-top: 8px;" class="bbInfo">
+                        <input type="checkbox" name="continue_update" value="1" id="save_update" /> 
+                        <label for="save_update">{save_update_msg}</label>
+                    </div>
+                    </tmpl:continue_update>
+                </div>
+                
+            </div>
+        </div>
+        
+    </td>
+</tr>
+</table>
+</form>

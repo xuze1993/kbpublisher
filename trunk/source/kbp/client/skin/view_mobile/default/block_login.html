@@ -1,0 +1,70 @@
+<div class="panel panel-default">
+    <tmpl:logged>
+    <div class="panel-heading">
+        {logged_msg}: <strong>{username}</strong>
+    </div>
+    </tmpl:logged>
+    
+    <tmpl:admin_view>
+    <a href="{admin_path}" class="list-group-item">
+        <i class="fa fa-caret-right" aria-hidden="true"></i>
+        &nbsp;&nbsp;{admin_view_msg}
+    </a>
+    </tmpl:admin_view>
+    
+    <tmpl:manage>
+        <tmpl:manage_row>
+            <tmpl:item>
+            </tmpl:item>
+            
+            <tmpl:item_disabled>
+            </tmpl:item_disabled>
+            
+            <tmpl:divider>
+            </tmpl:divider>
+        </tmpl:manage_row>
+    </tmpl:manage>
+    
+    <tmpl:account>
+    <a href="{username_link}" class="list-group-item">
+        <i class="fa fa-caret-right" aria-hidden="true"></i>
+        &nbsp;&nbsp;{my_account_msg}
+    </a>
+    </tmpl:account>
+    
+    <tmpl:logged>
+    <a href="{logout_link}" class="list-group-item">
+        <i class="fa fa-caret-right" aria-hidden="true"></i>
+        &nbsp;&nbsp;{logout_msg}
+    </a>
+    </tmpl:logged>
+    
+    <tmpl:register_link>
+    <a href="{register_link}" class="list-group-item">
+        <i class="fa fa-caret-right" aria-hidden="true"></i>
+        &nbsp;&nbsp;{register_msg}
+    </a>
+    </tmpl:register_link>    
+    
+    <tmpl:login_link>
+    <a href="{login_link}" class="list-group-item">
+        <i class="fa fa-caret-right" aria-hidden="true"></i>
+        &nbsp;&nbsp;{login_msg}
+    </a>
+    </tmpl:login_link>
+    
+    <tmpl:pool_link>
+    <a href="{pool_link}" id="pool_block" class="list-group-item" style="display: {display_pool};">
+        <i class="fa fa-caret-right" aria-hidden="true"></i>
+        &nbsp;&nbsp;{pool_msg}
+		<span id="pool_num" class="badge" data-badge="{pool_num}">&nbsp;</span>
+    </a>
+    </tmpl:pool_link>
+    
+    <a href="{full_view_link}" class="list-group-item">
+        <i class="fa fa-caret-right" aria-hidden="true"></i>
+        &nbsp;&nbsp;{switch_full_view_msg}
+    </a>
+</div>
+
+<tmpl:mobile_view_link></tmpl:mobile_view_link>

@@ -1,0 +1,20 @@
+Options -Indexes 
+DirectoryIndex index.php
+#<IfModule mod_dir.c> 
+#    DirectoryIndex index.php
+#</IfModule> 
+
+
+<IfModule mod_rewrite.c>
+	
+	SetEnv KB_REWRITE 1
+	
+	RewriteEngine on
+	Options +FollowSymlinks -Multiviews 
+	
+	#To redirect all images to a static location, so that there's no overhead 
+	#If the image location is the same as the original URL, use a hyphen as the second argument.
+	RewriteRule ^.*\.(jpg|gif|png|css|js)$ - [L,PT]
+	RewriteRule ^(([0-9]+))?(/([a-zA-Z_]+))?/?$ index.php?step=$2&msg=$4 [QSA,L]	
+
+</IfModule>

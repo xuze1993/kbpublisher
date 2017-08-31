@@ -1,0 +1,142 @@
+<script type="text/javascript" src="jscript/SortShowMore.js"></script>
+<script type="text/javascript" src="jscript/common_entry_form.js"></script>
+<script type="text/javascript" src="jscript/TagManager.js"></script>
+<script type="text/javascript" src="../client/jscript/DatePickerManager.js"></script>
+<script type="text/javascript"> 
+<!--
+
+$(document).ready(function() {
+    var options = {
+        date_format: '{date_format}',
+        week_start: {week_start},
+        button: true
+    }
+    
+    var dp = new DatePickerManager('sticky_date', options);
+    
+    <tmpl:date_set>
+    dp.setDate({date_formatted_1});
+    </tmpl:date_set>
+});
+-->
+</script>
+
+{menu_block}
+
+{xajax_js}
+
+{error_msg}
+
+<!-- onSubmit="return validate_employee_form({is_admin});" -->
+<form action="{action_link}" method="post" name="aContentForm" id="aContentForm" onsubmit="subForm();">
+{hidden_fields}
+<input type="hidden" name="date_updated" value="">
+<input type="hidden" name="user_id" value="">
+
+<table border=0 cellpadding="5" cellspacing="1" width="100%">
+<tr> 
+	<td colspan="2" class="tdTitle"><b>{action_title}</b> &nbsp;</td>
+</tr>
+
+<tmpl:entry_id>
+<tr class="trMoreDarker">
+	<td>{id_msg}:</td>
+	<td>
+		<strong>{id}</strong>
+		<tmpl:entry_link>
+		| <a href="{entry_link}">{entry_public_link_msg}</a>
+		</tmpl:entry_link>
+	</td>
+</tr>
+</tmpl:entry_id>
+
+<tmpl:posted>
+<tr class="trMoreDarker">
+	<td>{date_msg}:</td>
+	<td><strong>{formatted_date}</strong>&nbsp; {formatted_user}</td>
+</tr>
+</tmpl:posted>
+
+<tr class="trLighter">
+	<td class="tdFormCaption" valign="top">{category_msg}: {required_sign}</td>
+	<td>
+	    {category_block_search_tmpl}
+		{category_block_tmpl}
+	</td>
+</tr>
+
+<tr class="trLighter">
+	<td class="tdFormCaption">{title_msg}: {required_sign}</td>
+	<td><input type="text" name="title" value="{title}" style="width: 100%;" /></td>
+</tr>
+
+<tr class="trLighter">
+	<td class="tdFormCaption">{sticky_msg}:</td>
+	<td>
+        <input type="checkbox" name="sticky" id="sticky" value="1" {sticky_checked} />
+        <span id="sticky_options">
+            {until_msg}
+            <input type="hidden" id="sticky_date" name="sticky_to" />
+            <span style="margin-left: 10px;">
+                {stick_topic_desc_msg}
+            </span> 
+        </span>
+        
+        
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{tags_msg}:</td>
+    <td>
+        {block_tag_tmpl}
+    </td>
+</tr>
+
+<tmpl:private>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{private_msg}:</td>
+    <td>
+        {block_private_tmpl}
+    </td>
+</tr>
+</tmpl:private>
+
+<tr class="trLighter">
+	<td class="tdFormCaption">{entry_status_msg}: {required_sign}</td>
+	<td>
+	    <select name="active" id="active" style="width: 300px">
+	        {status_select}
+        </select>
+    </td>
+</tr>
+
+
+<tmpl:first_comment>
+<tr><td colspan="2" style="padding: 5px;"></td></tr>
+<tr class="trMoreDarker"><td colspan="2" style="padding: 1px;"></td></tr>
+
+<tr class="trLighter" valign="top">
+	<td class="tdFormCaption">{post_first_comment_msg}: {required_sign}</td>
+	<td>
+		<textarea name="message" id="message" style="width: 100%;" rows="5">{message}</textarea>
+	</td>
+</tr>
+</tmpl:first_comment>
+
+<tr> 
+	<td></td>
+	<td><div><br></div>
+		<input type="submit" name="submit" value="{save_msg}" class="button"
+            onClick="validateForm();return false;" />
+            
+		<input type="button" value="{cancel_msg}" onClick="location.href='{cancel_link}'" class="button">
+        
+        <tmpl:as_new>
+		<input type="submit" name="submit_new" value="{save_as_new_msg}" class="button">
+        </tmpl:as_new>
+    </td>
+</tr>
+</table>
+
+</form>

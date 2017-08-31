@@ -1,0 +1,13 @@
+<div class="dropdown-panel">
+    <b>{caption}</b>
+    <hr />
+    <div style="margin: 5px 0;">{link_desc}</div>
+    <input type="text" value="[full_url]" style="width: 250px;" />
+    
+    <div style="margin-top: 10px;">
+        <tmpl:item>
+        <img src="{icon}" style="cursor: pointer;vertical-align: middle;" title="{title}" 
+            onclick="shareArticle('{url}');" />
+        </tmpl:item>
+    </div>
+</div>

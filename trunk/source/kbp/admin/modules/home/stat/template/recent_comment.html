@@ -1,0 +1,20 @@
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    <td class="tdTitle" colspan="3"><b>{recently_posted_comments_msg}</b></td>
+</tr>
+<tr class="trMoreDarker">
+    <td nowrap>{date_posted_msg}</td>
+    <td>{comment_msg}</td>
+    <td align="center">{status_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr class="trLighter">
+
+    <td nowrap>{date}</td>
+    <td width="100%"><a href="{entry_link}">{comment}</a></td>
+    <td align="center"><img src="images/icons/active_{status_num}.gif" alt="" ></td>
+</tr>
+</tmpl:row>
+
+</table>

@@ -1,0 +1,87 @@
+{user_msg}
+
+<div id="comment_msg"></div>
+
+<div class="tdSubTitle">
+    <div>
+        <tmpl:add_js>
+        <a class="noformat" href="javascript:CommentToogle({toggle_form});void(0);" rel="nofollow">
+            <b>{comment_title}</b>
+        </a>
+        </tmpl:add_js>
+        <tmpl:add_login>
+        <a class="noformat" href="{login_link}" rel="nofollow">
+            <b>{comment_title}</b>
+        </a>
+        </tmpl:add_login>    
+    </div>
+</div>
+
+<div id="comment_form" style="display: {display_form};">
+
+<table class="sTable tableCp5">
+
+<tmpl:not_registered>
+<tr class="trForm">
+    <td class="tdFormCaption">{name_msg}:</td>
+    <td><input type="text" name="name" id="name" value="" class="longText" /></td>
+</tr>
+
+<tr class="trForm">
+    <td class="tdFormCaption">{email_msg}:</td>
+    <td><input type="text" name="email" id="email" value="" class="longText" /></td>
+</tr>
+</tmpl:not_registered>
+
+<tr class="trForm" style="vertical-align: top;">
+    <td class="tdFormCaption">
+        {required_sign}  {comment_msg}:
+        <br /><span class="formComment nowrap">({use_bbcode_msg})</span>
+    </td>
+    <td style="vertical-align: top;">
+        <textarea rows="7" name="comment" id="comment" style="width: 100%;">{comment}</textarea>
+        <div id="comment_error_msg" style="margin: 7px;"></div> 
+    </td>
+</tr>
+
+<tmpl:captcha>
+<tr class="trForm" style="vertical-align: top;">
+    <td class="tdFormCaption"></td>
+    <td><img id="comment_captcha" src="{captcha_src}" alt="{captcha_img_alt_msg}" /></td>
+</tr>
+
+<tr class="trForm" style="vertical-align: top;">
+    <td class="tdFormCaption">{required_sign} {captcha_msg}:</td>
+    <td style="vertical-align: top;">
+        <input type="text" name="captcha" id="captcha" value="" class="longText" />
+        <span id="captcha_error_msg" style="margin-left: 10px;"></span> 
+        <br /><span class="formComment">{captcha_comment_msg}</span>
+    </td>
+</tr>
+</tmpl:captcha>
+
+<tr>
+    <td></td>
+    <td><div><br /></div>
+        <button class="button" onclick="postComment('{step_id}');">{ok_msg}</button>
+        
+        <tmpl:cancel_btn>
+        <input type="button" value="{cancel_msg}" onclick="location.href='{cancel_link}'" class="button" />
+        </tmpl:cancel_btn>
+        
+        <span style="margin-left: 20px;">
+            <a href="#" onclick="$('#bbcode_help_block').toggle(); return false;">{bbcode_how_msg}</a>
+        </span>
+    </td>
+</tr>
+</table>
+
+<br />
+
+<div id="bbcode_help_block" style="display: none;margin-top: 10px;">
+    {bbcode_help_block}
+</div>
+        
+</div>
+
+<br />

@@ -1,0 +1,21 @@
+<tmpl:dropdown>
+<span data-dropdown="#top_category_menu" style="float: right;padding-left: 12px;">
+    <a href="#">
+        <img src="{base_href}client/images/icons/dropdown_arrow2.gif" 
+            style="border-width: 0; padding: 3px;" />
+    </a>
+</span>
+</tmpl:dropdown>
+
+<div id="top_category_menu" class="dropdown dropdown-tip" style="font-weight: normal;">
+    <ul class="dropdown-menu">
+        <tmpl:row>
+        <li>
+            <a href="{link}">
+                {name}
+            </a>
+        </li>
+        <li class="dropdown-divider"></li>
+        </tmpl:row>
+    </ul>
+</div>

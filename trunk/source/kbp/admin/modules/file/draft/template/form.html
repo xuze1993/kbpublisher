@@ -1,0 +1,27 @@
+{menu_block}
+
+{error_msg}
+
+<form action="{action_link}" method="post"  enctype="multipart/form-data" name="aContentForm" id="aContentForm" onsubmit="subForm();">
+{hidden_fields}
+
+{form_block}
+
+<div style="padding: 20px 0px 0px 170px;">
+    <div id="bottom_button" style="height: 40px;line-height: 40px;">
+        <div id="div_entry_submit">
+            
+            <input type="submit" name="submit" value="{save_draft_msg}" class="button"
+                onClick="validateForm();return false;" />
+            
+            {submission_block}
+            
+            <input type="button" value="{cancel_msg}"  class="button"
+                onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'" />
+            
+        </div>
+    </div>
+</div>
+
+
+</form>

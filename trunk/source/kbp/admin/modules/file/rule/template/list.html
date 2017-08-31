@@ -1,0 +1,33 @@
+{msg}
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    <td>{directory_msg}</td>
+    <td width="150">{last_executed_msg}</td>
+    
+    <td width="1">{status_active_msg}</td>    
+    <td width="1">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">    
+    
+    <td>
+        <strong>{directory}</strong> <br />
+        {description}
+    </td>
+        
+    <td width="150"><span title="{formatted_date}">{interval_date}</span></td>        
+    
+    <td align="center">{active_img}</td>        
+    <td class="action" width="1" align="center">
+        {options_img}
+    </td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div style="padding-top: 2px;"></div>
+{footer}

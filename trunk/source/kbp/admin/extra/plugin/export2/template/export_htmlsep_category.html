@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <title>{name}</title>
+    </head>
+    <body>
+        <div class="noPrint">
+            <a href="index.html">{contents_msg}</a>
+            
+            <tmpl:prev_link>
+             | <a href="{prev_id}.html">{previous_msg}</a>
+            </tmpl:prev_link>
+            
+            <tmpl:next_link>
+             | <a href="{next_id}.html">{next_msg}</a>
+            </tmpl:next_link>
+            
+            <hr/>
+        </div>
+        
+        
+        <div>
+            <h1>{name}</h1>
+            {description}
+        </div>
+        
+        
+        <div class="noPrint">
+            <hr/>
+            
+            <a href="index.html">{contents_msg}</a>
+            
+            <tmpl:prev_link>
+             | <a href="{prev_id}.html">{previous_msg}</a>
+            </tmpl:prev_link>
+            
+            <tmpl:next_link>
+             | <a href="{next_id}.html">{next_msg}</a>
+            </tmpl:next_link>
+        </div>
+    </body>
+</html>

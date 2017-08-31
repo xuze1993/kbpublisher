@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+<AnalyticsReport>
+	<Report name="Dashboard">
+	
+		<Title id="Title">
+			<CompareStateHelp>
+				Compare report data to overall site performance and include report data when calculating site performance (% of Site Total or Site Avg.).
+			</CompareStateHelp>
+			<ShowDateControl>true</ShowDateControl>
+			<PrimaryDateRange>December 29, 2008 - January 28, 2009</PrimaryDateRange>				
+			<Compare>false</Compare>
+			<Sampled>false</Sampled>
+			<CompareStateMsg>Site</CompareStateMsg>
+			<Name>Dashboard</Name>
+			<Detail></Detail>
+			<CompareMsg>Comparing to:</CompareMsg>
+			<ProfileName>www.kbpublisher.com</ProfileName>
+			<ShowCompare>true</ShowCompare>
+			<DetailSeparator> | </DetailSeparator>
+		</Title>
+		
+		<Graph id="Graph">
+			<ShowHover>true</ShowHover>
+			<Format>NORMAL</Format>
+			<XAxisTitle>Day</XAxisTitle>
+			<Compare>false</Compare>
+			<XAxisLabel>December 29, 2008</XAxisLabel>
+			<XAxisLabel>January 5, 2009</XAxisLabel>
+			<XAxisLabel>January 12, 2009</XAxisLabel>
+			<XAxisLabel>January 19, 2009</XAxisLabel>
+			<XAxisLabel>January 26, 2009</XAxisLabel>
+			<SelectedSerie>primary</SelectedSerie>
+			<SelectedSerie>compare</SelectedSerie>
+			<Serie><SelectionStartIndex>0</SelectionStartIndex>
+			<SelectionEndIndex>30</SelectionEndIndex>
+			<Style>
+				<PointShape>CIRCLE</PointShape>
+				<PointRadius>9</PointRadius>
+				<FillColor>30668</FillColor>
+				<FillAlpha>10</FillAlpha>
+				<LineThickness>4</LineThickness>
+				<ActiveColor>30668</ActiveColor>
+				<InactiveColor>11654895</InactiveColor>
+			</Style>
+			<Label>Visits</Label>
+			<Id>primary</Id>
+			<YLabel>200</YLabel>
+			<YLabel>400</YLabel>
+			<ValueCategory>visits</ValueCategory>
+			<Point>
+				<Value>220</Value>
+				<Label>December 29, 2008</Label>
+			</Point>
+			<Point>
+				<Value>254</Value>
+				<Label>December 30, 2008</Label>
+			</Point>
+			<Point>
+				<Value>151</Value>
+				<Label>December 31, 2008</Label>
+			</Point>
+			</Serie>
+			</Graph>
+			<Narrative id="Narrative">
+				<Message>Site Usage</Message>
+				<Type>DASHBOARD</Type>
+				<Compare>false</Compare>
+			</Narrative>
+			<Sparkline id="VisitsSparkline">
+				<PrimaryValue>220.0</PrimaryValue>
+				<PrimaryValue>254.0</PrimaryValue>
+				<PrimaryValue>151.0</PrimaryValue>
+				<PrimaryValue>158.0</PrimaryValue>
+				<PrimaryValue>217.0</PrimaryValue>
+			</Sparkline>
+			<ItemSummary id="VisitsSummary">
+				<Item>
+					<SummaryValue>7,883</SummaryValue>
+				</Item>
+				<Active>true</Active>
+				<Message>Visits</Message>
+				<InverseCompare>false</InverseCompare>
+				<Compare>false</Compare>
+			</ItemSummary>
+			<Sparkline id="PageviewsSparkline">
+				<PrimaryValue>1060.0</PrimaryValue>
+				<PrimaryValue>1034.0</PrimaryValue>
+				<PrimaryValue>704.0</PrimaryValue>
+				<PrimaryValue>652.0</PrimaryValue>
+
+				<SparklineDateFormat>NTH_DAY</SparklineDateFormat>
+				<Compare>false</Compare>
+				<PrimaryEntireDateRange>20081229-20090128</PrimaryEntireDateRange>
+				<PrimaryActiveDateRange>20081229-20090128</PrimaryActiveDateRange>
+			</Sparkline>

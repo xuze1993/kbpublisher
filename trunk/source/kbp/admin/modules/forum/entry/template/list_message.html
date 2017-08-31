@@ -1,0 +1,67 @@
+<script type="text/javascript">
+<!--
+
+function Validate(form) {
+	return true;
+}
+
+//-->
+</script>
+
+{menu_block}
+
+<!--<table border=0 width="100%" cellpadding="5" cellspacing="1">
+<tr>
+	<td colspan="2">
+	    <span style="font-size: 2em">{entry_title}</span><b></b>
+    </td>
+</tr>
+</table>-->
+
+<br />
+
+<table border=0 width="100%" cellpadding="5" cellspacing="1">
+
+<tmpl:row>
+<div class="commentBlock">
+    <div class="commentTitle">
+        <span><b> {date}</b></span> 
+        <span> | {user}</span>
+        <span style="float: right;color: {color};"><b>{name}</b></span>
+    </div>
+    
+    <div class="commentText textBlock">
+        <div>{content}</div>
+    </div>
+    
+    <tmpl:attachment_block>
+    <div class="commentTitle" style="border-top: thin solid #E4E4E4;border-bottom: 0;">
+        <b>{attachment_msg}:</b>
+        <tmpl:attachment>
+            <a href="{download_link}" style="margin-left: 10px;">{filename}</a>
+        </tmpl:attachment>
+    </div>
+    </tmpl:attachment_block>
+</div>
+
+<tmpl:original>
+<tr class="trLighter">
+	<td colspan="2">
+	    <div>
+	        <span onclick="$(this).parent().next().toggle();$(this).text($(this).text() == 'View' ? 'Hide' : 'View');" style="cursor: hand;cursor: pointer;text-decoration: underline;">View</span>
+        </div>
+        <div style="display: none;padding-top: 10px;color: red;">
+            {original_message}
+        </div>
+    </td>
+</tr>
+</tmpl:original>
+
+</tmpl:row>
+
+<!-- <tr class="trlighter">
+	<td class="tdFormCaption" nowrap>{title_msg}: {required_sign}</td>
+	<td><input type="text" name="title" value="{title}" class="longText"></td>
+</tr> -->
+</tr>
+</table>

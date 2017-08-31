@@ -1,0 +1,25 @@
+<a id="{anchor}"></a>
+<table class="sTable tableCs1">
+<tr class="tdSubTitle">
+    <td colspan="2" class="tdSubTitle"><b>{title_msg}</b></td>
+</tr>
+<tr><td colspan="2" style="padding: 3px;"></td></tr>
+
+<tmpl:row>
+<tr>
+    <td style="padding-left: 2px;">{item_img}</td>
+    <td style="width: 100%; padding-left: 4px;">
+		<span>
+        	<a href="{attachment_link}" class="articleLinkOther" target="_blank">{filename}</a> ({filesize})
+		</span>
+
+		<a href="{download_link}" style="padding-left:10px;" title="{download_msg}">
+			<img src="{base_href}client/images/icons/download.svg" width="15" height="15" alt="Download" />
+		</a>
+
+    </td>
+</tr>
+</tmpl:row>
+
+</table>
+<br />

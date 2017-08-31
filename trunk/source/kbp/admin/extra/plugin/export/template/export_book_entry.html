@@ -1,0 +1,25 @@
+<html>
+<head></head>
+<body>
+
+<h1>{title}</h1>
+
+{custom_tmpl_top}
+{body}
+{custom_tmpl_bottom}
+
+<tmpl:entry_info>
+<br /><br />
+<hr />
+
+<font size="-1">
+    {entry_id_msg}: {id}<br />
+    {last_updated_msg}: {formated_date}<br />
+    {revision_msg}: {revision}<br />
+    {category_title_full} -> {title}<br />
+    <a href="{entry_link}">{entry_link}</a>
+</font>
+</tmpl:entry_info>
+
+</body>
+</html>

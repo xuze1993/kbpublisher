@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>{main_title_msg}</title>
+    <meta http-equiv="content-type" content="text/html; charset={meta_charset}">
+    <!--<link rel="STYLESHEET" type="text/css" href="../admin/css/window.css">-->
+    <link rel="STYLESHEET" type="text/css" href="../admin/css/setup.css">
+    <link rel="STYLESHEET" type="text/css" href="../client/skin/jquery-ui/smoothness/jquery-ui.css">
+
+    <script src="../client/jscript/jquery/jquery.js" type="text/javascript"></script>
+    <script src="../client/jscript/jquery/jquery-ui.js" type="text/javascript"></script>
+    <script src="../admin/jscript/common.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    <!--
+    function setButtonState(button, state) {
+        var b = document.getElementById(button);
+        if(b) {
+            b.disabled = state;
+            b.className = (state) ? 'buttonDisabled' : 'button';
+            //alert(state);
+        }
+    }
+
+    function setFocus(id) {
+        var b = document.getElementById(id);
+        if(b) {
+            b.focus();
+        //    b.select();
+        }
+    }
+
+    function goPage(page) {
+        document.location.href = page;
+        return false;
+    }
+
+    function goNextPage(page) {
+        showLoadingMsg(function() {
+            goPage(page);
+        });
+    }
+
+    function validate() {
+        return true;
+    }
+
+    function init() {
+        setFocus('next')
+        setButtonState('next', {button_state});
+    }
+
+    function showLoadingMsg(callback) {
+        $('#dialog').dialog({
+            modal: true,
+            height: 100,
+            closeOnEscape: false,
+            open: function(e, ui) {
+                $('.ui-dialog-titlebar-close', ui.dialog).hide();
+            },
+            create: function() {
+                callback();
+            },
+            position: {
+                my: 'center top',
+                at: 'center top+33%',
+                of: window
+            }
+        });
+    }
+    //-->
+    </script>
+
+</head>
+
+<body bgcolor="#f4f4f4" onload="init()">
+
+{top_msg}
+
+
+    <div class="form-bg">
+
+        <form action="{current_page}" method="post" id="setup_form" onsubmit="validate()">
+            <input type="hidden" name="setup" id="setup" value="1">
+
+            <h2>
+                <img src="../admin/images/logo/logo_small.gif" alt="" />
+                &nbsp;&nbsp;{main_title_msg}
+            </h2>
+
+            <div>
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td colspan="2" style="padding: 0px;"></td>
+                    </tr>
+                    <tr style="background: #CCC; color: #000000;">
+                        <td style="padding: 10px 15px;" valign="top">
+                            <div style="padding-bottom: 3px;"><b>{title_msg}</b></div>
+                            <div style="padding-left: 5px;">{desc_msg}</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="padding: 12px 20px 20px 20px;text-align: left;"
+                width="100%" height="100%" class="textBlock" valign="top">
+                {content}
+            </div>
+
+            <div style="border-top: 2px solid #BFBFBF; padding-bottom: 5px;"></div>
+            <div style="padding: 10px 15px 0px 15px;">
+
+                <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td width="100%">
+                        <tmpl:refresh_link>
+                        <input type="button" name="refresh" id="refresh" value="{refresh_msg}" class="button" style="margin-left: 5px;"
+                            onclick="return goPage('{current_page}')">
+                        </tmpl:refresh_link>
+                    </td>
+
+                    <tmpl:prev_link>
+                    <td>
+                        <input type="button" name="prev" id="prev" value=" < {prev_msg}" class="button"
+                            onclick="return goPage('{prev_page}')">
+                    </td>
+                    </tmpl:prev_link>
+
+                    <tmpl:next_link>
+                    <td>
+                        <input type="button" name="next" id="next" value="{next_msg} > " class="button"
+                            onclick="return goNextPage('{next_page}')">
+                    </td>
+                    </tmpl:next_link>
+
+                    <tmpl:cancel_link>
+                     <td style="padding: 5px;">&nbsp;</td>
+                    <td>
+                        <input type="button" name="cancel" id="cancel" value="{cancel_msg}" class="button"
+                            onclick="return goPage('{cancel_page}')">
+                    </td>
+                    </tmpl:cancel_link>
+
+                </tr>
+                </table>
+
+            </div>
+
+        </form>
+
+        <!--
+        <div style="font-size: smaller; padding: 10px;">
+            <a href="{product_www}" target="_blank">{product_name} {product_version}</a>
+        </div>
+        -->
+
+    </div>
+
+    <div id="dialog" title="{loading_msg}" style="display: none;text-align: center;">
+        <p>
+            <img src="../admin/images/ajax/indicator_medium.gif" align="absmiddle"
+                alt="{loading_msg}" style="margin-right: 7px;"/>
+            {loading_msg}
+        </p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+{error_msg}
+
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" name="aContentForm" id="aContentForm" onsubmit="LeaveScreenMsg.skipCheck();">
+{hidden_fields}
+
+<table border=0 width="100%" cellpadding="5" cellspacing="1">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{license_info_msg}</b></td>
+</tr>
+
+<tmpl:more_info_license>
+<!-- <tr class="trMoreDarker">
+    <td>{licence_issued_msg}</td>
+    <td>{issued}</td>
+</tr> -->
+<tr class="trMoreDarker">
+    <td style="width: 150px;">{customer_id_msg}:</td>
+    <td>{customer_id}</td>
+</tr>
+<tr class="trMoreDarker">
+    <td>{license_msg}:</td>
+    <td>{license}</td>
+</tr>
+<tr class="trMoreDarker">
+    <td>{license_issued_msg}:</td>
+    <td>{date_purchased}</td>
+</tr>
+
+</tmpl:more_info_license>
+
+<tmpl:more_info_license2>
+<tr class="trMoreDarker">
+    <td>{license_copyright_removal_msg}:</td>
+    <td>{yes_msg}</td>
+</tr>
+</tmpl:more_info_license2>
+
+
+<tmpl:no_more_info_license>
+<tr class="trLighter">
+    <td class="tdFormCaption">{license_key_msg}: {required_sign}</td>
+    <td>
+        <input name="license_key" type="text" class="longText" id="license_key" value="{license_key}">
+        &nbsp;{license_key_desc_msg}
+    </td>
+</tr>
+</tmpl:no_more_info_license>
+
+
+<tmpl:no_more_info_license2>
+<tr class="trLighter">
+    <td class="tdFormCaption">{license_key_copyright_msg}:</td>
+    <td>
+        <input name="license_key4" type="text" class="longText" id="license_key" value="{license_key4}">
+        &nbsp;{license_key_copyright_desc_msg}
+    </td>
+</tr>
+</tmpl:no_more_info_license2>
+
+
+<tmpl:submit_license>
+<tr> 
+    <td></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            <input type="submit" name="submit" value="{save_msg}" class="button"
+                onClick="validateForm();return false;" />
+        </div>
+    </td>
+</tr>
+</tmpl:submit_license>
+
+
+</table>
+</form>

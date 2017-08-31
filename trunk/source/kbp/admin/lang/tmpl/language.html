@@ -1,0 +1,25 @@
+<html dir="{dir}">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<body>
+    <tmpl:back_link>
+    <a href="test_language.php">&laquo; Back to main page</a>
+    </tmpl:back_link>
+        
+    <h2>Compared language: {lang_name}</h2>
+    <b>
+        <bdi>it is a list of all messages in {lang_name} language, it could    be useful for spell checking.</bdi>
+    </b>               
+    <hr size="1" noshade><br>    
+    <table cellpadding="3" cellspacing="1" width="100%">
+    <tr><td><b></b></td></tr>
+    
+    <tmpl:row>
+    <tr bgcolor="#f1f1f1">
+        <td>{sub_field}</td>
+        <td>{update_link}</td>
+    </tr>
+    </tmpl:row>
+    
+    </table>
+</body>
+</html>

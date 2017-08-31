@@ -1,0 +1,101 @@
+<script type="text/javascript">
+<!--
+$(document).bind('pageinit', function() {
+    OnKeyRequestBuffer.mobile = true;    
+});
+
+function closeQuickResponce() {
+    div = document.getElementById('quick_response');
+    div.innerHTML = '';
+} 
+
+function Validate(form) {
+    return true;
+}
+//-->
+</script>
+
+{user_msg}
+
+<form action="{action_link}" method="post" id="aContentForm" enctype="multipart/form-data" onSubmit="return Validate(this);">
+    
+    <tmpl:not_registered>
+    <div class="form-group">
+        <label for="name">{name_msg}</label>
+        <input type="text" name="name" id="name" class="form-control" value="{name}" {name_option} />
+    </div>
+    
+    <div class="form-group">
+        <label for="email">{required_sign} {email_msg}</label>
+        <input type="text" name="email" id="email" class="form-control" value="{email}" {email_option} />
+    </div>
+    </tmpl:not_registered>
+    
+    <div class="form-group">
+        <label for="subject_id">{required_sign} {feedback_subject_msg}</label>
+        <select name="subject_id" id="subject_id" class="form-control">
+            {subject_select}
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="title">{required_sign} {title_msg}</label>
+        <input type="text" name="title" id="title" class="form-control" value="{title}" />
+    </div>
+    
+    <div class="form-group">
+        <label for="message">{required_sign} {question_comment_msg}</label>
+        {demo_responce_msg}
+        <textarea name="message" id="message" class="form-control" onkeyup="{onkeyup_action}">{message}</textarea>
+        <div id="quick_response"></div>
+    </div>
+    
+    <tmpl:attachment>
+    <div class="form-group">
+        <label for="file_{num}">{attachment_msg}</label>
+        <input type="file" name="file_{num}" id="file_{num}" />
+    </div>
+    </tmpl:attachment>
+    
+    <tmpl:allowed_extension>
+    <div class="form-group">
+        <span class="formComment">{allowed_extension_msg}: {allowed_extension}</span>
+    </div>
+    </tmpl:allowed_extension>
+    
+    <tmpl:custom_row>
+    <div class="form-group">
+        <label for="custom_{id}">{required_sign} {title}:</label>
+        {input}
+        
+        <tmpl:tooltip>
+        <div class="formComment">{tooltip}</div> 
+        </tmpl:tooltip>
+    </div>
+    </tmpl:custom_row>
+    
+    <tmpl:captcha>
+    <div class="form-group">
+        <div>
+            <img src="{captcha_src}" alt="{captcha_img_alt_msg}" id="captcha_img" />
+            <br />
+            <span class="formComment">{captcha_comment_msg}</span>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="captcha">{captcha_msg}</label>
+        <input type="text" name="captcha" id="captcha" class="form-control" value="" />
+    </div>
+    </tmpl:captcha>
+    
+    <div style="width: 50%;margin: 40px auto;">
+        <button type="submit" name="submit" id="submit" class="btn btn-default btn-block"
+            onClick="validateForm();return false;" />
+        {send_msg}
+        </button>
+    </div>
+    
+</form>
+
+<br />

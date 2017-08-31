@@ -1,0 +1,86 @@
+<div class="tdTitle">
+    <div>{list_title}</div>
+</div>
+
+<div class="abbLine" style="margin-bottom: 15px; padding: 10px; 5px;">
+    {page_by_page}
+    <tmpl:row_count>
+        | <span><a href="{search_in_link}">{search_in_title}</a></span>
+    </tmpl:row_count>
+</div>
+
+<tmpl:spell_suggest>
+<div style="margin-bottom: 20px; padding-left: 8px;">
+
+    <div style="padding-bottom: 3px;">
+        {search_showing_msg}
+        <a href="{suggest_link}"><b>{suggest_str}</b></a>
+    </div>
+    <div>
+        {search_instead_msg}
+        <a href="{mistake_link}"
+            onclick="createCookie('kb_spell_ignore_', '{mistake_str_encoded}', 0);">{mistake_str}</a>
+    </div>
+
+</div>
+</tmpl:spell_suggest>
+
+{msg}
+
+<table class="sTable tableCp2 tableCs1">
+
+<tmpl:row>
+<tr style="vertical-align: top;">
+    <td class="articleIcon">{item_img}</td>
+
+    <td style="width: 100%;padding-left: 5px;">
+        <a href="{entry_link}" class="articleLink" {entry_link_options}
+            onclick="createCookie('kb_category_id_', {category_id}, 0);">{entry_id}{title}</a>
+
+		<tmpl:download_link>
+		<a href="{download_link}" style="padding-left:10px;" title="{download_msg}">
+			<img src="{base_href}client/images/icons/download.svg" width="16" height="16" alt="Download" />
+		</a>
+		</tmpl:download_link>
+
+        <div style="margin-top: {article_description_padding}px;" class="articleDecription">{body}</div>
+        <div style="padding-top: 5px;"><a href="{category_link}">{full_category}</a></div>
+    </td>
+</tr>
+<tr>
+    <td></td>
+    <td style="padding: {article_staff_padding}px 6px;">
+
+        <tmpl:show_rate>
+        <span class="articleStaff2">{rating}</span>
+        </tmpl:show_rate>
+
+        <tmpl:show_date>
+        <span class="articleStaff2">{updated_date}</span>
+        </tmpl:show_date>
+
+        <tmpl:show_filesize>
+        <span class="articleStaff2">{filesize}</span>
+        </tmpl:show_filesize>
+
+        <tmpl:show_hits>
+        <span class="articleStaff2">{views_num_msg}: {hits}</span>
+        </tmpl:show_hits>
+
+        <tmpl:show_comments>
+        <span class="articleStaff">{comment_num_msg}: {comment_num}</span>
+        </tmpl:show_comments>
+
+    </td>
+</tr>
+<tr><td colspan="2" style="padding: {article_staff_padding}px;"></td></tr>
+</tmpl:row>
+
+</table>
+
+
+<tmpl:by_page_bottom>
+<br />
+<div style="padding-left: 25px;">{page_by_page_bottom}</div>
+<br />
+</tmpl:by_page_bottom>

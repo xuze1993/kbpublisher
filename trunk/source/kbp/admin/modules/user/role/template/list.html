@@ -1,0 +1,34 @@
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    <td width="1">{id_msg}</td>
+    <td width="30%" class="tdTitle">{title_msg}</td>
+    <td width="70%">{description_msg}</td>
+    <td width="1">{users_msg}</td>
+    
+    <td align="center" width="1">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+    <td width="1" align="right">{id}</td>
+    
+    <tmpl:level_0>
+    <td nowrap><b>{title}</b></td>
+    </tmpl:level_0>
+    
+    <tmpl:other_level>
+    <td style="padding-left: {padding}px;" nowrap>
+        <img src="images/icons/join.gif" width="14" height="9"> {title}
+    </td>
+    </tmpl:other_level>
+    
+    <td>{description}</td>
+    <td align="center"><a href="{user_link}">{user_num}</a></td>
+    
+    <td class="action" align="center" width="1">{options_img}</td>
+</tr>
+</tmpl:row>
+
+</table>

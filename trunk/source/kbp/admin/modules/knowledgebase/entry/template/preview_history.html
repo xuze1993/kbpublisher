@@ -1,0 +1,45 @@
+<!--[if IE]>
+<link rel="stylesheet" type="text/css" href="{kb_path}client/skin/common_ie.css" />
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="{kb_path}client/skin/common.css">
+<script type="text/javascript" src="jscript/Autosave.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {        
+        PopupManager.setTitle("{preview_msg}");
+    });
+</script>
+
+<table border="0" width="100%" cellpadding="5" cellspacing="1" style="padding: 0px 0px 20px;">
+
+<tr class="trMoreDarker">
+    <td width="100">{entry_id_msg}:</td>
+    <td>{entry_id}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{revision_msg}:</td>
+    <td>{revision_num}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{date_updated_msg}:</td>
+    <td>{formatted_entry_date_updated} &nbsp;{by_user_msg} &nbsp;{updated_by}</td>
+</tr>
+<tr class="trMoreDarker">
+    <td>{comment_msg}:</td>
+    <td>{comment}</td>
+</tr>
+</table>
+
+<div class="tdArticleTitle">
+    <h1 class="articleTitle" id="title">{title}</h1>
+</div>
+
+<div style="padding: 10px 5px;">
+    <div class="textBlock" id="body">{body}</div>
+</div>
+	
+<div class="bottom_button bb_popup preview_buttons">
+    <input type="button" value="{close_msg}" class="button" id="close_button"
+        onclick="PopupManager.close();">
+</div>

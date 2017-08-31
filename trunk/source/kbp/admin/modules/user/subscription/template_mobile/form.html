@@ -1,0 +1,83 @@
+<script type="text/javascript" src="{path}jscript/livesearch/quicksilver.js"></script>
+<script type="text/javascript" src="{path}jscript/livesearch/select.js"></script>
+<script type="text/javascript" src="{path}jscript/CategoriesSelectHandler.js"></script>
+<script type="text/javascript">
+    var categories = [{categories}];
+    var disabled = [{disabled}];
+    
+    window.handler = new CategoriesSelectHandler('livesearch', 'second', 'category');
+    $(document).bind('ready', function() {
+        handler.init();
+        
+        // Call live search
+        $('#filter').liveUpdate('livesearch', categories, 'counter').focus();
+        
+        // Set disabled options after rebuild
+        $('#filter').bind('keyup', function() {
+                handler.rebuildDisabled(disabled);
+            } 
+        );
+        
+        handler.setDisabled(disabled);
+    });
+    
+    function insertOption() {
+        var category_id = $('#livesearch').val();
+        handler.insertOptionByButton(categories);        
+        $('#second').selectmenu('refresh');
+    }
+</script>
+
+<form action="{action_link}" name="subsc" method="post">
+
+<div style="font-size: 20px;">
+    {new_subscription_msg}
+</div>
+
+<div style="margin-top: 20px;">
+    {user_note_msg}
+    {header}
+    
+    {error_msg}
+    
+    <div class="form-group">
+        <input type="text" name="filter" id="filter" class="form-control" value="top:" 
+                placeholder="{filter_msg}" autocomplete="off" />
+        <span style="padding-left: 5px;">{found_categories_msg}: <span id="counter"></span></span>
+        <br />
+        
+        <table cellpadding="0" cellspacing="0" width="100%" class="sTable">
+            <tr>
+                <td style="width: 100%;" id="livetd">
+                    <select id="livesearch" class="form-control">
+                        <option>{choose_msg}</option>
+                    </select>
+                </td>
+                <td valign="top" align="center" style="width: 50px;padding: 0px 7px;">
+                    <input type="button" value="+" onclick="insertOption();" class="btn" />
+                </td>
+            </tr>
+        </table>
+    
+        <div style="padding-top: 3px;" id="category_info"></div>
+    
+        {selected_subscription_msg}
+        <table cellpadding="0" cellspacing="0" width="100%" class="sTable">
+            <tr>
+                <td style="width: 100%;">
+                    <select id="second" name="subscriptions[]" multiple class="form-control">
+                    </select>
+                </td>
+                <td valign="top" align="center" style="width: 50px; padding: 0px 7px;">
+                    <input type="button" value="-" title="{remove_from_list_msg}" onclick="handler.deleteOption();$('#second').selectmenu('refresh');" class="btn" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+    <div style="width: 50%;margin: 40px auto;">
+        <input type="submit" value="{save_msg}" class="btn btn-default btn-block" onClick="handler.selectAll(); document.subsc.submit();" />
+    </div>
+</div>
+
+</form>

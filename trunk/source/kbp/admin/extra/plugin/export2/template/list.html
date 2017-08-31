@@ -1,0 +1,32 @@
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    <td class="tdTitle">{title_msg}</td>
+    <!-- <td>{generate_for_user_msg}</td> -->
+    <td>{generate_for_cat_msg}</td>
+    <td width="170">{last_generated_msg}</td>  
+    <td align="center" width="1">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{detail_link}')">
+    
+    <td>{title}</td>
+    <!-- <td>{generate_for}</td> -->
+    <td>
+        <tmpl:category>
+        <span class="_tooltip" title="{full_category}">{category}</span>
+        </tmpl:category>
+        
+        <tmpl:no_category>--</tmpl:no_category>
+        
+        <div id="c_{id}" style="display: none;" class="nowrap"></div>
+    </td>
+    <td width="170">{last_generated}</td>         
+
+    <td class="action" align="center" width="1">{options_img}</td>
+</tr>
+</tmpl:row>
+
+</table>

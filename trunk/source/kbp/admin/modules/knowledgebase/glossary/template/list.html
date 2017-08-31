@@ -1,0 +1,60 @@
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1">
+<tr class="trMoreDarker">
+    <tmpl:letter>
+    <td align="center" class="{letter_class}" >
+        <a href="{letter_link}"><div style="cursor: pointer;width: 100%;">{letter}</div></a>
+    </td>
+    </tmpl:letter>
+    
+    <td align="center" class="{letter_class}">
+        <a href="{all_letter_link}">
+            <div style="cursor: pointer;width: 100%;">All</div>
+        </a>
+    </td>
+</tr>
+</table>
+<br>
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    
+    <tmpl:bulk>
+    <td width="1">
+        <input type="checkbox" name="id_check" value="1" style="margin: 0px;" />
+    </td>    
+    </tmpl:bulk>    
+    
+    <td class="tdTitle">{phrase_msg}</td>
+    <td width="60%">{definition_msg}</td>
+    <td width="1">{highlight_once_msg}</td>
+    <td width="1">{status_msg}</td>
+    <td align="center" width="1">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+                                    
+    <tmpl:bulk>
+    <td width="1" valign="top">
+        <input type="checkbox" name="id[]" value="{id}" id="ch_{id}" style="margin: 0px;" {bulk_ids_ch_option} />    
+    </td>
+    </tmpl:bulk>                                    
+                                    
+    <td valign="top">{phrase}</td>
+    
+    <td>{definition}</td>
+    <td align="center">{display_once}</td>
+    
+    <td align="center">{active_img}</td>
+    <td class="action" width="1" align="center">
+        {options_img}
+    </td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div style="padding-top: 2px;"></div>
+{footer}

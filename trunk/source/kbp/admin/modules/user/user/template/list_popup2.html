@@ -1,0 +1,69 @@
+<script TYPE="text/javascript">
+<!--
+$(document).ready(function() {
+    PopupManager.setTitle("{users_msg}");
+});
+
+function assignUser(id, val) {
+    window.top.$('#{field_name}_id').val(id);
+    window.top.$('#{field_name}_text').val(val);
+
+    window.top.$('body').trigger('kbpErrorResolved', [{field: 'ban_value'}]);
+
+    PopupManager.close();
+
+    return false;
+}
+//-->
+
+</SCRIPT>
+
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    <td class="tdTitle">{name_msg}</td>
+    <td>{username_msg}</td>
+    <td>{role_msg}</td>
+    <td>{priv_msg}</td>
+
+    <td width="1">{entry_status_msg}</td>
+    <td width="1" align="center">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr class="{class}" style="{style}">
+
+    <td>{name}</td>
+    <td>{username}</td>
+
+    <td>
+        <span class="_tooltip" title="{full_role}">{role}</span>
+    </td>
+
+    <td>{privilege}</td>
+
+    <td align="center">
+        <div class="status help" style="width: 15px;">
+            <div title="{status}" style="background: {color};">&nbsp;&nbsp;</div>
+        </div>
+    </td>
+
+    <td align="center">
+        <a href="" title="{assign_msg}" onClick="assignUser({id}, '{assigned_value}'); return false;">
+            <img src="images/icons/attach.svg" width="14" height="14" alt="{assign_msg}" />
+            <tmpl:if_api></tmpl:if_api>
+        </a>
+    </td>
+</tr>
+
+<tmpl:if_subscription></tmpl:if_subscription>
+</tmpl:row>
+
+</table>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{close_msg}" class="button" onclick="PopupManager.close();" />
+</div>
+
+<tmpl:bulk></tmpl:bulk>

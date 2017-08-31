@@ -1,0 +1,226 @@
+<link rel="stylesheet" href="css/rule_popup.css" type="text/css">
+<script src="../client/jscript/jquery/jquery.jeditable.mini.js" type="text/javascript"></script>
+<script type="text/javascript">
+function showAddedRule(html, line_num) {
+    $('#growls').empty();
+    
+    $('#rules_list').append(html);
+    $('input[type="text"]').val('');
+    
+    makeEditable('#rule_' + line_num);
+    
+    $('#new_rule').hide();
+}
+
+function hideDeletedRule(line) {
+    $('#rule_' + line).remove();
+    
+    var i = 0;
+    $('#rules_list tr:not(.not_sortable)').each(function() {
+        $(this).attr('id', 'rule_' + i);
+        i ++;
+    })
+}
+
+function addRule() {
+    var data = {};
+    data['title'] = $('#title').val();
+    data['link'] = $('#link').val();
+    
+    if ($('#options').length) {
+        data['options'] = ($('#options').val()) ? $('#options').val() : 0; 
+    }
+    
+    if ($('#more').prop('checked')) {
+        data['more'] = 1; 
+    }
+    
+    $("#growls").empty();
+    
+    if (data['title'] && data['link']) {
+        xajax_addRule(data);
+        
+    } else {
+        $.growl.error({title: "", message: "{required_msg}", fixed: true});
+    }
+}
+
+function deleteRule(el) {
+    var line = $(el).parent().parent().attr('id').substring(5);
+    confirm2("{sure_common_msg}", function() {
+        xajax_deleteRule(line);
+    });
+}
+
+$(document).ready(function() {
+    PopupManager.setTitle("{popup_title}");
+
+    var current_popup = PopupManager.getCurrentPopup();
+    current_popup.dialog('option', 'beforeClose', updateCounter);
+    
+    /*$('#rules_list tbody').sortable({
+        placeholder: 'view_placeholder',
+        items: 'tr:not(.not_sortable)',
+        stop: function(event, ui) {
+            var line_numbers = [];
+            var i = 0;
+            $('#rules_list tr:not(.not_sortable)').each(function() {
+                line_numbers.push($(this).attr('id').substring(5));
+                $(this).attr('id', 'rule_' + i);
+                i ++;
+            })
+            
+            xajax_saveOrder(line_numbers);
+        }
+    });*/
+    
+    makeEditable('tr[id^=rule_]');
+    
+    $(document).on('click', 'tr:not(.not_sortable) input[type=checkbox]', function() {
+        var line_num = $(this).parent().parent().attr('id').substr(5);
+        var value = ($(this).is(':checked')) ? 1 : 0;
+        
+        xajax_updateItem(line_num, 3, value);
+    });
+});
+
+
+function makeEditable(selector) {
+    $(selector + ' td:not(.not_editable)').editable(function(value, settings) {
+        var line_num = $(this).parent().attr('id').substr(5);
+        var field = $(this).attr('class').substr(9);
+        
+        if (value || field == 2) {
+            ajax_value = value;
+            if (value == '' && field == 2) {
+                ajax_value = 0;
+            }
+            
+            xajax_updateItem(line_num, field, ajax_value);
+            return value;
+            
+        } else {
+            $('#growls').empty();
+            $.growl.error({title: "", message: "{required_msg}", fixed: true});
+            return false;
+        }
+        
+    }, {
+        onblur : 'submit',
+        placeholder: '',
+        width: '95%',
+        height: 16
+    });
+}
+
+
+function updateCounter() {
+    window.top.$('#aContentForm').attr('target', '_self');
+    window.top.$('#aContentForm input[name=popup]').remove();
+    window.top.$('#aContentForm').attr('action', window.top.$('#aContentForm').attr('action').replace('&popup={setting_name}', ''));
+    
+    // update the counter
+    if ($('#rules_list').length) {
+        var rules_num = $('#rules_list tr').length - 1;
+        window.top.$('#{setting_name}_count').text(rules_num);
+    }
+}
+
+function initSort() {
+    $('#sortable_views').sortable({
+        placeholder: 'view_placeholder',
+        items: 'li:not(.not_sortable)',
+        stop: function(event, ui) {   
+            LeaveScreenMsg.changes = true;
+        }
+    });
+    $('#sortable_views').disableSelection();
+    
+    LeaveScreenMsg.setDoCheck(1);
+    LeaveScreenMsg.check();
+}
+</script>
+
+<div id="extra_list">
+
+<div style="float: right;">
+    {buttons}
+</div>
+
+<div style="clear: both;height: 10px;"></div>
+
+<div id="new_rule" class="not_sortable trLighter" style="display: none; margin-bottom: 20px;">
+    <div class="tdTitle">{add_new_msg}</div>
+    <table border="0" cellpadding="5" cellspacing="1" width="100%">
+        <tr>
+            <td width="33%">
+                <input type="text" id="title" style="width: 95%;height: 20px;padding-left: 5px;" placeholder="* {title_msg}" />
+            </td>
+            <td>
+                <input type="text" id="link" style="width: 95%;height: 20px;padding-left: 5px;" placeholder="* http://your_domain.com" />
+            </td>
+            
+            <tmpl:menu>
+            <td>
+                <input type="text" id="options" style="width: 95%;height: 20px;padding-left: 5px;" placeholder="target='_blank'" />
+            </td>
+            <td align="center">
+                <input type="checkbox" id="more" checked="true" class="_tooltip" title="{more_dropdown_msg}" />
+            </td>
+            </tmpl:menu>
+        </tr>
+    </table>
+    <div style="text-align: center;padding: 20px 0 10px 0;">
+        <input type="button" value="{add_msg}" class="button" onClick="addRule();" />
+        <input type="button" value="{cancel_msg}" class="button" onClick="$('#new_rule').hide();$('#growls').empty();">
+    </div>
+</div>
+
+<table border="0" cellpadding="5" cellspacing="1" width="100%" class="tdBorder1" id="rules_list">
+    <tr class="trMoreDarker not_sortable">
+        <td width="33%">
+            <b>{title_msg}</b>
+        </td>
+        <td>
+            <b>{link_msg}</b>
+        </td>
+        
+        <tmpl:menu>
+        <td>
+            <b>{options_msg}</b>
+        </td>
+        <td width="150">
+            <b><span title="{more_dropdown_desc_msg}">{more_dropdown_msg}</b>
+        </td>
+        </tmpl:menu>
+        
+        <td width="20"></td>
+    </tr>
+    
+    <tmpl:rule>
+    <tr class="trLighter" id="rule_{line}">
+        <td class="editable_0" height="22">{title}</td>
+        <td class="editable_1">{link}</td>
+        
+        <tmpl:menu>
+        <td class="editable_2">{options}</td>
+        <td class="not_editable" align="center">
+            <input type="checkbox" {more_cbx_checked} />
+        </td>
+        </tmpl:menu>
+        
+        <td class="not_editable" width="1" align="center">
+            <a href="" onClick="deleteRule(this); return false;">
+		        <img src="../client/images/icons/x-mark.svg" height="10" alt="{delete_msg}" title="{delete_msg}">
+            </a>
+        </td>
+    </tr>
+    </tmpl:rule>
+</table>
+
+</div>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{done_msg}" class="button" id="close_button"
+        onclick="addRule();updateCounter();PopupManager.close();">
+</div>

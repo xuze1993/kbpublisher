@@ -1,0 +1,24 @@
+<table class="sTable">
+<tr>
+    <td class="mTabBorderRight"><span style="margin: 2px;"></span></td>
+
+    <tmpl:row>
+    
+        <tmpl:active>
+        <td class="mTabActive nowrap" style="{td_style}" {td_options}>
+            <a href="{menu_link}" class="noformat"><b>{menu_item}</b></a>
+        </td>
+        </tmpl:active>
+    
+        <tmpl:nonactive>
+        <td class="mTabNonactive nowrap" style="{td_style}" {td_extra}>
+            <a href="{menu_link}" class="noformat">{menu_item}</a>
+        </td>
+        </tmpl:nonactive>
+    
+    </tmpl:row>
+    
+    <td class="mTabBetween" style="width: 100%;">&nbsp;</td>
+</tr>
+</table>
+<br /><br />

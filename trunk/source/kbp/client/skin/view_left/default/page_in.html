@@ -1,0 +1,84 @@
+<div class="content" id="content_div">
+
+<tmpl:header>
+<div class="header" id="header_div">
+    <div class="login">
+        {login_block_tmpl}
+    </div>
+
+    <tmpl:logo>
+    <span style="margin-right: 10px;">
+        <a href="{header_title_link}"><img src="{image_data}" /></a>
+    </span>
+    </tmpl:logo>
+
+    <a href="{header_title_link}" class="header">{header_title}</a>
+</div>
+</tmpl:header>
+
+<tmpl:no_header>
+<div class="login">
+    {login_block_tmpl}
+</div>
+</tmpl:no_header>
+
+{menu_top_tmpl}
+
+<table class="sTable">
+
+<tmpl:form>
+<tr>
+    <td style="width: 220px;height: 1px;"></td>
+    <td style="width: 100%;"></td>
+</tr>
+</tmpl:form>
+
+<tr>
+
+    <tmpl:form>
+    <td class="content1" style="vertical-align: top;">
+
+        <div id="menu_content" style="display: {menu_display};">
+            {menu_content_tmpl}
+        </div>
+
+    </td>
+    </tmpl:form>
+
+    <td style="vertical-align: top;">
+
+        <div class="navigation">
+            {navigation}
+        </div>
+
+        <div class="contentMain">
+            <a id="content"></a>
+            {msg}
+            {content}
+        </div>
+
+    </td>
+</tr>
+</table>
+
+<div class="bottom" style="clear: left;">
+
+    <tmpl:rss_block>
+    <div class="fright">
+        <a href="{rss_link}">
+            <img src="{client_href}images/icons/rssv2.gif" alt="RSS" width="80" height="15" />
+        </a>
+    </div>
+    </tmpl:rss_block>
+
+    <div class="copyright" style="text-align: left;">
+        {copyright_info}
+    </div>
+
+    <div class="footer_info">
+        {footer_info}
+    </div>
+</div>
+
+</div>
+<br />

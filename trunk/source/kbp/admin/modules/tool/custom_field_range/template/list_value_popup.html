@@ -1,0 +1,43 @@
+<script type="text/javascript">
+$(document).ready(function() {
+    PopupManager.setTitle("{range_values_msg}");
+});
+
+function setRange(range_id) {
+    window.top.setRange(range_id);
+    
+    var parent_window = PopupManager.getParentWindow();
+    parent_window.PopupManager.close();
+    
+    PopupManager.close();
+}
+</script>
+
+<strong>{nav}</strong>
+{header}
+{button}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    <td class="tdTitle" width="1">{id_msg}</td>
+    <td>{title_msg}</td>
+    <td width="1">{sort_order_msg}</td>
+    <td align="center" width="1">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+    <td>{id}</td>
+    <td nowrap>{title}</td>
+    <td align="center">{sort_order}</td>
+    <td class="action" align="center" width="1">{options_img}</td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{set_range_msg}" class="button" 
+		onclick="setRange('{range_id}')";" />
+    <input type="button" value="{close_msg}" class="button" onclick="PopupManager.close();" />
+</div>

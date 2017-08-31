@@ -1,0 +1,50 @@
+{msg}
+
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+    <tmpl:bulk>
+    <td width="1">
+        <input type="checkbox" name="id_check" value="1" style="margin: 0px;" />
+    </td>    
+    </tmpl:bulk>
+    
+    <td>{tag_msg}</td> 
+    <td>{description_msg}</td> 
+    <td width="85">{date_added_msg}</td> 
+    <td width="1">{entries_msg}</td>
+    <td width="1">{status_visible_msg}</td>
+    <td width="1" width="1">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}"
+                    onDblClick="RecordToDo('{update_link}')">
+    
+    <tmpl:bulk>
+    <td width="1" valign="top"> 
+        <input type="checkbox" name="id[]" value="{id}" id="ch_{id}" style="margin: 0px;" {bulk_ids_ch_option} />     
+    </td>
+    </tmpl:bulk>
+    
+    <td>{title}</td>
+    <td>{description}</td>
+    <td><span title="{date_posted_formatted_full}">{date_posted_formatted}</span></td>
+    
+    <td align="center" 
+    <tmpl:entry_num_tip>
+        class="_tooltip" title="{entries_num_tip}"
+    </tmpl:entry_num_tip>    
+        >
+        {entries_num}
+    </td>
+    <td align="center">{active_img}</td>
+    <td class="action" align="center" width="1">{options_img}</td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div style="padding-top: 2px;"></div>
+{footer}

@@ -1,0 +1,689 @@
+
+===========================================================
+KBPublisher -- VERSION HISTORY -- RELEASE NOTES
+===========================================================
+
+
+Version 6.0.2 (August 28th, 2017):
+===========================================================
+
+    KBPublisher release 6.0.2 fixed issues found in v6.0.1
+
+    - CKEditor updated to v4.7.2
+    - Fixed issue with wrong local image path in article API call
+    - Fixed issue with reseting custom fields on category change when update an article
+    - Fixed issue with custom fields not changed on  delete category by minus sign (-) and dblclick
+    - Fixed Feedback Quick Response issue if Sphinx enabled 
+    - Fixed issue with related articles button in HTML editor
+    - Fixed more categories link issue in category popup window
+    - Other small bug fixes
+
+
+
+Version 6.0.1 (July 1th, 2017):
+===========================================================
+
+    KBPublisher release 6.0.1 fixed issues found in v6.0
+    and added some new features.
+
+	- CKEditor updated to v4.7.1
+    - Updated BING API spell suggestion tool to latest version
+    - Fixed issue where base href changed links with #/
+    - Fixed issue with wrong date range in User Activity Reports
+    - Fixed period filter issue in searching
+    - Fixed issue with wrong entry id log for login as user
+    - Fixed issue with wrong pagination in API search method
+    - Fixed double POST issue in IE 11
+    - Fixed error messages issue in automation scheduled tasks
+    - Fixed issue with articles import tool
+    - Fixed sphinx issue with # sign in password
+    - Added a feature allows to have not logged API user
+    - Other small bug fixes 
+
+
+Version 6.0 Stable (April 16th, 2017):
+===========================================================
+
+    - Added Sphinx search engine support 
+    - Added an option quick inline create/update article in Public Area
+    - Added new syntax highlighter 
+    - Added an option to upload file with the same name and it will not be renamed
+    - Added functionality to move articles to Drafts
+    - Added an option to print, convert to PDF set of articles previousle added to pool
+    - Added a category condition to Automation
+    - Added more Automation plaseholders which allows to parse all matches in one email  
+    - Added "User action log reports", it logs when and what and user did in a system
+      You can get reports what specified user did with specifed articles etc.
+    - Added functionality which allows to add "Tooltips" to the articles
+    - Added new Export functionality, it has more display options
+    - Added a feature "Report an issue", if a user sees something incorrect with a 
+      particular article he can report about this.
+    - Added support for automatic sign-in
+	- Added "Download" button to files, click on title will try to open file in browser
+    
+    - Improved UI for forms: submissions, processing, validating is now using AJAX
+    - Improved user import functionality, added extra fields, notification email sent to user 
+    - Improved LDAP auth functionality, added * wildcard support to role/priv mapping 
+    - Improved attachment functionality, to attach files to article is more easily and intuitive   
+    - Improved UI and fucntionality for search options in Client Area     
+    - Improved UI assigning a category for the article and/or file in Admin Area
+    - Improved UI for Custom Fields, now organized with tabs
+    - Improved UI in Download section, file title displayed first (as the link), with the file name below
+    - Improved UI for "Share" menu and functionality to manage it
+    - Improved API, now uploaded images parsed and have full (http) URL in article/news body
+    - Improved UI for articles history, instead of date added to history now it dsiplay 
+      initially updated date and instead user who added the article to the history now it display
+      the user who updated the article being added to the history 
+        
+    - Secutrity updates: now password should be at least 8 characters and includes 
+      at least 1 uppecase letter, 1 lowercase letter and a number.
+
+    - Fixed issue where custom fields checkbox is not set as checked by default  
+    - Fixed issue with "#" sign in URL, it was not converted in SEF URL's
+    - Fixed issue with "Trash", tab did not display if user is not an admin
+    - Fixed issues with export to CVS export, it was not removed new lines
+    - Fixed issue with {value} in custom fields
+    - Fixed issue with displaying private entry in FAQ categoru type, private attritube was iggored    
+    
+    - Removed old functionality to approve articles/files, use drafts instead 
+    - Removed "Spotlight" if Sphinx is not installed
+    - Removed TCPDF library which allows to export single article to PDF
+
+
+
+Version 6.0 RC (February 20th, 2017):
+===========================================================
+
+    KBPublisher release 6.0 RC (release candidate).
+
+
+Version 6.0 BETA (January 20th, 2017):
+===========================================================
+
+    KBPublisher release 6.0 beta.
+
+
+Version 5.5.1 (July 27th, 2015):
+===========================================================
+
+    KBPublisher release 5.5.1 fixed issues found in v5.5
+    and added some new features.
+
+	- CKEditor updated to v4.5.1
+	- Added "Edit as draft" menu in client area.
+	- Added functionality to skip search boats when count hits/downloads.
+	- Fixed fatal error in settings if no ini_get('date.timezone');.
+	- Fixed empty article index issue on restoring it from trash.
+	- Fixed issue with setting up main category when delete a category in a tree.
+	- Fixed slashes issue in drafts
+	- Fixed logo image displaying issue.
+
+
+
+Version 5.5 (April 19th, 2015):
+===========================================================
+
+    KBPublisher release 5.5 added some new features
+
+    - The Automations feature allows users to pre-set certain KBPublisher actions
+    - The Drafts module grants users the ability to create new articles, or modify existing
+      published articles without interfering with live publications.
+    - Approval workflow routes a document or item to a group of people for approval. You can use
+      it to manage the approval process for the publication of articles.
+    - Spell Suggest feature
+    - Views/Hits Report module lets you monitor the number of views and downloads an article,
+      news item or file has had.
+    - The Trash feature lets you recover accidentally-deleted articles.
+    - The "Export KB to HTML" module lets you export all KBPublisher data, or the contents of a
+      particular category, for offline browsing.
+    - The "Export Articles" module lets you export articles into XML, CVS, or Excel format.
+    - This Featured Articles feature allows to set articles as "Featured". Featured articles
+      display on the index page of the Public Area of your knowledgebase, or on one or more
+      category pages, or both, according to the preferences you set.
+    - The dashboard displays a summary of content you created or that is assigned to you.
+    - CKEditor updated to v4.4.7
+    - Added new Public View template with Ajax tree.
+    - Added a quick search function in the Admin Area.
+    - Added a "Duplicate" option to the action menu for some listings.
+    - Added a "Send to friend" setting that lets you prevent non-registered users
+      from using this feature.
+    - Added a "HEAD element section" setting so you can add custom code to the HTML HEAD tag.
+    - Added "Header Logo" settings so you can add custom logos to the KBPublisher header.
+    - Added a hide option to Article Navigation settings so you can opt not to display the
+      "Previous / Next" article navigation options.
+    - Added a "Save" button in HTML editor.
+    - Added a "Move to Trash" button for articles in the Public Area.
+    - Added an API call to retrieve categories.
+    - Added a quick unsubscribe link to all subscription emails.
+    - Improved assigning and displaying tags, so users can search for and view
+      tags with the item description.
+    - Improved roles assigning functionality for private entries.
+    - Improved private functionality so that the "read" and "write" private roles
+      can be applied separately.
+    - Improved subscription functionality so you can specify the schedule
+      and the time of day for sending out your newsletter to subscribers.
+    - Improved sorting functionality for articles, files and categories.
+    - Fixed an issue that caused incorrect handling of private categories in
+      export modules (the top private category was not skipped).
+    - Fixed scheduled tasks reporting behavior so KBPublisher does not
+      display a "critical" error if zip is not installed.
+    - Fixed an issue with global variables in the page to load setting
+      for header and footer templates.
+    - Made many other minor enhancements.
+
+
+Version 5.5 RC (October 26th, 2014):
+===========================================================
+
+    KBPublisher release 5.5 RC (release candidate).
+
+
+Version 5.5 BETA (September 22th, 2014):
+===========================================================
+
+    KBPublisher release 5.5 beta.
+
+
+Version 5.0.2 (May 11th, 2014):
+===========================================================
+
+    KBPublisher release 5.0.2 fixed issues found in v5.0.1
+    and added some new features.
+
+    - CKEditor updated to v4.4.0
+    - Fixed UNC path issue in Directory Rules
+    - Fixed TCPDF pdf exporting issue where the courier font was required and then, not found
+    - Fixed the user company being reset when updating the account in Public Area
+    - Fixed sql error issued when adding a new file as an attachment, and setting
+      the category so it does not allow files to be attached
+    - Fixed subscription to category issue in Public Area
+    - Fixed incorrect special search result issue in Admin Area when changing
+      the number of records per page
+
+
+Version 5.0.1 (March 2nd, 2014):
+===========================================================
+
+    KBPublisher release 5.0.1 fixed several issues
+    found in v5.0 and added some new features
+
+    - CKEditor updated to v4.3.3
+    - Added ability to quick find/assign parent category when adding/updating a category
+    - Added option to hide/display private info when creating/updating an article
+    - Added option to hide/display sorting options info when creating/updating an article
+    - Added drop-down menu with top categories to some of the menu types in the Public Area
+    - Added ability to disallow adding custom tags
+    - Added functionality to interactively map LDAP groups to KBPublisher Privileges and Roles
+    - Added search terms highlighting on result page
+    - Fixed article sorting issue in the Public Area
+    - Fixed wrong charset issue in the mobile version
+    - Fixed issue with wrong category order after assigning category when the popup is closed
+    - Fixed "Browse by category" redirection issue in the mobile version
+    - Fixed wrong anchor links issue when article attached to "Send to friend" email
+
+
+Version 5.0 Stable (November 17th, 2013):
+===========================================================
+
+    KBPublisher release 5.0 fixed several issues
+    found in v5.0 RC and added some new features
+
+    - CKEditor updated to v4.2.2
+    - Added API, v1 provides a set of RESTful services for retrieving documents and metadata
+    - Added pages where user can see all recent and popular articles
+    - Fixed issue with wrong displaying MSWord characters in exported PDF
+    - Improved password security, now it uses more secure Blowfish algorithm
+
+
+Version 5.0 RC (October 14th, 2013):
+===========================================================
+
+    KBPublisher release 5.0 RC (release candidate) fixed several issues
+    found in v5.0 beta and added some new features
+
+    - Added a setting allowing to disable/enable search by "article id" when type number in search field
+    - Added ability to skip Privileges/Roles updates on login with remote authentication
+    - Added ability to Drag & Drop an image to cursor position in HTML editor
+    - Added ability to assign default statuses in .... ???
+    - Improved action to change password, it is moved to separate screen
+    - Improved actions menu in admin area list view, now it is dropdown menu
+
+
+Version 5.0 BETA (June 12th, 2013):
+===========================================================
+
+    KBPublisher release 5.0 added some new features
+
+    - Added tags functionality, user can assign tags to news, articles and files
+    - Added "Share" menu, allowing visitors can share articles on social networking sites
+    - Added a feature to hide private categories in category listing screen in admin area
+    - Added a feature to view/print any article revision
+    - Added a feature to diff/compare any article revisions
+    - Added a feature to set "Default category", and then quick assign it to an article or file
+    - Added new settings: header, footer and styles for custom template
+    - Added new setting allowing to disable/enable search by "article id" when type number in search field
+    - Added ability not allowing remote authenticated users to update his account
+    - Improved search relevancy and usability, HTML removed from articles index
+    - Improved "Reset Password" functionality
+    - Fixed issue with incorrect handling private categories in export modules,
+      top private category will not be skipped
+    - Fixed scheduled tasks reporting behaviour, now no "critical" error if zip is not installed
+
+
+
+Version 4.5.3 (June 5th, 2013):
+===========================================================
+
+    KBPublisher release 4.5.3 fixed several issues found in v4.5.2
+
+    - CKEditor updated to v4.1.1
+    - Fixed issue with sql error "1366: incorrect integer value ..." on saving autosaved article/news
+    - Fixed issue with incorrect article template behaviour in IE9/10
+    - Fixed issue with incorrect image sizing in PDF export plugin
+    - Fixed issue with incorrect behaviour for published/not published glossary items
+
+
+Version 4.5.2 (April 12th, 2013):
+===========================================================
+
+    KBPublisher release 4.5.2 fixed several issues found in v4.5.1
+    and added some new features
+
+    - CKEditor updated to v4.1
+    - Added captcha to "Reset Password" form
+    - Fixed issue with incorrect default value for date_executed in files module
+    - Fixed issue when HTML editor updates html entities to characters on article update
+    - Fixed issue with wrong "Browse by Category" navigation in Browseable view
+
+
+Version 4.5.1 (October 12th, 2012):
+===========================================================
+
+    KBPublisher release 4.5.1 fixed several issues found in v4.5
+    and added some new features
+
+	- CKEditor updated to v3.6.4
+	- Added ability to redirect to search result after login or after Remote Authentication
+	- Added report for news hits (number of views)
+	- Added preview screen when click for not published articles in admin area
+	- Added fulltext index on filename for files in Files module
+	- Added revision number to article view and to print and pdf views in public area
+	- Added captcha to "Send to friend" form
+	- Added ability to Drag&Drop images to HTML editor (experimental)
+	- Improved setup wizard, now it tries to create database if it does not exist
+	- Fixed issue with HTML editor styles, now styles are compatible with previous KBP versions
+	- Fixed issue with HTML email templates where HTML editor was not found
+	- Fixed issue when custom fields assigned to category disappeared in update entry view
+	- Fixed issue with wrong link in "New rating comment" email
+
+
+Version 4.5 Stable (July 16th, 2012):
+===========================================================
+
+    KBPublisher release 4.5 fixed several issues found in v4.5 RC
+
+
+Version 4.5 RC (May 31st, 2012):
+===========================================================
+
+    KBPublisher release 4.5 RC (release candidate) fixed several issues
+    found in v4.5 beta and added some new features
+
+    - Added privilege allowing users to manage comments and rating comments which belongs to his articles
+    - Added "bad" utf replace in Article sorting ajax to avoid xml errors in ajax
+    - Improved Settings usability, article settings moved to separate tab
+    - Removed user's password from Login logs
+    - Fixed issue with xss for bp (page navigations) params in search view
+
+
+Version 4.5 beta (May 1st, 2012):
+===========================================================
+
+    KBPublisher release 4.5 added some new features
+
+	- Added custom fields support for articles, files, news, feedbacks
+	- FCKeditor updated to the latest CKeditor
+	- Added "Search suggest" feature
+	- Added search statistic report
+	- Added quick filter to files in "Add Local Files" tab
+	- Added Antiword support for indexing Word files
+	- Added autosaving feature to News
+	- Added bulk actions to Glossary
+	- Added permalinks to article comments
+	- Added setting on/off for "Quick Response"
+    - Fixed issue with not correct redirection to article/category after login or Auto Authentication
+    - Fixed issue where history was not deleted when delete article
+    - Fixed issue with mysql fatal error in history list in some cases
+    - Fixed issue where private categories not hidden for not authorized users
+      in category filter select in article list view
+
+
+Version 4.0.2 (November 24th, 2011):
+===========================================================
+
+    KBPublisher release 4.0.2 fixed several issues found in v4.0.1
+    and added some new features
+
+    - Added filter by user to Feedback
+    - Added template vars: kbp_user_id, kbp_user_priv_id, kbp_article_id, etc.
+    - Changed "Browse by category", now it hides second select if there are no child categories
+    - Changed "Rating comment" notification email, author and updater can get notifications
+    - Fixed sort order for news RSS
+    - Fixed issue with chart was not displayed in Reports with some php versions
+    - Fixed issue with "Access denied" for not admin users when assign role to user
+    - Fixed issue for db error "1406: Data too long for column 'filetext'..." when adding file
+    - Fixed issue with incorrect "Allowed extensions"  in Files module
+    - Fixed issue with incorrect date for live revision in article history
+    - Fixed issue with incorrect details data in search logs
+    - Fixed issue with wrong directory detection in Directory Rules
+    - Fixed issue where apostrophe "'" is not allowed in emails
+
+
+Version 4.0.1 (April 17th, 2011):
+===========================================================
+
+    KBPublisher release 4.0.1 fixed several issues found in KBPublisher Release 4.0
+    and added some new features
+
+    - Added settings allowing to set fontsize, fontname to PDF exporting
+    - Added preview feature to News and Glossary
+    - Added multiple files upload support to "Files"
+    - Added setting allowing to add extra menu items in Public Area
+    - Fixed issue with not correct link in entry link in PDF view
+    - Fixed issue with "Warning: Call-time pass-by-reference..." in search result
+    - Fixed issue with wrong page by page link generation in Glossary
+    - Fixed issue with incorrect SET NAMES sql in
+    - Fixed issue with badly escaped single quote in left menu
+    - Fixed issue with wrong position for categories and articles blocks in Public Area.
+    - Fixed issue with report chart broken if ssl is on for Admin Area
+    - Fixed issue with bad title/logo image in Export if ssl is on for Admin Area
+    - Fixed issue with wrong privilege tip on add user screen
+    - Fixed issue with "Page to load" setting when using it via HTTP
+    - Fixed issue with incorrect subscribers stats
+
+
+Version 4.0 Stable (March 6th, 2011):
+===========================================================
+
+    KBPublisher release 4.0 fixed several issues found in KBPublisher Release 4.0 RC
+    and added some new features
+
+    - Added support to index, make searchable following files: xls, ppt, docx, xlxs, odt (OpenOffice)
+    - Added "Preview" feature when editing article
+
+
+Version 4.0 RC (January 16th, 2011):
+===========================================================
+
+    KBPublisher release 4.0 RC fixed several issues found in KBPublisher Release 4.0 BETA
+    and added some new features
+
+    - Added Autosaving/Draft, recovery data for articles will be saved automatically
+    - Added Auto Authentication to Remote Authentication, remote user could be logged without
+      submitting login form.
+
+
+Version 4.0 beta (December 1th, 2010):
+===========================================================
+
+	Support for PHP 4 has been discontinued in this release, please consider upgrading to PHP 5
+
+	- Improved usability assigning roles for user, entry, category, etc.
+	- Improved rating system, added 5 stars rate
+	- Improved rating comments, now comments possible from negative and positive ratings
+	- Improved report module, added chart to reports
+	- Added Export functionality, now the whole KB could be exported to PDF or HTML format
+	- Added multiple roles per user, now user can have many roles
+	- Added article comments notification for comment posters and for article subscribers
+	- Added statistic for whole KB
+	- Added history (versioning) for articles
+	- Added importing module for glossary
+	- Added bulk actions for Feedbacks, Comments, Rating Comments
+	- Added logs for mail pool (subscription, scheduled emails)
+	- Added raw logs for search
+	- Added setting to "Send to friend" letter to be able to set any FROM email address
+	- Added "Auto Directory", user specified directory will be parsed by scheduled task
+	  and all found files will be added/updated to KB
+	- Fixed issue with local images (http://...) and pdf generation
+	  //$tag['attribute']['src'] = str_replace(K_PATH_URL, K_PATH_MAIN, $tag['attribute']['src']);
+	- Fixed issue with wrong "Use SMTP Auth" settings when saving email settings
+	- Fixed issue with wrong action/advanced URL in search form if having "by page" navigation
+
+
+Version 3.5.2 (March 6th, 2010):
+===========================================================
+
+	KBPublisher release 3.5.2 fixed several issues found in KBPublisher Release 3.5.1
+
+	- Added two menu items (Add Category Article/File) to Manage menu in Public Area
+	- Added link for authorized users to full article in FAQ category types, it allows access
+	  to all article links, such as Quick Edit, Edit, etc.
+	- Fixed issue with empty article body in edit mode, happened for some articles from MSWord
+	- Fixed issue with database error on adding comment to article
+	- Fixed issue with import articles sql error, when date posted required
+	- Fixed issue with wrong number for articles, files created by user in user list view
+	- Fixed issue with wrong behaviour for "Search tips" link on search form
+	- Fixed issue with wrong parameter count for preg_replace() in DocumentParser.php
+	- Fixed issue with incorrect subscription emails in some situations
+	- Fixed issue with incorrect catdoc path
+	- Fixed issue when tail for long category chain was not visible in category assignment field
+	- Fixed issue with possible sql injection when reseting password
+
+
+Version 3.5.1 (December 25th, 2009):
+===========================================================
+
+	KBPublisher release 3.5.1 fixed several issues found in KBPublisher Release 3.5
+
+	- Added search form on search result page
+	- Fixed issue with empty ReplyTo header in emails
+	- Fixed issue with fatal error on rss page
+	- Fixed issue with incorrect "auto" comments links
+	- Fixed issue with search producing fatal db error in some situations
+ 	- Fixed issue with incorrect from email in rating comment email
+	- Fixed issue with wrong count number of comments, rating comments in Admin Area
+	- Fixed issue with wrong exit page message for IE 8 on admin area form pages
+	- Fixed issue when change status for an article/file in bulk mode affected date updated
+
+
+Version 3.5 GA (November 23rd, 2009):
+===========================================================
+
+	- GA Release v3.5
+	- PHP 5.3 compatible
+	- Bugs fixed
+
+
+Version 3.5 RC (September 18th, 2009):
+===========================================================
+
+	- Release Candidate v3.5
+
+
+Version 3.5 beta (April 10th, 2009):
+===========================================================
+
+	New modules and features:
+	- News
+	- Reports
+	- Scheduled Items
+	- Subscription
+	- Comments for negative rating
+	- Logs
+	- Scheduled tasks (cron tasks)
+
+	Improved items:
+	- A lof of
+
+	Fixes:
+
+	- Fixed problem where "User Active" checkbox worked incorrectly in user status list settings
+	- Fixed problem where an error was received when a user selected a category they were not
+	  allowed to edit
+	- Fixed issue where glossary only displayed the first word when two glossary items on the
+	  same page contained the same word
+	- Fixed issue with user privileges which allowed a user to use bulk actions to update
+	  items to a privilege they did not have access to
+	- Fixed the problem where the "allowed extension" message in the contact form overlapped
+	  with the button in some browsers
+	- Fixed error that occurred when sorting roles by number of users
+	- Fixed incorrect Prev link in Prev & Next navigation
+	- Fixed issue where the character set did not display correctly on the the “Success” page for some languages
+	- Fixed the problem where the file type was sometimes not recognized correctly when downloading a file
+	- Fixed issue where the wrong icon was shown for files with an upper case extension.
+
+
+Version 3.0.1 (September 6th, 2008):
+===========================================================
+
+	KBPublisher release 3.0.1 fixed several issues found in KBPublisher Release 3.0.
+
+	- Changed system so that date "date_posted" is no longer a required field when importing articles
+	- Changed so that glossary entries are now sorted alphabetically in the public area
+	- Changed system so that curly braces ({}) are not stripped in articles
+	- Changed system so that article Author and Updater displayed in form view (edit) and in list view as tool-tip
+	- Some extra actions added in article categories
+	  "Bulk Actions" - Set Supervisor, Set Comments and Rating (allow/disallow)
+	- FCKeditor upgraded to v2.6.3 (August 5, 2008)
+	- Fixed problem where "Quick Edit" did not work if the public area was a secure connection (https)
+	- Fixed issue when "updater_id" for article was not changed in "Quick Edit" mode
+	- Fixed issue where some pages in "Settings" menu did not work in Safari on Mac OS
+	- Fixed issue with incorrect caching for RSS when using Internet Explorer
+	- Fixed issue where mod_rewrite worked incorrectly on some servers
+	- Fixed issue of extra space being added to external links
+	 -Fixed issue where glossary definition was empty in Internet Explorer
+	- Fixed issue where "Get Files" in Files->Bulk Actions returned files ignoring user input in IE
+	- Fixed issue where comments that include single quotes (') raised a database error
+
+
+
+Version 3.0 GA (May 5th, 2008):
+===========================================================
+	- GA Release v3.0
+
+
+Version 3.0 RC (April 1st, 2008):
+===========================================================
+	- Release candidate v3.0
+
+
+Version 3.0 beta2 (March 16th, 2008):
+===========================================================
+	- This is bug fixing release.
+
+
+Version 3.0 beta1 (January 25th, 2008):
+===========================================================
+	- First beta release of new version 3.0
+	- Category role based access
+	- Entry role based access
+	- Files browsing
+	- Search in files
+	- User roles
+	- Editable user privileges
+	- User/member module rewritten, no more double login required.
+	- Category display type, Browsable (default), Book or Quick FAQ
+	- Different left menu type
+	- Article type
+	- Article templates
+	- Update article link
+	- Remote authentication / LDAP authentication
+	- Article approval flow
+    - File approval flow
+    - User approval flow
+    - User companies
+    - Search by article ID in public area
+    - More filter options in articles Admin Area
+    - Editable article statuses
+    - Editable file statuses
+    - Editable user statuses
+    - Editable Feedback subjects
+	- Code optimization for faster response times
+
+
+Version 2.0.1 (May 5th, 2007):
+===========================================================
+	- This is bug fixing release. It fixes some compatibility with IIS.
+
+
+Version 2.0 stable (February 25th, 2007):
+===========================================================
+	- Stable release of 2.0 version
+	- All known bugs fixed
+
+
+Version 2.0 beta2 (December 18th, 2006):
+===========================================================
+	- Confirmation code (captcha) added to comment, contact, registration
+	- All known bugs fixed
+
+
+Version 2.0 beta1 (December 1st, 2006):
+===========================================================
+	- Attachments support
+	- Related  articles support
+	- RSS feeds support
+	- Quick response (when user fills "Contact Us" form)
+	- "Contact Us" data saved in DB, later it could be easily copied to KB
+	- Email Templates (all email templates could be easily customized)
+	- Email Settings such as mailer, sendmail, smtp etc.
+	  now could be managed in settings section
+	- Improved, more flexible and usable "Settings" + more setting values
+    - Meta keywords, description for article
+	- CategoryID removed from KB links, now article could be safely moved between categories
+	  (old links are valid)
+
+
+Version 1.5.2 (September 29th, 2006):
+===========================================================
+	- Bug fixing release.
+
+
+Version 1.5.1 (September 3rd, 2006):
+===========================================================
+	- This is a bug fixing release. It fixes some compatibility
+	  issues of FCKeditor with old version browsers.
+	  All users that depends on old browsers are invited to upgrade.
+
+
+Version 1.5 (June 18th, 2006):
+===========================================================
+	- Feature added: Users can ask questions (question send by email)
+	- Feature added: Ability to protect access to KB (for registered users only)
+	- Feature added: Ability to protect any category (only registered users can view that entries)
+	- Feature added: Ability to make any category active/inactive
+	- Feature added: Advanced search
+	- Feature added: "Client View" tab in admin area
+	- Some bugs fixed
+
+
+Version 1.2 (February 27th, 2006):
+===========================================================
+	- Feature added: New output format (simple faq)
+	- Feature added: Display all glossary definitions on one page
+	- Feature added: Glossary item can be configured to be
+					 displayed once per article
+	- Some performance improvements
+	- Some bugs fixed
+
+
+Version 1.1 (November 27th, 2005):
+===========================================================
+	- How it is compatible with PHP 5.0.5
+	  (Hopefully it is also compatible with other 5 versions)
+
+
+Version 1.0 Stable (October 25th, 2005):
+===========================================================
+	- First stable release.
+    - Initial bugs fixed.
+
+
+Version 1.0RC2 (September 10th, 2005):
+===========================================================
+	- Some initial bugs fixed.
+
+
+Version 1.0RC1 (August 20th, 2005):
+===========================================================
+	- First release with basic functions.

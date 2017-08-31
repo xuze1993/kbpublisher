@@ -1,0 +1,28 @@
+<h2>{title}</h2>
+
+<br /><hr />
+<div class="serviceBlock">
+    
+    <tmpl:row>
+    <div class="forumText" style="margin: 20px 0;">
+        <div>
+            <b>{user}</b>
+            <span style="color: #808080;">{date_posted_formatted}</span> 
+        </div>
+        <div style="padding-top: 5px;">
+            {message}
+        </div>
+            
+    </div>
+    </tmpl:row>
+    
+</div>
+<hr />
+
+<div class="serviceBlock">
+    {topic_id_msg}: {id}<br />
+    {date_posted_msg}: {date_posted_formatted}<br />
+    {message_num_msg}: {posts}<br />
+    {category_title_full} -> {title}<br />
+    <a href="{entry_link}">{entry_link}</a><br /><br />
+</div>

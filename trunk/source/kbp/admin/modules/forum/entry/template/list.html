@@ -1,0 +1,99 @@
+{msg}
+
+{header}
+
+<table border=0 width="100%" cellpadding="4" cellspacing="1" class="tdBorder">
+<tr class="tdTitle">
+
+	<tmpl:bulk>
+	<td width="1">
+		<input type="checkbox" name="id_check" value="1" style="margin: 0px;" />
+	</td>
+	</tmpl:bulk>
+
+    <td width="1">{id_msg}</td>
+    <td width="1"></td>
+    <td width="1"></td>
+
+	<td class="tdTitle" width="85">{date_posted_msg}</td>
+	<td class="tdTitle" width="85">{last_post_msg}</td>
+	<td>{entry_title_msg}</td>
+	<td>{category_msg}</td>
+
+	<td width="1">{hits_num_msg}</td>
+    <td width="1">{posts_msg}</td>
+
+	<tmpl:attachment>
+	<td width="1">{attachment_num_msg}</td>
+	</tmpl:attachment>
+
+	<td width="1">{sticky_msg}</td>
+	<td width="1">{entry_status_msg}</td>
+    <td align="center">{action_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+
+	<tmpl:bulk>
+	<td width="1">
+	<input type="checkbox" name="id[]" value="{id}" id="ch_{id}" style="margin: 0px;" {bulk_ids_ch_option} />
+	</td>
+	</tmpl:bulk>
+
+	<td width="1" align="center"><b>{id}</b></td>
+
+	<td width="1">
+		<tmpl:if_schedule>
+        <img src="images/icons/clock.svg" width="12" height="12" alt="clock"
+            class="_tooltip" title="{schedule_msg}" />
+        </tmpl:if_schedule>
+	</td>
+
+	<td width="1">
+	    <tmpl:if_private>
+        <img src="images/icons/lock2_{image_color}.svg" width="12" height="12" alt="key"
+            class="_tooltip" title="<b>{private1_msg}</b><br/>{roles_msg}" />
+	    </tmpl:if_private>
+	</td>
+
+	<td><span title="{formated_date_posted_full}">{formated_date_posted}</span></td>
+	<td><span title="{formated_date_updated_full}">{formated_date_updated}</span></td>
+
+	<td>
+        <a href="{entry_link}" style="{style}" title="{title}">{short_title}</a>
+	</td>
+	<td>
+		<div style="float: right;">{category_num}</div>
+        <a href="{category_filter_link}" style="{style}"
+            class="_tooltip" title="{full_category}">{category}</a>
+	</td>
+
+	<td align="center">{hits}</td>
+    <td align="center">{messages}</td>
+
+	<tmpl:rating>
+	<td width="70" align="center">{votes}{rating_img}</td>
+	</tmpl:rating>
+
+	<tmpl:attachment>
+	<td align="center">{attachment_num}</td>
+	</tmpl:attachment>
+
+	<td align="center">{sticky}</td>
+
+	<td align="center">
+		<div class="status help" style="width: 15px;">
+			<div title="{status}" style="background: {color};">&nbsp;&nbsp;</div>
+		</div>
+	</td>
+
+	<td class="action" width="1" align="center">
+        {options_img}
+    </td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div style="padding-top: 2px;">{footer}</div>

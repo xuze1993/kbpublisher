@@ -1,0 +1,36 @@
+<tmpl:list_option_button>
+<div class="panel panel-default kbp-panel">
+    <div class="panel-heading">
+        {meta_title}
+        
+        <a href="#/" class="pull-right" onclick="$('#list_option_block').toggle();">
+            <i class="fa fa-cog" aria-hidden="true" style="font-size: 1.5em;"></i>
+        </a>
+    </div>
+</div>
+
+{block_list_option_tmpl}
+</tmpl:list_option_button>
+
+
+<div class="panel panel-default kbp-panel">
+	<div class="panel-heading" data-toggle="collapse" href="#bootstrap_category" style="cursor: pointer;">
+        {list_title}
+        <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i>
+    </div>
+    
+    <div id="bootstrap_category" class="list-group collapse">
+        <tmpl:row_tr>
+            
+            <tmpl:row_td>
+            <a href="{category_link}" class="list-group-item">
+                {name}
+            </a>
+            </tmpl:row_td>
+            
+            <tmpl:row_empty_td>
+            </tmpl:row_empty_td>
+        
+        </tmpl:row_tr>
+    </div>
+</div>

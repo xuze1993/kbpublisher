@@ -1,0 +1,50 @@
+<script type="text/javascript">
+<!--
+//function validate() {
+    
+//}
+
+function goNextPage() {
+    showLoadingMsg(function() {
+        f = document.getElementById('setup_form');
+        f.submit(true);
+    });
+}
+//-->
+</script>
+
+{user_msg}
+
+
+<fieldset><legend><b>{user_data_msg}:</b></legend>
+<table border="0" width="100%" cellpadding="3" cellspacing="1">
+<tr>
+    <td class="tdFormCaption">{first_name_msg}: {required_sign}</td>
+    <td><input name="first_name" type="text" id="first_name" value="{first_name}" class="normalText"></td>
+</tr>
+<tr>
+    <td class="tdFormCaption">{last_name_msg}: {required_sign}</td>
+    <td><input name="last_name" type="text" id="last_name" value="{last_name}" class="normalText"></td>
+</tr>
+<tr>
+    <td class="tdFormCaption">{email_msg}: {required_sign}</td>
+    <td><input name="email" type="text" id="email" value="{email}" class="normalText"></td>
+</tr>
+<tr>
+    <td class="tdFormCaption">{username_msg}: {required_sign}</td>
+    <td><input name="username" type="text" id="username" value="{username}" class="normalText"></td>
+</tr>
+
+<!-- 
+<tr>
+    <td class="tdFormCaption">{password_msg}: {required_sign}</td>
+    <td><input type="password" name="password" id="password" value="{password}" class="normalText"></td>
+</tr>
+<tr> 
+    <td class="tdFormCaption">{password2_msg}: {required_sign}</td>
+    <td><input type="password" name="password_2" id="password_2" value="{password_2}" class="normalText"></td>
+</tr> 
+-->
+
+</table>
+</fieldset>

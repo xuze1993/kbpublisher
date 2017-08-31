@@ -1,0 +1,30 @@
+<script src="jscript/bulk.js" type="text/javascript"></script>
+
+<table border=0 cellpadding="4" cellspacing="0" width="100%">
+<tr class="trDarker" valign="top"> 
+    <td class="bulkArrow"><img src="images/icons/arrow_1b.svg" width="14" height="14" alt=""></td>
+    <td>
+        <select name="bulk_action" id="bulk_action" class="colorInput" style="width: 250px;"
+            onchange="showAction(this.value, Array({bulk_actions}))">
+            {action_select}
+        </select>
+    </td>
+    <td>
+        <div id="bulk_status" style="display: none;">
+            <select name="value[status]" class="colorInput">
+                {status_select}
+            </select>
+        </div>    
+        
+        <div id="bulk_delete" style="display: none;"></div>
+    </td>
+    <td>        
+        <div id="bulk_update" style="display: none;">
+            <input type="submit" name="submit" value="{ok_msg}" class="button2 button2_bulk_submit" id="bulk_submit"
+                onclick="bulkSubmit('{sure_common_msg}', '{no_checked_msg}');return false;">
+        </div>
+    </td>
+    <td width="100%"></td>
+</tr>
+</table>
+</form>

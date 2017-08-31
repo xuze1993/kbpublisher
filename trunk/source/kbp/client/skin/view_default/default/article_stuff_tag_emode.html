@@ -1,0 +1,46 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('body').bind('kbpTagAdded', {}, function(e, params) {
+            $('#empty_tag_block').hide();
+            
+            /*var hidden = $('<input type="hidden" name="tag[]" />').val(params.id);
+            $('#aContentForm').append(hidden);*/
+        });
+    
+        $('body').bind('kbpTagDeleted', {}, function(e, params) {
+            $('#aContentForm input[name="tag[]"][value="' + params.id + '"]').remove();
+        });
+        
+        $('body').bind('kbpTagsDeleted', {}, function(e, params) {
+            $('#empty_tag_block').show();
+        });
+    });
+</script>
+
+{hidden_fields}
+
+<table id="tag_container" class="sTable tableCp2 tableCs1">
+<tr class="tdSubTitle">
+    <td colspan="2" class="tdSubTitle">
+        <b>{title_msg}</b>
+        <span id="spinner_tag" style="display: none;">
+            <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+        </span>
+    </td>
+</tr>
+
+<tr>
+    <td id="tag_block" style="width: 100%;padding: 7px;">
+        
+        <tmpl:row>
+        <span style="margin-right: 5px;">
+            <a href="{link}">{title}</a>
+        </span>
+        </tmpl:row>
+        
+        <div id="empty_tag_block" style="display: {empty_display};">--</div>
+        {editable_block}
+    </td>
+</tr>
+
+</table>

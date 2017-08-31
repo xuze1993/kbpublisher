@@ -1,0 +1,26 @@
+<form action="" style="margin: 0px;">
+{hidden_fields}
+
+<table id="filter_tbl">
+<tr>
+    <td>
+        <div>{field_type_msg}:</div>
+        <select name="filter[input_id]" class="colorInput" style="width: 150px;">
+            {field_type_select}
+        </select>
+    </td>
+    
+    <td>&nbsp;</td>        
+    <td>
+        <div>{search_str_msg}:</div>
+        <input type="text" name="filter[q]" value="{q}" class="colorInput middleText" style="width: 150px;">
+    </td>
+    
+    <td>
+        <button type="submit" name="do_search" value="1" 
+            class="button2 button2_filter">&rarr;</button>
+    </td>
+</tr>
+</table>
+
+</form>

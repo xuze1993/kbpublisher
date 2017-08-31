@@ -1,0 +1,109 @@
+<script type="text/javascript" src="jscript/common_entry_form.js"></script>
+<script type="text/javascript" src="jscript/SortShowMore.js"></script>
+<script type="text/javascript">
+
+    function showFileList(val) {
+        var dir = ($('#directory').val());
+        dir = encodeURIComponent(dir);
+        
+        if (dir) {
+            PopupManager.create('{read_link}' + '&dir=' + dir, 'r', 'r', 2);    
+        }
+    }
+
+    $(document).ready(function(){
+        customFieldCategoryHandler('{sure_delete_msg}');
+    });
+    
+</script>
+
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" enctype="multipart/form-data" id="aContentForm" onsubmit="subForm();">
+<input type="hidden" name="step" value="2">
+{hidden_fields}
+
+<table border=0 width="100%" cellpadding="5" cellspacing="1">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{rule_option_msg}:</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{directory_msg}: {required_sign}</td>
+    <td>
+        <input type="text" name="directory" id="directory" value="{directory}" class="longText" style="width: 450px;">
+        <input type="button" value="{read_dir_msg}" onclick="showFileList();">        
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{parse_child_dir_msg}:</td>
+    <td>
+        <input type="checkbox" name="parse_child" id="parse_child" value="1" {parse_child_checked}>  <label for="parse_child">{yes_msg}</label>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{description_msg}:</td>
+    <td>
+        <textarea name="description" style="width: 100%">{description}</textarea>
+    </td>
+</tr>
+
+<!--
+<tr class="trLighter">
+    <td class="tdFormCaption">{dir_rule_to_drafts_msg}:</td>
+    <td>        
+        <span class="hasTooltip">
+            <input type="checkbox" name="is_draft" id="is_draft" value="1" {is_draft_checked}> 
+            <label for="is_draft">{yes_msg}</label>
+        </span>
+        <span class="tooltip">{dir_rule_drafts_tip_msg}</span>
+        
+    </td>
+</tr>
+-->
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{status_msg}:</td>
+    <td>
+        {status_checkbox}
+    </td>
+</tr>
+</table>
+
+<br/>
+
+{block_obj_tmpl}
+
+<br /><br />
+<div style="padding-left: 170px;">
+    <div id="bottom_button">
+        <input type="submit" name="submit" value="{save_msg}" class="button"
+            onClick="validateForm();return false;" />
+        
+        <!-- <input type="submit" name="submit_parse" value="{save_parse_msg}" class="button"
+            onclick="return confirm('{sure_common_msg}')"> -->
+            
+        <input type="button" value="{cancel_msg}" class="button"
+            onClick="location.href='{cancel_link}'">
+            
+        
+        <span style="margin-left: 20px;">
+            <input type="submit" name="submit_test" value="{test_msg}" class="button"
+                onClick="validateForm('submit_test');return false;" />
+        </span>
+           
+            
+    </div>
+</div>
+
+</form>
+
+
+<div id="readroot" class="popUpDiv" style="display: none;float: left;background: transparent;">
+    <div>
+        <input type="hidden" name="author_id" value="" id=""><span>1</span>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<tmpl:focus_animation>
+</tmpl:focus_animation>
+
+<tmpl:search_suggest>
+</tmpl:search_suggest>
+
+<form id="ui_element" class="sb_wrapper" action="{form_search_action}" 
+	style="margin: 0px;padding: 25px 15px;"
+    onsubmit="return validateQuickSearch('{alert_empty_search}')">
+    {hidden_search}
+    <input type="hidden" name="s" value="1" />
+    
+    <div class="input-group">
+        <input type="search" name="q" id="searchq" class="form-control" value="{q}" placeholder="{search_msg}..." />
+        <span class="input-group-btn">
+            <input type="submit" name="sb" id="sb" value="{search_msg}" title="{search_button_msg}" class="btn btn-default" />
+        </span>
+    </div>
+    
+    <tmpl:filter_row>
+    </tmpl:filter_row>
+</form>

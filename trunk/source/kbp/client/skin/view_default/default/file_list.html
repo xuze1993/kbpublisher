@@ -1,0 +1,67 @@
+<div class="tdTitle" style="margin-bottom: 10px;">
+    <div>{list_title}</div>
+</div>
+{msg}
+
+<table class="sTable tableCp2 tableCs1">
+
+<tmpl:row>
+<tr style="vertical-align: top;">
+    <td class="articleIcon">{item_img_rm}</td>
+    <td style="width: 100%;padding-left: 5px;" class="tdImage">
+		{item_img}
+        <a href="{entry_link}" class="articleLink" target="{target}">{filename}</a>
+
+		<a href="{download_link}" style="padding-left:10px;" title="{download_msg}">
+			<img src="{base_href}client/images/icons/download.svg" width="16" height="16" 
+				style="vertical-align:middle;" alt="Download" />
+		</a>
+
+        <div style="padding-top: {padding_value}px;">
+            <div><strong>{title}</strong></div>
+            <div class="articleDecription">{description}</div>
+        </div>
+    </td>
+</tr>
+<tr>
+    <td></td>
+    <td style="padding: 3px 6px;">
+
+        <span class="articleStaff2">{updated_date}</span>
+        <span class="articleStaff2">{filesize}</span>
+
+        <tmpl:show_hits>
+        <span class="articleStaff">{downloads_num_msg}: {downloads}</span>
+        </tmpl:show_hits>
+
+        <tmpl:subscribe>
+        <div class="articleStaff" style="padding-top: 3px;">
+
+            <span id="spinner2_{sid}" style="display: none;">
+                <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+            </span>
+
+            <div id="div_subscribe_yes_{sid}" style="display: {subscribe_yes_display};">
+                <a href="#1{id}" onclick="xajax_doSubscribe(1, {id}, '_{sid}', 'spinner2_{sid}'); return false;"
+                    class="abbLink" rel="nofollow">{subscribe_msg}</a>
+            </div>
+            <div id="div_subscribe_no_{sid}" style="display: {subscribe_no_display};">
+                <a href="#0{id}" onclick="xajax_doSubscribe(0, {id}, '_{sid}', 'spinner2_{sid}'); return false;"
+                    class="abbLink" rel="nofollow">{unsubscribe_msg}</a>
+            </div>
+            </tmpl:subscribe>
+
+        </div>
+        </tmpl:subscribe>
+
+    </td>
+</tr>
+<tr><td colspan="2" style="padding: 5px;"></td></tr>
+</tmpl:row>
+
+</table>
+
+<tmpl:by_page_bottom>
+<div style="padding-left: 25px;">{page_by_page_bottom}</div>
+<br />
+</tmpl:by_page_bottom>
